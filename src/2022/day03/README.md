@@ -1,4 +1,5 @@
 # Advent of Code - Day 3
+--- Day 3: Rucksack Reorganization ---
 
 ## Part One
 
