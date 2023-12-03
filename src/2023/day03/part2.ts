@@ -5,25 +5,25 @@ import { getAdj } from "./part1"
 export function part2(input: string): number {
   const lines = input.split('\n')
 
-    let vs: number[] = []
-    let gearPoss = []
+    const gears: number[] = []
+    const possibleGears = []
 
     for (let y = 0; y < lines.length; y++) {
         for (let x = 0; x < lines[y].length; x++) {
             if (lines[y][x] === '*') {
-                gearPoss.push([y, x])
+                possibleGears.push([y, x])
             }
         }
     }
-    gearPoss.forEach(([y, x]) => {
+    possibleGears.forEach(([y, x]) => {
         const ns = [...new Set(getAdj(y, x)
             .map(a => numberAt(input, a)).filter(n => !!n).map(n => n!))]
             .map(n => parseInt(n))
         if (ns.length === 2) {
-            vs.push(ns[0] * ns[1])
+            gears.push(ns[0] * ns[1])
         }
     })
-    return vs.reduce((a, b) => a + b, 0)
+    return gears.reduce((a, b) => a + b, 0)
 }
 
 function numberAt(input: string, [y, x]: [number, number], back = true, forward = true): string | undefined {
