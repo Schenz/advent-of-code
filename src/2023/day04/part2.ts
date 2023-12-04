@@ -1,8 +1,8 @@
 // Advent of Code - Day 4 - Part Two
 
-import { Card } from "./main";
+import { ScratchCard } from "./main";
 
-export function part2(cards: Card[]): number {
+export function part2(cards: ScratchCard[]): number {
   let total = new Array(cards.length).fill(1);
 
 	for (const [index, [winningNumbers, yourNumbers]] of cards.entries()) {

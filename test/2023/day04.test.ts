@@ -1,7 +1,7 @@
 // Advent of Code - Day 4
 
 import { part1, part2 } from '../../src/2023/day04';
-import { Card } from '../../src/2023/day04/main';
+import { ScratchCard } from '../../src/2023/day04/main';
 const cards = [
   "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53",
   "Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19",
@@ -15,7 +15,7 @@ const cards = [
   return allNumbers.split('|').map((numbers) => {
     return [...numbers.matchAll(/\d+/g)].map(Number);
   });
-}) as Card[];
+}) as ScratchCard[];
 
 describe('part one tests', () => {
   it('part one test', () => {
