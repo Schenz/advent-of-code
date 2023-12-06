@@ -2,14 +2,18 @@
 
 import { part1, part2 } from '../../src/<%= data.year %>/<%= data.dayName %>';
 
+const testData = [
+  ""
+];
+
 describe('part one tests', () => {
   it('part one test', () => {
-    expect(part1([""])).toBe(0);
+    expect(part1(testData)).toBe(0);
   });
 });
 
 describe('part two tests', () => {
   it('part two test', () => {
-    expect(part2([""])).toBe(0);
+    expect(part2(testData)).toBe(0);
   });
 });
