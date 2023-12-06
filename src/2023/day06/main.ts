@@ -3,7 +3,7 @@
 import { readFile } from 'fs/promises';
 import { part1, part2 } from '.';
 
-(async function () {
+const main = async () => {
     try {
         const input: string = await readFile(
             'src/2023/day06/resources/input.txt',
@@ -18,4 +18,6 @@ import { part1, part2 } from '.';
     } catch (err) {
         console.error(err);
     }
-})();
+};
+
+main();

@@ -4,7 +4,8 @@
   "plugins": [
     "@typescript-eslint",
     "prettier",
-        "jest"
+    "jest",
+    "prefer-arrow"
   ],
   "extends": [
     "eslint:recommended",
@@ -23,6 +24,23 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "no-console": 0,
-    "prettier/prettier": 2
+    "prettier/prettier": 2,
+    "prefer-arrow/prefer-arrow-functions": [
+      "error",
+      {
+        "disallowPrototype": true,
+        "singleReturnOnly": false,
+        "classPropertiesAllowed": false
+      }
+    ],
+    "prefer-arrow-callback": [
+      "error",
+      { "allowNamedFunctions": true }
+    ],
+    "func-style": [
+      "error",
+      "expression",
+      { "allowArrowFunctions": true }
+    ]
   }
 }
