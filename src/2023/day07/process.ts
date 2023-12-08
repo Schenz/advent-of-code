@@ -1,7 +1,7 @@
 export const process = (data: string[][]): number => {
     data.sort(([a], [b]) => {
-        const typeA = getType(a);
-        const typeB = getType(b);
+        const typeA = handStrength(a);
+        const typeB = handStrength(b);
         if (typeB > typeA) return 1;
         if (typeB < typeA) return -1;
         if (b > a) return 1;
@@ -13,11 +13,11 @@ export const process = (data: string[][]): number => {
     return data.reduce((acc, cur, i) => acc + +cur[1] * (i + 1), 0);
 };
 
-const getType = (deck: string): number => {
+const handStrength = (hand: string): number => {
     const map: { [key: string]: number } = {};
     let jokers = 0;
 
-    deck.split('').forEach((e) => {
+    hand.split('').forEach((e) => {
         if (e === '0') jokers++;
         else if (map[e]) map[e]++;
         else map[e] = 1;
