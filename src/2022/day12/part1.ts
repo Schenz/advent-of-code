@@ -1,6 +1,9 @@
 // Advent of Code - Day 12 - Part One
 
-import { Point, Position, dijkstra, getHeightOfChar } from './dijkstra';
+import { dijkstra } from '../../utils/dijkstra/dijkstra';
+import { getHeightOfChar } from '../../utils/dijkstra/getHeightOfChar';
+import { Point } from '../../utils/dijkstra/Point';
+import { Position } from '../../utils/dijkstra/Position';
 
 export const part1 = (data: string[]): number => {
     const input = data.filter((l) => l.length > 0).map((l) => l.split(''));

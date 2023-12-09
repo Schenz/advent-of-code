@@ -1,6 +1,9 @@
 // Advent of Code - Day 12 - Part Two
 
-import { Point, Position, dijkstraReverse, getHeightOfChar } from './dijkstra';
+import { dijkstraReverse } from '../../utils/dijkstra/dijkstraReverse';
+import { getHeightOfChar } from '../../utils/dijkstra/getHeightOfChar';
+import { Point } from '../../utils/dijkstra/Point';
+import { Position } from '../../utils/dijkstra/Position';
 
 export const part2 = (data: string[]): number => {
     const input = data.filter((l) => l.length > 0).map((l) => l.split(''));
