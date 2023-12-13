@@ -10,11 +10,15 @@ export const nextPos = (
         const downLeft = [curr[0] - 1, curr[1] + 1] as Position;
         const downRight = [curr[0] + 1, curr[1] + 1] as Position;
 
-        if (!occupied.has(down.toString()) && down[1] < maxDepth) return down;
-        if (!occupied.has(downLeft.toString()) && down[1] < maxDepth)
+        if (!occupied.has(down.toString()) && down[1] < maxDepth) {
+            return down;
+        }
+        if (!occupied.has(downLeft.toString()) && down[1] < maxDepth) {
             return downLeft;
-        if (!occupied.has(downRight.toString()) && down[1] < maxDepth)
+        }
+        if (!occupied.has(downRight.toString()) && down[1] < maxDepth) {
             return downRight;
+        }
     } else {
         const directions: Position[] = [
             [0, 1], // down

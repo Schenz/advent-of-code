@@ -16,7 +16,9 @@ export const dijkstraReverse = (
 
     let curr;
     while ((curr = toVisit.shift())) {
-        if (visited.includes(curr.toString())) continue;
+        if (visited.includes(curr.toString())) {
+            continue;
+        }
         const currHeight = map[curr[0]][curr[1]].height;
         const neighbours = getNeightbors(curr, map).filter(
             (n: Position) => !visited.includes(n.toString())
