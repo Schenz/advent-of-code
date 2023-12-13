@@ -5,6 +5,7 @@ import { parse } from './part1';
 export const part2 = (input: string[]): number => {
     const moves = input[0].split('');
     const map = parse(input);
+
     return [...map.keys()]
         .filter((k) => k.endsWith('A'))
         .map((p) => countSteps(p, moves, map))
@@ -17,9 +18,16 @@ export const countSteps = (
     map: Map<string, string[]>
 ): number => {
     for (let i = 0; ; i++) {
+        const currentPosArray = map.get(pos);
+
+        if (!currentPosArray) {
+            throw new Error(`Position '${pos}' not found in the map.`);
+        }
+
         const m = moves[i % moves.length];
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        pos = map.get(pos)![m === 'L' ? 0 : 1];
+
+        pos = currentPosArray[m === 'L' ? 0 : 1];
+
         if (pos.endsWith('Z')) {
             return i + 1;
         }

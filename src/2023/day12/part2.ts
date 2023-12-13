@@ -8,6 +8,7 @@ export const part2 = (input: string[]): number =>
         const v = line.split(' ')[1].split(',').map(Number);
 
         let copies = '';
+
         for (let j = 0; j < 5; j++) {
             copies += '?';
             copies += s;

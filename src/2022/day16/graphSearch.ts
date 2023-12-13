@@ -11,6 +11,7 @@ export const graphSearch = (
     onVisit: (item: Item) => void
 ) => {
     const fringe: Array<Item> = [];
+
     fringe.push({
         current: 'AA',
         remaining: minutes,
@@ -18,11 +19,12 @@ export const graphSearch = (
         total: 0,
     });
     const visited = new Set<string>();
+
     while (fringe.length > 0) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const item = fringe.pop()!;
+        const item = fringe.pop() as Item;
         const { openMask, remaining, current, total } = item;
         const visitedKey = `${current}:${remaining}:${openMask}:${total}`;
+
         if (visited.has(visitedKey)) {
             continue;
         }
@@ -40,6 +42,7 @@ export const graphSearch = (
             }
             const nextRemaining =
                 remaining - shortestPaths[`${current}:${next}`] - 1;
+
             if (nextRemaining <= 0) {
                 continue;
             }

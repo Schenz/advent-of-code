@@ -23,7 +23,7 @@
   },
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
-    "no-console": 0,
+    "no-console": 1, // Set to 1 globally
     "prettier/prettier": 2,
     "curly": ["error", "all"],
     "prefer-arrow/prefer-arrow-functions": [
@@ -42,6 +42,25 @@
       "error",
       "expression",
       { "allowArrowFunctions": true }
+    ],
+    "newline-after-var": ["error", "always"],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "function" },
+      { "blankLine": "always", "prev": "function", "next": "*" },
+      { "blankLine": "always", "prev": "function", "next": "return" },
+      { "blankLine": "always", "prev": "function", "next": "try" },
+      { "blankLine": "always", "prev": "function", "next": "if" },
+      { "blankLine": "always", "prev": "*", "next": "try" },
+      { "blankLine": "always", "prev": "*", "next": "if" }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": ["main.ts"],
+      "rules": {
+        "no-console": 0 // Override to 0 for main.ts files
+      }
+    }
+  ]
 }

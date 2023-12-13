@@ -14,7 +14,9 @@ class Range {
     }
 
     public getIntersection(range: Range): Range | null {
-        if (this.end <= range.start || this.start >= range.end) return null;
+        if (this.end <= range.start || this.start >= range.end) {
+            return null;
+        }
         return new Range(
             Math.max(this.start, range.start),
             Math.min(this.end, range.end)
@@ -23,9 +25,11 @@ class Range {
 
     public subtractIntersection(intersection: Range): Range[] {
         const result: Range[] = [];
+
         if (this.start < intersection.start) {
             result.push(new Range(this.start, intersection.start));
         }
+
         if (this.end > intersection.end) {
             result.push(new Range(intersection.end, this.end));
         }
@@ -55,11 +59,15 @@ class GardenMap {
     }
 
     public transformRange(inputRange: Range): Range[] {
-        if (inputRange.isTransformed) return [inputRange];
+        if (inputRange.isTransformed) {
+            return [inputRange];
+        }
 
         const intersection = this.source.getIntersection(inputRange);
 
-        if (!intersection) return [inputRange];
+        if (!intersection) {
+            return [inputRange];
+        }
 
         const transformed = new Range(
             intersection.start + this.offset,
@@ -79,6 +87,7 @@ const parseSeedRanges = (line: string): Range[] => {
         .map(Number);
 
     const ranges: Range[] = [];
+
     for (let i = 0; i < numbers.length; i += 2) {
         ranges.push(new Range(numbers[i], numbers[i] + numbers[i + 1]));
     }
@@ -88,12 +97,16 @@ const parseSeedRanges = (line: string): Range[] => {
 
 const parseGardenMapGroups = (lines: string[]): GardenMap[][] => {
     const gardenMapGroups: GardenMap[][] = [];
+
     lines.forEach((line) => {
         if (line === '') {
             gardenMapGroups.push([]);
             return;
         }
-        if (line.endsWith(':')) return;
+
+        if (line.endsWith(':')) {
+            return;
+        }
         gardenMapGroups[gardenMapGroups.length - 1].push(new GardenMap(line));
     });
     return gardenMapGroups;
@@ -128,13 +141,14 @@ const calculateSeedLocation = (
 
 const getMin = (ranges: Range[]): number => {
     let min = Infinity;
+
     for (const range of ranges) {
         min = Math.min(min, range.start);
     }
     return min;
 };
 
-export function part2(path: string): number {
+export const part2 = (path: string): number => {
     const lines = readFileSync(path, 'utf8')
         .split('\n')
         .map((line) => line.trim());
@@ -145,4 +159,4 @@ export function part2(path: string): number {
             parseGardenMapGroups(lines.slice(1))
         )
     );
-}
+};

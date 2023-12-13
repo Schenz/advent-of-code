@@ -36,6 +36,7 @@ export const part2 = (data: string): number => {
     for (const [openMask1, best1] of bestAt26) {
         for (const [openMask2, best2] of bestAt26) {
             const overlap = openMask1 & openMask2;
+
             if (overlap !== 0) {
                 continue;
             }

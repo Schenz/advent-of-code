@@ -21,10 +21,14 @@ export const part2 = (file: string): number => {
 
         return points.reduce(
             (tally: Position[], curr: Position, idx: number): Position[] => {
-                if (idx < 1) return tally;
+                if (idx < 1) {
+                    return tally;
+                }
                 const prev = points[idx - 1];
+
                 if (curr[0] === prev[0]) {
                     const howMany = Math.abs(curr[1] - prev[1]) + 1;
+
                     return [
                         ...tally,
                         ...(Array.from(
@@ -34,6 +38,7 @@ export const part2 = (file: string): number => {
                     ];
                 } else {
                     const howMany = Math.abs(curr[0] - prev[0]) + 1;
+
                     return [
                         ...tally,
                         ...(Array.from(
@@ -51,14 +56,16 @@ export const part2 = (file: string): number => {
     const sand = new Set();
 
     let falling = true;
+
     do {
         let sandPos = spawnPos;
 
         while (
             nextPos(sandPos, blocked, maxDepth) !== 'stop' &&
             sandPos[1] < maxDepth
-        )
+        ) {
             sandPos = nextPos(sandPos, blocked, maxDepth) as Position;
+        }
         blocked.add(sandPos.toString());
         sand.add(sandPos.toString());
         falling = !(sandPos[0] === spawnPos[0] && sandPos[1] === spawnPos[1]);

@@ -2,7 +2,7 @@
 
 import { part1, part2 } from '.';
 
-(async function () {
+const main = async () => {
     try {
         console.log('--- Part One ---');
         console.log('Result', part1('src/2023/day05/resources/input.txt'));
@@ -12,4 +12,6 @@ import { part1, part2 } from '.';
     } catch (err) {
         console.error(err);
     }
-})();
+};
+
+main();

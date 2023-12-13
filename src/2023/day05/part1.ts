@@ -37,12 +37,16 @@ const parseSeeds = (line: string) => {
 
 const parseGardenMapGroups = (lines: string[]) => {
     const gardenMapGroups: GardenMap[][] = [];
+
     lines.forEach((line) => {
         if (line === '') {
             gardenMapGroups.push([]);
             return;
         }
-        if (line.endsWith(':')) return;
+
+        if (line.endsWith(':')) {
+            return;
+        }
         gardenMapGroups[gardenMapGroups.length - 1].push(new GardenMap(line));
     });
     return gardenMapGroups;
@@ -50,10 +54,14 @@ const parseGardenMapGroups = (lines: string[]) => {
 
 const calculateOutput = (input: number, gardenMapGroup: GardenMap[]) => {
     let output = input;
+
     for (const gardenMap of gardenMapGroup) {
         if (gardenMap.isInRange(output)) {
             output = gardenMap.output(output);
-            if (input !== output) break;
+
+            if (input !== output) {
+                break;
+            }
         }
     }
     return output;
@@ -64,19 +72,21 @@ const calculateSeedLocation = (
     gardenMapGroups: GardenMap[][]
 ) => {
     let output = input;
+
     for (const gardenMapGroup of gardenMapGroups) {
         output = calculateOutput(output, gardenMapGroup);
     }
     return output;
 };
 
-export function part1(path: string): number {
+export const part1 = (path: string): number => {
     const lines = readFileSync(path, 'utf8')
         .split('\n')
         .map((line) => line.trim());
+
     return parseSeeds(lines[0])
         .map((seed) =>
             calculateSeedLocation(seed, parseGardenMapGroups(lines.slice(1)))
         )
         .reduce((acc, location) => Math.min(acc, location), Infinity);
-}
+};

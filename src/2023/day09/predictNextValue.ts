@@ -1,14 +1,16 @@
 export const predictNextValue = (values: number[]): number => {
-    if (values.every((value) => !value)) return 0;
+    if (values.every((value) => !value) || values.length === 0) {
+        return 0;
+    }
 
     const deltas: number[] = [];
 
-    for (const [index, value] of values.entries()) {
-        if (values.at(index + 1) == undefined) break;
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        deltas.push(values.at(index + 1)! - value);
+    for (let index = 0; index < values.length - 1; index++) {
+        deltas.push(values[index + 1] - values[index]);
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return values.at(-1)! + predictNextValue(deltas);
+    // Check if values array is not empty before accessing the last element
+    const lastValue = values[values.length - 1];
+
+    return lastValue !== undefined ? lastValue + predictNextValue(deltas) : 0;
 };

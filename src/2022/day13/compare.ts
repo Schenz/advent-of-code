@@ -8,10 +8,18 @@ export const compare = (a: any, b: any): boolean | undefined => {
     }
 
     for (let i = 0, end = Math.max(a.length, b.length); i < end; i++) {
-        if (a[i] === undefined) return true;
-        if (b[i] === undefined) return false;
+        if (a[i] === undefined) {
+            return true;
+        }
+
+        if (b[i] === undefined) {
+            return false;
+        }
         const result = compare(a[i], b[i]);
-        if (result !== undefined) return result;
+
+        if (result !== undefined) {
+            return result;
+        }
     }
     return undefined;
 };

@@ -12,14 +12,19 @@ export const part1 = (input: string): number => {
     let droppedRocks = 0;
     let rockIdx = 0;
     let windIdx = 0;
+
     while (droppedRocks < 2022) {
         const currRock = shapes[rockIdx % shapes.length];
+
         rockIdx++;
         let currPos: Position = [2, top + 3];
         let stopped = false;
+
         while (!stopped) {
             const move = wind[windIdx % wind.length];
+
             windIdx++;
+
             if (move === '>') {
                 if (validPos([currPos[0] + 1, currPos[1]], currRock, map)) {
                     // can go right
@@ -31,6 +36,7 @@ export const part1 = (input: string): number => {
                     currPos = [currPos[0] - 1, currPos[1]];
                 }
             }
+
             if (validPos([currPos[0], currPos[1] - 1], currRock, map)) {
                 // can go down
                 currPos = [currPos[0], currPos[1] - 1];

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 export const checkSpringsMemo = (
     s: string,
     withinRun: number | null,
@@ -8,10 +7,11 @@ export const checkSpringsMemo = (
     const memoKey = `${s}-${withinRun}-${remain.join(',')}`;
 
     if (memo.has(memoKey)) {
-        return memo.get(memoKey)!;
+        return memo.get(memoKey) ?? 0;
     }
 
     const result = checkSprings(s, withinRun, remain, memo);
+
     memo.set(memoKey, result);
 
     return result;
@@ -37,6 +37,7 @@ const checkSprings = (
     }
 
     let poss = 0;
+
     poss += explorePossibilitiesMemo(s, withinRun, remain, memo);
     return poss;
 };
@@ -50,7 +51,7 @@ const explorePossibilitiesMemo = (
     const memoKey = `${s}-${withinRun}-${remain.join(',')}`;
 
     if (memo.has(memoKey)) {
-        return memo.get(memoKey)!;
+        return memo.get(memoKey) ?? 0;
     }
 
     let poss = 0;

@@ -13,9 +13,11 @@ export const nextPos = (
         if (!occupied.has(down.toString()) && down[1] < maxDepth) {
             return down;
         }
+
         if (!occupied.has(downLeft.toString()) && down[1] < maxDepth) {
             return downLeft;
         }
+
         if (!occupied.has(downRight.toString()) && down[1] < maxDepth) {
             return downRight;
         }
@@ -29,6 +31,7 @@ export const nextPos = (
         for (const direction of directions) {
             const [dx, dy] = direction;
             const newPos: Position = [curr[0] + dx, curr[1] + dy];
+
             if (!occupied.has(newPos.toString())) {
                 return newPos;
             }

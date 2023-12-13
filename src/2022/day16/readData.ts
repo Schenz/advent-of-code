@@ -12,8 +12,10 @@ export const readData = (data: string) => {
                 row
             ) ?? [];
         const flowRate = Number(rate);
+
         flowRates[from] = flowRate;
         allNodes.push(from);
+
         if (flowRate > 0) {
             nodesWithFlow.push(from);
             flowNodeIndexes[from] = nodesWithFlow.length;

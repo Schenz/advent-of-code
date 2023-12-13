@@ -19,6 +19,7 @@ export const part1 = (input: string[], targetY: number): number => {
                 match2[2] ? Number(match2[2]) : 0,
                 match2[3] ? Number(match2[3]) : 0,
             ] as Position;
+
             return {
                 pos: sensorPos,
                 beacon: beaconPos,
@@ -51,6 +52,7 @@ export const part1 = (input: string[], targetY: number): number => {
                 (sensor.beacon[0] !== targetX || sensor.beacon[1] !== targetY)
             );
         });
+
         return whichSensorSeesThis === -1 ? 0 : 1;
     });
 

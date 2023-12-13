@@ -15,6 +15,7 @@ export const dijkstraReverse = (
     };
 
     let curr;
+
     while ((curr = toVisit.shift())) {
         if (visited.includes(curr.toString())) {
             continue;

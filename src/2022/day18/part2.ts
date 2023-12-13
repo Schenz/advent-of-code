@@ -29,6 +29,7 @@ export const part2 = (input: string[]): number => {
             const waterNeighbours = getAdjacents(cube).filter((neighbour) =>
                 waterCubes.has(neighbour.toString())
             );
+
             return waterNeighbours.length;
         })
         .reduce(sum);
@@ -58,6 +59,7 @@ const getWaterCubes = (
     const toVisit = [maxPos];
 
     let curr;
+
     while ((curr = toVisit.shift())) {
         if (visited.has(curr.toString())) {
             continue;

@@ -12,7 +12,9 @@ export const part2 = (data: string[]): number => {
         .map((row, i) => {
             return row
                 .map((point, j) => {
-                    if (point === 'a' || point === 'S') return [i, j];
+                    if (point === 'a' || point === 'S') {
+                        return [i, j];
+                    }
                 })
                 .filter((a) => a != undefined);
         })
@@ -24,16 +26,17 @@ export const part2 = (data: string[]): number => {
 
     const map = input.map((row) =>
         row.map((point) => {
-            if (point === 'S')
+            if (point === 'S') {
                 return {
                     height: getHeightOfChar('a'),
                     isEnd: false,
                 } as Point;
-            else if (point === 'E')
+            } else if (point === 'E') {
                 return {
                     height: getHeightOfChar('z'),
                     isEnd: true,
                 } as Point;
+            }
             return {
                 height: getHeightOfChar(point),
                 isEnd: false,

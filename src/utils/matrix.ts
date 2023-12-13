@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 export class Matrix {
     private _grid: string[][];
     private _width: number;
@@ -17,6 +16,7 @@ export class Matrix {
         valueFn?: (value: string) => string
     ): Matrix {
         const grid: string[][] = [];
+
         s.split(lineSeparator).forEach((line) => {
             if (linesplitFn) {
                 line = linesplitFn(line).join('');
@@ -34,20 +34,30 @@ export class Matrix {
 
         Object.keys(d).forEach((key) => {
             const [x, y] = key.split(',').map(Number);
+
             lowX = lowX === null ? x : Math.min(lowX, x);
             highX = highX === null ? x : Math.max(highX, x);
             lowY = lowY === null ? y : Math.min(lowY, y);
             highY = highY === null ? y : Math.max(highY, y);
         });
 
-        if (lowX !== lowY || lowX !== 0) {
+        if (
+            lowX !== 0 ||
+            lowY !== 0 ||
+            lowX !== highX ||
+            lowY !== highY ||
+            highX !== 0 ||
+            highY !== 0
+        ) {
             throw new Error('Invalid input format');
         }
 
         const grid: string[][] = [];
-        for (let x = lowX; x <= highX!; x++) {
+
+        for (let x = lowX; x <= highX; x++) {
             const row: string[] = [];
-            for (let y = lowY; y! <= highY!; y!++) {
+
+            for (let y = lowY; y <= highY; y++) {
                 row.push(d[`${x},${y}`] || missing || '');
             }
             grid.push(row);
@@ -58,6 +68,7 @@ export class Matrix {
 
     toDict(): { [key: string]: string } {
         const dict: { [key: string]: string } = {};
+
         for (let x = 0; x < this._width; x++) {
             for (let y = 0; y < this._height; y++) {
                 dict[`${x},${y}`] = this._grid[x][y];
@@ -68,6 +79,7 @@ export class Matrix {
 
     transpose(): Matrix {
         const transposedGrid: string[][] = [];
+
         for (let y = 0; y < this._height; y++) {
             transposedGrid.push([]);
             for (let x = 0; x < this._width; x++) {
@@ -99,11 +111,13 @@ export class Matrix {
 
     contains(c: [number, number]): boolean {
         const [x, y] = c;
+
         return 0 <= x && x < this._width && 0 <= y && y < this._height;
     }
 
     getItem(c: [number, number]): string {
         const [x, y] = c;
+
         if (!(0 <= x && x < this._width && 0 <= y && y < this._height)) {
             throw new Error('Index out of bounds');
         }
@@ -112,6 +126,7 @@ export class Matrix {
 
     setItem(c: [number, number], val: string): void {
         const [x, y] = c;
+
         if (!(0 <= x && x < this._width && 0 <= y && y < this._height)) {
             throw new Error('Index out of bounds');
         }
@@ -160,6 +175,7 @@ export class Matrix {
             ]) {
                 const nx = x + dx;
                 const ny = y + dy;
+
                 if (
                     0 <= nx &&
                     nx < this._width &&
@@ -173,20 +189,19 @@ export class Matrix {
             if (0 < x) {
                 yield [x - 1, y];
             }
+
             if (x + 1 < this._width) {
                 yield [x + 1, y];
             }
+
             if (0 < y) {
                 yield [x, y - 1];
             }
+
             if (y + 1 < this._height) {
                 yield [x, y + 1];
             }
         }
-    }
-
-    print(lineSpacing = ' '): void {
-        console.log(this.asStr(lineSpacing));
     }
 
     asStr(lineSpacing = ' '): string {

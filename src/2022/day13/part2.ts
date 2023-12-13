@@ -13,8 +13,10 @@ const calculateDecoderKey = (data: string, ...extraPackets: any): number => {
             .map((raw) => JSON.parse(raw)),
     ].sort((a, b) => {
         const result = compare(a, b);
+
         return result === undefined ? 0 : result ? -1 : 1;
     });
+
     return extraPackets.reduce(
         (product: number, packet: any) =>
             product *

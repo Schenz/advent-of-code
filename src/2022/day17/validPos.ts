@@ -9,6 +9,7 @@ export const validPos = (
     if (pos[1] < 0) {
         return false;
     }
+
     if (pos[0] < 0 || pos[0] + shape.width > 7) {
         return false;
     }

@@ -10,6 +10,7 @@ export const part2 = (input: string): number => {
 
     for (let idx = 0; idx < data.length; idx++) {
         const [vert, horiz] = fixSmudge(data[idx]);
+
         if (vert.length === 1) {
             if (horiz.length === 0) {
                 answer += vert[0];
@@ -33,6 +34,7 @@ const fixSmudge = (g: Matrix): [number[], number[]] => {
 
     for (const [x, y] of g.items()) {
         const c = g.getItem([x, y]);
+
         if (c === '.') {
             g.setItem([x, y], '#');
         } else {

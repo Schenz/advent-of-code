@@ -15,14 +15,19 @@ const simulateDrops = (
     let droppedRocks = 0;
     let rockIdx = 0;
     let windIdx = 0;
+
     while (droppedRocks < howManyRocksToDrop) {
         const currRock = shapes[rockIdx % shapes.length];
+
         rockIdx++;
         let currPos: Position = [2, top + 3];
         let stopped = false;
+
         while (!stopped) {
             const move = wind[windIdx % wind.length];
+
             windIdx++;
+
             if (move === '>') {
                 if (validPos([currPos[0] + 1, currPos[1]], currRock, map)) {
                     // can go right
@@ -34,6 +39,7 @@ const simulateDrops = (
                     currPos = [currPos[0] - 1, currPos[1]];
                 }
             }
+
             if (validPos([currPos[0], currPos[1] - 1], currRock, map)) {
                 // can go down
                 currPos = [currPos[0], currPos[1] - 1];
@@ -74,6 +80,7 @@ export const part2 = (input: string): number => {
     let maxlen = -1;
     let loopStart = 0;
     let loopLenght = 0;
+
     for (
         let firstStart = 0;
         firstStart < rocksToDropToFindLoop - 1;
@@ -86,6 +93,7 @@ export const part2 = (input: string): number => {
         ) {
             let first = firstStart;
             let next = nextStart;
+
             while (next < rocksToDropToFindLoop) {
                 if (
                     firstRun.moves[first].id != firstRun.moves[next].id ||
@@ -96,6 +104,7 @@ export const part2 = (input: string): number => {
                 first++;
                 next++;
             }
+
             if (first - firstStart > maxlen) {
                 maxlen = first - firstStart;
                 loopStart = firstStart;

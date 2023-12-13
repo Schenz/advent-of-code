@@ -7,6 +7,7 @@ export const part1 = (input: string[]): number => {
 
     for (let y = 0; y < input.length; y++) {
         const line = input[y];
+
         for (let x = 0; x < line.length; x++) {
             if (line[x] === 'S') {
                 start = [x, y];
@@ -26,6 +27,7 @@ export const part1 = (input: string[]): number => {
 
     if (!dir) {
         const above = input[y - 1][x];
+
         if (above === '|' || above === 'F' || above === '7') {
             dir = 'N';
             y--;

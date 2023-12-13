@@ -9,6 +9,7 @@ export const part1 = (input: string): number => {
 
     for (const g of data) {
         const [vert, horiz] = findReflection(g);
+
         if (vert.length === 1) {
             if (horiz.length === 0) {
                 answer += vert[0];

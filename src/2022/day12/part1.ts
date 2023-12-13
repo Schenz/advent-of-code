@@ -18,16 +18,17 @@ export const part1 = (data: string[]): number => {
 
     const map = input.map((row) =>
         row.map((point) => {
-            if (point === 'S')
+            if (point === 'S') {
                 return {
                     height: getHeightOfChar('a'),
                     isEnd: false,
                 } as Point;
-            else if (point === 'E')
+            } else if (point === 'E') {
                 return {
                     height: getHeightOfChar('z'),
                     isEnd: true,
                 } as Point;
+            }
             return {
                 height: getHeightOfChar(point),
                 isEnd: false,

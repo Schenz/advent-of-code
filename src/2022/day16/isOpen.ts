@@ -5,5 +5,6 @@ export const isOpen = (
 ): boolean => {
     const openMask = 1 << flowNodeIndexes[node];
     const isOpenNum = current & openMask;
+
     return isOpenNum > 0;
 };

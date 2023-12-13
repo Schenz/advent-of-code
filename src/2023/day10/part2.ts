@@ -9,6 +9,7 @@ export const part2 = (input: string[]): number => {
     for (let y = 0; y < input.length; y++) {
         isLoop[y] = [];
         const line = input[y];
+
         for (let x = 0; x < line.length; x++) {
             if (line[x] === 'S') {
                 start = [x, y];
@@ -28,6 +29,7 @@ export const part2 = (input: string[]): number => {
 
     if (!dir) {
         const above = input[y - 1][x];
+
         if (above === '|' || above === 'F' || above === '7') {
             dir = 'N';
             y--;
@@ -40,6 +42,7 @@ export const part2 = (input: string[]): number => {
     }
 
     const path: Position[] = [start, [x, y]];
+
     isLoop[start[1]][start[0]] = true;
     isLoop[y][x] = true;
 
