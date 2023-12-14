@@ -39,6 +39,7 @@ const testData5 = [
     'L.L7LFJ|||||FJL7||LJ',
     'L7JLJL-JLJLJL--JLJ.L',
 ];
+
 describe('part one tests', () => {
     it('part one test', () => {
         expect(part1(testData1)).toBe(4);

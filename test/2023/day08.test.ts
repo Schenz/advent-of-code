@@ -22,6 +22,7 @@ const testData2 = [
     '22Z = (22B, 22B)',
     'XXX = (XXX, XXX)',
 ];
+
 describe('part one tests', () => {
     it('part one test', () => {
         expect(part1(testData)).toBe(6);

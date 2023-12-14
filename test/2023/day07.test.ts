@@ -12,6 +12,7 @@ const testData = `32T3K 765
     .replace(/Q/g, 'X')
     .replace(/J/g, 'W')
     .replace(/T/g, 'V');
+
 describe('part one tests', () => {
     it('part one test', () => {
         expect(

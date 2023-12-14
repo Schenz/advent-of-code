@@ -3,14 +3,25 @@
 import { part1, part2 } from '../../src/2022/day11';
 import { Monkey } from '../../src/2022/day11/Monkey';
 
-const parseMonkeys = (data: string): Monkey[] => data.split('Monkey ').slice(1).map((monkey) => ({
-  items: monkey.split(':')[2].split(',').map((item) => parseInt(item)),
-  operation: monkey.split('new = ')[1].split('\n')[0].trim(),
-  test: parseInt(monkey.split(':')[4].split('divisible by ')[1]),
-  trueMonkey: parseInt(monkey.split(':')[5].split('throw to monkey')[1]),
-  falseMonkey: parseInt(monkey.split(':')[6].split('throw to monkey')[1]),
-  inspected: 0
-}));
+const parseMonkeys = (data: string): Monkey[] =>
+    data
+        .split('Monkey ')
+        .slice(1)
+        .map((monkey) => ({
+            items: monkey
+                .split(':')[2]
+                .split(',')
+                .map((item) => parseInt(item)),
+            operation: monkey.split('new = ')[1].split('\n')[0].trim(),
+            test: parseInt(monkey.split(':')[4].split('divisible by ')[1]),
+            trueMonkey: parseInt(
+                monkey.split(':')[5].split('throw to monkey')[1]
+            ),
+            falseMonkey: parseInt(
+                monkey.split(':')[6].split('throw to monkey')[1]
+            ),
+            inspected: 0,
+        }));
 
 const input = `Monkey 0:
 Starting items: 79, 98
@@ -41,13 +52,25 @@ Test: divisible by 17
   If false: throw to monkey 1`;
 
 describe('part one tests', () => {
-  it('part one test', () => {
-    expect(part1(parseMonkeys(input), 20, (frustration) => Math.floor(frustration / 3))).toBe(10605);
-  });
+    it('part one test', () => {
+        expect(
+            part1(parseMonkeys(input), 20, (frustration) =>
+                Math.floor(frustration / 3)
+            )
+        ).toBe(10605);
+    });
 });
 
 describe('part two tests', () => {
-  it('part two test', () => {
-    expect(part2(parseMonkeys(input), 10000, (frustration) => frustration % parseMonkeys(input).reduce((a, b) => a * b.test, 1))).toBe(2713310158);
-  });
+    it('part two test', () => {
+        expect(
+            part2(
+                parseMonkeys(input),
+                10000,
+                (frustration) =>
+                    frustration %
+                    parseMonkeys(input).reduce((a, b) => a * b.test, 1)
+            )
+        ).toBe(2713310158);
+    });
 });

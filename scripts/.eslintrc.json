@@ -23,7 +23,7 @@
   },
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
-    "no-console": 1, // Set to 1 globally
+    "no-console": 0,
     "prettier/prettier": "error",
     "curly": ["error", "all"],
     "prefer-arrow/prefer-arrow-functions": [
@@ -69,13 +69,5 @@
       }
     ],
     "@typescript-eslint/array-type": "error"
-  },
-  "overrides": [
-    {
-      "files": ["main.ts"],
-      "rules": {
-        "no-console": 0
-      }
-    }
-  ]
+  }
 }
