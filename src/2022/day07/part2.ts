@@ -8,7 +8,7 @@ const filesystem: any = {
 
 let currentPath = '';
 
-const cd = (path: string) => {
+const cd = (path: string): any => {
     if (path.endsWith('/')) {
         path = path.substring(0, path.length - 2);
     }
@@ -32,7 +32,7 @@ const cdUp = (path: string): string | null => {
     return path.substring(0, path.lastIndexOf('/'));
 };
 
-const interpretCommandLine = (commandAndParams: string[]) => {
+const interpretCommandLine = (commandAndParams: string[]): void => {
     if (commandAndParams[0] === 'cd') {
         if (commandAndParams[1] === '/') {
             currentPath = '/';
@@ -57,7 +57,7 @@ const interpretCommandLine = (commandAndParams: string[]) => {
     }
 };
 
-const interpretLs = (line: string) => {
+const interpretLs = (line: string): void => {
     const currentPathObject = cd(currentPath);
 
     if (line.startsWith('dir')) {
@@ -91,7 +91,7 @@ const findDirsBiggerThanOrEqual = (
     path: string,
     matchingDirectories: DirSize[],
     minSize: number
-) => {
+): void => {
     const currentPathObject = cd(path);
 
     if (currentPathObject['_totalSize'] >= minSize) {

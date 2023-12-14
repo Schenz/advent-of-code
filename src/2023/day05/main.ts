@@ -2,7 +2,7 @@
 
 import { part1, part2 } from '.';
 
-const main = async () => {
+const main = async (): Promise<void> => {
     try {
         console.log('--- Part One ---');
         console.log('Result', part1('src/2023/day05/resources/input.txt'));

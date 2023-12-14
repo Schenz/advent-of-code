@@ -34,7 +34,7 @@ declare global {
     }
 }
 
-Array.prototype.duplicates = function () {
+Array.prototype.duplicates = function (): any {
     return this.filter((item, i) => {
         if (this.indexOf(item) !== i) {
             return item;

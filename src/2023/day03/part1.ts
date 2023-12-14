@@ -14,7 +14,7 @@ export const getAdj = (y: number, x: number): [number, number][] => {
 };
 
 export const part1 = (lines: string[]): number => {
-    const ok = (c: string) => (c >= '0' && c <= '9') || c === '.';
+    const ok = (c: string): boolean => (c >= '0' && c <= '9') || c === '.';
 
     const parts = [];
 

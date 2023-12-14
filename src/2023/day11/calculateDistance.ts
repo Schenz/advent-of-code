@@ -6,8 +6,8 @@ export const calculateDistance = (
     emptyRows: boolean[],
     emptyCols: boolean[],
     rate: number
-) => {
-    const distance = (p1: Position, p2: Position) => {
+): number => {
+    const distance = (p1: Position, p2: Position): number => {
         const r1 = Math.min(p1[0], p2[0]);
         const r2 = Math.max(p1[0], p2[0]);
         const c1 = Math.min(p1[1], p2[1]);

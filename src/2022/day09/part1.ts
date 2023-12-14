@@ -11,7 +11,7 @@ const head = rope[0];
 const tail = rope.at(-1) as Vector2D;
 const tailPositions = new Set<string>(['0,0']);
 
-const areTouching = (distance: Vector2D) =>
+const areTouching = (distance: Vector2D): boolean =>
     distance.every((coordinate) => Math.abs(coordinate) <= 1);
 
 export const part1 = (input: string[]): number => {

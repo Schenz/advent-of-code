@@ -1,4 +1,4 @@
-export const readData = (data: string) => {
+export const readData = (data: string): any => {
     const parsed = data.split(`\n`).filter((line) => line.length > 0);
     const flowRates: Record<string, number> = {};
     const allNodes = new Array<string>();

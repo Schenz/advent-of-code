@@ -24,7 +24,7 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "no-console": 1, // Set to 1 globally
-    "prettier/prettier": 2,
+    "prettier/prettier": "error",
     "curly": ["error", "all"],
     "prefer-arrow/prefer-arrow-functions": [
       "error",
@@ -53,7 +53,9 @@
       { "blankLine": "always", "prev": "function", "next": "if" },
       { "blankLine": "always", "prev": "*", "next": "try" },
       { "blankLine": "always", "prev": "*", "next": "if" }
-    ]
+    ],
+    "@typescript-eslint/ban-types": "error",
+    "@typescript-eslint/explicit-function-return-type": "error"
   },
   "overrides": [
     {

@@ -18,16 +18,16 @@ class GardenMap {
         this.range = range;
     }
 
-    public isInRange(input: number) {
+    public isInRange(input: number): boolean {
         return input >= this.source && input < this.source + this.range;
     }
 
-    public output(input: number) {
+    public output(input: number): number {
         return input + this.destination - this.source;
     }
 }
 
-const parseSeeds = (line: string) => {
+const parseSeeds = (line: string): number[] => {
     return line
         .split(':')[1]
         .split(' ')
@@ -35,7 +35,7 @@ const parseSeeds = (line: string) => {
         .map(Number);
 };
 
-const parseGardenMapGroups = (lines: string[]) => {
+const parseGardenMapGroups = (lines: string[]): GardenMap[][] => {
     const gardenMapGroups: GardenMap[][] = [];
 
     lines.forEach((line) => {
@@ -52,7 +52,10 @@ const parseGardenMapGroups = (lines: string[]) => {
     return gardenMapGroups;
 };
 
-const calculateOutput = (input: number, gardenMapGroup: GardenMap[]) => {
+const calculateOutput = (
+    input: number,
+    gardenMapGroup: GardenMap[]
+): number => {
     let output = input;
 
     for (const gardenMap of gardenMapGroup) {
@@ -70,7 +73,7 @@ const calculateOutput = (input: number, gardenMapGroup: GardenMap[]) => {
 const calculateSeedLocation = (
     input: number,
     gardenMapGroups: GardenMap[][]
-) => {
+): number => {
     let output = input;
 
     for (const gardenMapGroup of gardenMapGroups) {

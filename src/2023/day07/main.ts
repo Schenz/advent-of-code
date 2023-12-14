@@ -3,7 +3,7 @@
 import { readFileSync } from 'fs';
 import { part1, part2 } from '.';
 
-const main = async () => {
+const main = async (): Promise<void> => {
     try {
         const input: string = readFileSync(
             'src/2023/day07/resources/input.txt',

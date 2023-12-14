@@ -7,7 +7,7 @@ export const part2 = (input: string[]): [number, string] => {
     let output = '';
     const strengths: number[] = [];
 
-    const incrementCycle = () => {
+    const incrementCycle = (): void => {
         const horizontalPosition = cycle % 40;
 
         if (cycle && horizontalPosition === 0) {

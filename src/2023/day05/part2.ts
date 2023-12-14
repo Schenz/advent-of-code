@@ -9,7 +9,7 @@ class Range {
         public isTransformed = false
     ) {}
 
-    get length() {
+    get length(): number {
         return this.end - this.start;
     }
 
@@ -54,7 +54,7 @@ class GardenMap {
         this.source = new Range(sourceStart, sourceStart + length);
     }
 
-    get offset() {
+    get offset(): number {
         return this.destination.start - this.source.start;
     }
 

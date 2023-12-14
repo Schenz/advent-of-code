@@ -5,7 +5,7 @@ import { part1, part2 } from '.';
 
 export type ScratchCard = [winning: number[], yours: number[]];
 
-const main = async () => {
+const main = async (): Promise<void> => {
     try {
         const input: string = await readFile(
             'src/2023/day04/resources/input.txt',

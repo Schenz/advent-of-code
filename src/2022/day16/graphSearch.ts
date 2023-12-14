@@ -9,7 +9,7 @@ export const graphSearch = (
     shortestPaths: Record<string, number> = {},
     flowRates: Record<string, number> = {},
     onVisit: (item: Item) => void
-) => {
+): void => {
     const fringe: Array<Item> = [];
 
     fringe.push({

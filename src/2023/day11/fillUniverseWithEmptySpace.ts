@@ -1,6 +1,6 @@
 import { getUniverse } from './getUniverse';
 
-export const fillUniverseWithEmptySpace = (input: string) => {
+export const fillUniverseWithEmptySpace = (input: string): any => {
     const universe = getUniverse(input);
     const emptyRows = Array(universe.height).fill(true);
     const emptyCols = Array(universe.width).fill(true);
