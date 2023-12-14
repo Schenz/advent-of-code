@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 // Advent of Code - Day 3 - Part One
 
 export const part1 = (input: string[]): number => {

@@ -6,7 +6,7 @@ import { part1, part2 } from '.';
 const main = async (): Promise<void> => {
     try {
         const input: string = await readFile(
-            'src/day07/resources/input.txt',
+            'src/2022/day07/resources/input.txt',
             'utf8'
         );
 

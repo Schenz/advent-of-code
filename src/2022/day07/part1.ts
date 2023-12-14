@@ -1,6 +1,7 @@
 // Advent of Code - Day 7 - Part One
 let currentPath = '';
 const filesystem: any = {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     '': {
         _totalSize: 0,
     },

@@ -1,7 +1,7 @@
 // Advent of Code - Day 14 - Part Two
 
 import { Matrix } from '../../utils/matrix';
-import { calc_load } from './part1';
+import { calcLoad } from './part1';
 
 export const part2 = (input: string): number => {
     const grid = Matrix.parse(input);
@@ -13,15 +13,15 @@ export const part2 = (input: string): number => {
     // run the cycles until you see dup pattern then time jump
     while (cycle < CYCLES) {
         cycle += 1;
-        run_cycle(grid);
+        runCycle(grid);
         const key = grid.asStr('');
 
         if (key in seen) {
             const delta = cycle - seen[key];
             const rem = CYCLES - cycle;
-            const time_skip = Math.floor(rem / delta) * delta;
+            const timeSkip = Math.floor(rem / delta) * delta;
 
-            cycle += time_skip;
+            cycle += timeSkip;
             break;
         }
 
@@ -31,14 +31,14 @@ export const part2 = (input: string): number => {
     // finish the cycles after time jump
     while (cycle < CYCLES) {
         cycle += 1;
-        run_cycle(grid);
+        runCycle(grid);
     }
 
-    return calc_load(grid);
+    return calcLoad(grid);
 };
 
 // TODO: refactor to make it less brute force
-const run_cycle = (grid: Matrix): void => {
+const runCycle = (grid: Matrix): void => {
     // North
     for (const y of grid.yRange) {
         for (const x of grid.xRange) {

@@ -25,10 +25,10 @@ export const part1 = (input: string): number => {
         }
     }
 
-    return calc_load(grid);
+    return calcLoad(grid);
 };
 
-export const calc_load = (grid: Matrix): number => {
+export const calcLoad = (grid: Matrix): number => {
     let load = 0;
 
     for (const [x, y] of grid.items()) {
