@@ -10,7 +10,7 @@ export const graphSearch = (
     flowRates: Record<string, number> = {},
     onVisit: (item: Item) => void
 ): void => {
-    const fringe: Array<Item> = [];
+    const fringe: Item[] = [];
 
     fringe.push({
         current: 'AA',

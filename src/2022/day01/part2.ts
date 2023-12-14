@@ -3,7 +3,7 @@
 import { Elf } from './Elf';
 
 export const part2 = (input: string[]): number => {
-    const elves: Array<Elf> = [];
+    const elves: Elf[] = [];
     let elfNumber = 1;
     let calories = 0;
 

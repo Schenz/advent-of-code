@@ -25,7 +25,7 @@ export const part1 = (input: string[]): number => {
 
 declare global {
     interface Array<T> {
-        remove(elem: T): Array<T>; // example
+        remove(elem: T): T[]; // example
         /**
          * returns duplicates as array
          * @HannesSchaletzky
