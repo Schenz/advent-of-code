@@ -19,7 +19,8 @@
   },
   "parserOptions": {
     "ecmaVersion": 2021,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": ["tsconfig.json"]
   },
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
@@ -57,8 +58,7 @@
     "@typescript-eslint/ban-types": "error",
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/naming-convention": "error",
-    // "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error", //reseach error when enabled
-    // "@typescript-eslint/no-unnecessary-condition": "error", //reseach error when enabled
+    "@typescript-eslint/no-unnecessary-boolean-literal-compare": "error",
     "object-curly-spacing": "off",
     "@typescript-eslint/object-curly-spacing": [
       "error",
