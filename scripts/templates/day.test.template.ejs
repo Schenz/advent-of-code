@@ -1,19 +1,39 @@
 // Advent of Code - Day <%= data.dayNumber %>
 
 import { part1, part2 } from '../../src/<%= data.year %>/<%= data.dayName %>';
+import { readFile } from 'fs/promises';
 
-const testData = [
-  ""
-];
+const testData = ``;
 
 describe('part one tests', () => {
   it('part one test', () => {
-    expect(part1(testData)).toBe(0);
+    expect(part1(testData.split(/\r?\n/))).toBe(0);
+  });
+
+  it('part one test - real data', async () => {
+    const input = await getData();
+
+    expect(part1(input.split(/\r?\n/))).toBe(0);
   });
 });
 
 describe('part two tests', () => {
   it('part two test', () => {
-    expect(part2(testData)).toBe(0);
+    expect(part2(testData.split(/\r?\n/))).toBe(0);
+  });
+
+  it('part two test - real data', async () => {
+    const input = await getData();
+
+    expect(part2(input.split(/\r?\n/))).toBe(125355665599537);
   });
 });
+
+const getData = async (): Promise<string> => {
+    const input: string = await readFile(
+        'src/<%= data.year %>/<%= data.dayName %>/resources/input.txt',
+        'utf8'
+    );
+
+    return input.trim();
+};
