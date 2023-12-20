@@ -122,7 +122,7 @@ const getInput = async (
         try {
             const content = await fetch(url, { headers: headers });
 
-            return content.status == 200 ? content.text() : '';
+            return content.status == 200 ? (await content.text()).trim() : '';
         } catch (err) {
             console.error(err);
         }
