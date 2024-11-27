@@ -73,7 +73,7 @@ Folder structure:
         │       └── resources
         │           └── input.txt
     └── test
-        └── {YEAR}}    
+        └── {YEAR}   
             └── day01.test.ts
 
 Happy coding!
