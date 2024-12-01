@@ -13,11 +13,5 @@ export const part1 = (input: string[]): number => {
     list1.sort((a, b) => a - b);
     list2.sort((a, b) => a - b);
     
-    const differences: number[] = list1.map((num, index) => {
-        const larger = Math.max(num, list2[index]);
-        const smaller = Math.min(num, list2[index]);
-        return larger - smaller;
-    });
-    
-    return differences.reduce((sum, diff) => sum + diff, 0);
+    return list1.reduce((sum, num, index) => sum + Math.abs(num - list2[index]), 0);
 };
