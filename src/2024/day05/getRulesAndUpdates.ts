@@ -1,13 +1,15 @@
 export function getRulesAndUpdates(lines: string[]) {
-  const rules = lines
-    .filter((line) => line.includes('|'))
-    .map((rawRule) => {
-      const [a, b] = rawRule.split('|');
-      return [parseInt(a, 10), parseInt(b, 10)] as const;
-    });
-  const updates = lines
-    .filter((line) => line.includes(','))
-    .map((update) => update.split(',').map((num) => parseInt(num, 10)));
+  const rules: [number, number][] = [];
+  const updates: number[][] = [];
+
+  for (const line of lines) {
+    if (line.includes('|')) {
+      const [a, b] = line.split('|').map(Number);
+      rules.push([a, b]);
+    } else if (line.includes(',')) {
+      updates.push(line.split(',').map(Number));
+    }
+  }
 
   return { rules, updates } as const;
 }

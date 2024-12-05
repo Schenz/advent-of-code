@@ -4,36 +4,28 @@ import { getRulesAndUpdates } from "./getRulesAndUpdates";
 
 export const part2 = (input: string[]): number => {
     const { rules, updates } = getRulesAndUpdates(input);
-    let result = 0;
 
-    for (const update of updates) {
-        let updateValid = true;
+    return updates.reduce((result, update) => {
         const relevantRules = rules.filter(([a, b]) => update.includes(a) && update.includes(b));
 
-        for (const [bigger, smaller] of relevantRules) {
-            if (update.indexOf(bigger) > update.indexOf(smaller)) {
-                updateValid = false;
-                break;
-            }
-        }
+        const isUpdateValid = relevantRules.every(([bigger, smaller]) => {
+            return update.indexOf(bigger) < update.indexOf(smaller);
+        });
 
-        if (!updateValid) {
+        if (!isUpdateValid) {
             update.sort((a, b) => {
-                const aScore = relevantRules
-                    .filter((rule) => rule.includes(a))
-                    .map((rule) => rule.indexOf(a))
-                    .reduce((score, value) => score + value, 0);
-                const bScore = relevantRules
-                    .filter((rule) => rule.includes(b))
-                    .map((rule) => rule.indexOf(b))
-                    .reduce((score, value) => score + value, 0);
+                const calculateScore = (num: number) =>
+                    relevantRules
+                        .filter((rule) => rule.includes(num))
+                        .map((rule) => rule.indexOf(num))
+                        .reduce((score, value) => score + value, 0);
 
-                return aScore > bScore ? 1 : -1;
+                return calculateScore(a) - calculateScore(b);
             });
 
-            result += update[Math.floor(update.length / 2)];
+            return result + update[Math.floor(update.length / 2)];
         }
-    }
 
-    return result;
+        return result;
+    }, 0);
 };
