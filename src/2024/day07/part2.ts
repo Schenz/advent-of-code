@@ -2,15 +2,10 @@
 
 import { isPossibleCombination } from './utils';
 
-export const part2 = (input: string[]): number => {
-    let totalSum = 0;
-
-    for (const line of input) {
-        const [answer, ...numbers] = line.split(/[: ]+/).map(Number);
-        if (isPossibleCombination(answer, numbers, ['+', '*', '||'])) {
-            totalSum += answer;
-        }
+export const part2 = (input: string[]): number => input.reduce((totalSum, line) => {
+    const [answer, ...numbers] = line.split(/[: ]+/).map(Number);
+    if (isPossibleCombination(answer, numbers, ['+', '*', '||'])) {
+        return totalSum += answer;
     }
-
     return totalSum;
-};
+}, 0);
