@@ -1,21 +1,25 @@
 // Advent of Code - Day 8 - Part One
 
-import { Position } from "../../utils/dijkstra/Position";
-import { readMap } from "./readMap";
+import { Position } from '../../utils/dijkstra/Position';
+import { readMap } from './readMap';
 
 export const part1 = (input: string[]): number => {
     const antennas: Record<string, Position[]> = {};
     const lenY = input.length;
-    let lenX = readMap(input, antennas, 0);
+    const lenX = readMap(input, antennas, 0);
 
     // Create the antinodes grid
-    const antinodes: number[][] = Array.from({ length: lenY }, () => Array(lenX).fill(0));
+    const antinodes: number[][] = Array.from({ length: lenY }, () =>
+        Array(lenX).fill(0)
+    );
 
     // Calculate antinodes using all permutations of antenna positions
     for (const positions of Object.values(antennas)) {
         for (let a = 0; a < positions.length; a++) {
             for (let b = 0; b < positions.length; b++) {
-                if (a === b) continue;
+                if (a === b) {
+                    continue;
+                }
 
                 const [x1, y1] = positions[a];
                 const [x2, y2] = positions[b];
@@ -30,7 +34,8 @@ export const part1 = (input: string[]): number => {
         }
     }
 
-    return antinodes.reduce((total, row) =>
-        total + row.reduce((sum, value) => sum + value, 0)
-        , 0);
+    return antinodes.reduce(
+        (total, row) => total + row.reduce((sum, value) => sum + value, 0),
+        0
+    );
 };

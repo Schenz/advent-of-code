@@ -5,18 +5,19 @@
  * @returns An array of combinations
  */
 export const combinations = <T>(array: T[], size: number): T[][] => {
-  const result: T[][] = [];
-  const generate = (start: number, combo: T[]) => {
-    if (combo.length === size) {
-      result.push([...combo]);
-      return;
-    }
-    for (let i = start; i < array.length; i++) {
-      combo.push(array[i]);
-      generate(i + 1, combo);
-      combo.pop();
-    }
-  };
-  generate(0, []);
-  return result;
+    const result: T[][] = [];
+    const generate = (start: number, combo: T[]): void => {
+        if (combo.length === size) {
+            result.push([...combo]);
+            return;
+        }
+        for (let i = start; i < array.length; i++) {
+            combo.push(array[i]);
+            generate(i + 1, combo);
+            combo.pop();
+        }
+    };
+
+    generate(0, []);
+    return result;
 };
