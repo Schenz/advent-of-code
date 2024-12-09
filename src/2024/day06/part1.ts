@@ -1,17 +1,22 @@
 // Advent of Code - Day 6 - Part One
 
+import { Position } from '../../utils/dijkstra/Position';
+
 type Direction = '^' | 'v' | '<' | '>';
 
-const directions: Record<Direction, [number, number]> = {
+/* eslint-disable @typescript-eslint/naming-convention */
+const directions: Record<Direction, Position> = {
     '^': [-1, 0],
-    'v': [1, 0],
+    v: [1, 0],
     '<': [0, -1],
     '>': [0, 1],
 };
+/* eslint-enable @typescript-eslint/naming-convention */
 
 const turnRight = (direction: Direction): Direction => {
     const order: Direction[] = ['^', '>', 'v', '<'];
     const idx = order.indexOf(direction);
+
     return order[(idx + 1) % 4];
 };
 
@@ -30,15 +35,23 @@ export const part1 = (input: string[]): number => {
                 break;
             }
         }
-        if (guardPos) break;
+
+        if (guardPos) {
+            break;
+        }
     }
 
-    if (!guardPos || !guardDir) throw new Error('Guard not found in input');
+    if (!guardPos || !guardDir) {
+        throw new Error('Guard not found in input');
+    }
 
     const visited = new Set<string>();
+
     visited.add(`${guardPos[0]},${guardPos[1]}`); // Record the starting position
 
-    while (true) {
+    let inGrid = true;
+
+    while (inGrid) {
         const [dr, dc] = directions[guardDir];
         const nextPos: [number, number] = [guardPos[0] + dr, guardPos[1] + dc];
 
@@ -49,11 +62,8 @@ export const part1 = (input: string[]): number => {
             nextPos[1] < 0 ||
             nextPos[1] >= cols
         ) {
-            break; // Exit the loop if the guard leaves the grid
-        }
-
-        // Check if the next position is blocked
-        if (input[nextPos[0]][nextPos[1]] === '#') {
+            inGrid = false;
+        } else if (input[nextPos[0]][nextPos[1]] === '#') {
             guardDir = turnRight(guardDir); // Turn right if blocked
         } else {
             // Move forward

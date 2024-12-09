@@ -1,10 +1,9 @@
 // Advent of Code - Day 6 - Part Two
 
-type Position = {
-    y: number;
-    x: number;
-};
+import { Position } from '../../utils/dijkstra/Position';
+
 const DIRECTIONS = ['Top', 'Right', 'Bottom', 'Left'] as const;
+
 type Direction = (typeof DIRECTIONS)[number];
 
 export const part2 = (input: string[]): number => {
@@ -12,8 +11,9 @@ export const part2 = (input: string[]): number => {
 
     for (let y = 0; y < input.length; y++) {
         const row = input[y];
+
         for (let x = 0; x < row.length; x++) {
-            if (row[x] === '.' && isLoop(placeObstruction(input, { y, x }))) {
+            if (row[x] === '.' && isLoop(placeObstruction(input, [y, x]))) {
                 validObstructionsCount++;
             }
         }
@@ -22,7 +22,7 @@ export const part2 = (input: string[]): number => {
     return validObstructionsCount;
 };
 
-function isLoop(map: string[]): boolean {
+const isLoop = (map: string[]): boolean => {
     let position: Position = findStartingPosition(map);
     let prevPosition: Position = position;
     let direction: Direction = 'Top';
@@ -31,13 +31,13 @@ function isLoop(map: string[]): boolean {
     const visitedPositions = new Set<string>();
 
     while (value !== undefined) {
-        const positionAndDirection = `${position.y},${position.x},${direction}`;
+        const positionAndDirection = `${position[0]},${position[1]},${direction}`;
 
         if (visitedPositions.has(positionAndDirection)) {
             return true;
         }
 
-        visitedPositions.add(`${position.y},${position.x},${direction}`);
+        visitedPositions.add(`${position[0]},${position[1]},${direction}`);
 
         prevPosition = position;
         position = getNextPosition(position, direction);
@@ -50,40 +50,61 @@ function isLoop(map: string[]): boolean {
     }
 
     return false;
-}
+};
 
-function getNextPosition({ y, x }: Position, direction: Direction): Position {
-    if (direction === 'Top') return { y: y - 1, x };
-    if (direction === 'Right') return { y, x: x + 1 };
-    if (direction === 'Bottom') return { y: y + 1, x };
-    if (direction === 'Left') return { y, x: x - 1 };
+const getNextPosition = (
+    position: Position,
+    direction: Direction
+): Position => {
+    if (direction === 'Top') {
+        return [position[0] - 1, position[1]];
+    }
 
-    return { y, x };
-}
+    if (direction === 'Right') {
+        return [position[0], position[1] + 1];
+    }
 
-function findStartingPosition(map: string[]): Position {
+    if (direction === 'Bottom') {
+        return [position[0] + 1, position[1]];
+    }
+
+    if (direction === 'Left') {
+        return [position[0], position[1] - 1];
+    }
+
+    return position;
+};
+
+const findStartingPosition = (map: string[]): Position => {
     for (let y = 0; y < map.length; y++) {
         const row = map[y];
+
         for (let x = 0; x < row.length; x++) {
             const val = row[x];
+
             if (val === '^') {
-                return { y, x };
+                return [y, x];
             }
         }
     }
 
     throw 'starting position missing';
-}
+};
 
-const getValueAtPosition = (map: string[], { y, x }: Position): string | undefined => map[y]?.[x]
+const getValueAtPosition = (
+    map: string[],
+    position: Position
+): string | undefined => map[position[0]]?.[position[1]];
 
-const rotate90Right = (direction: Direction): Direction => DIRECTIONS[(DIRECTIONS.indexOf(direction) + 1) % DIRECTIONS.length]
+const rotate90Right = (direction: Direction): Direction =>
+    DIRECTIONS[(DIRECTIONS.indexOf(direction) + 1) % DIRECTIONS.length];
 
-function placeObstruction(map: string[], { y, x }: Position): string[] {
+const placeObstruction = (map: string[], position: Position): string[] => {
     const newMap = [...map];
-    const row = newMap[y];
+    const row = newMap[position[0]];
 
-    newMap[y] = row.slice(0, x) + '#' + row.slice(x + 1);
+    newMap[position[0]] =
+        row.slice(0, position[1]) + '#' + row.slice(position[1] + 1);
 
     return newMap;
-}
+};
