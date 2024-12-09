@@ -7,7 +7,7 @@ type Direction = '^' | 'v' | '<' | '>';
 /* eslint-disable @typescript-eslint/naming-convention */
 const directions: Record<Direction, Position> = {
     '^': [-1, 0],
-    v: [1, 0],
+    'v': [1, 0],
     '<': [0, -1],
     '>': [0, 1],
 };
