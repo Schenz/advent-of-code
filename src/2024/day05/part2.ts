@@ -1,12 +1,14 @@
 // Advent of Code - Day 5 - Part Two
 
-import { getRulesAndUpdates } from "./getRulesAndUpdates";
+import { getRulesAndUpdates } from './getRulesAndUpdates';
 
 export const part2 = (input: string[]): number => {
     const { rules, updates } = getRulesAndUpdates(input);
 
     return updates.reduce((result, update) => {
-        const relevantRules = rules.filter(([a, b]) => update.includes(a) && update.includes(b));
+        const relevantRules = rules.filter(
+            ([a, b]) => update.includes(a) && update.includes(b)
+        );
 
         const isUpdateValid = relevantRules.every(([bigger, smaller]) => {
             return update.indexOf(bigger) < update.indexOf(smaller);
@@ -14,7 +16,7 @@ export const part2 = (input: string[]): number => {
 
         if (!isUpdateValid) {
             update.sort((a, b) => {
-                const calculateScore = (num: number) =>
+                const calculateScore = (num: number): number =>
                     relevantRules
                         .filter((rule) => rule.includes(num))
                         .map((rule) => rule.indexOf(num))
