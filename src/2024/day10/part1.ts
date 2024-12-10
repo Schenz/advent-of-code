@@ -1,5 +1,7 @@
 // Advent of Code - Day 10 - Part One
 
+import { Position } from "../../utils/dijkstra/Position";
+
 export const part1 = (input: string[]): number =>
     input
         .map((row) => row.split('').map(Number))
@@ -19,19 +21,19 @@ export const part1 = (input: string[]): number =>
 
 const depthFirstSearch = (
     grid: number[][],
-    i: number,
-    j: number,
+    x: number,
+    y: number,
     next: number,
     visited: Set<string>
 ): number => {
-    const key = `${i},${j}`;
+    const key = `${x},${y}`;
 
     if (
-        i < 0 ||
-        i >= grid.length ||
-        j < 0 ||
-        j >= grid[0].length ||
-        grid[i][j] !== next ||
+        x < 0 ||
+        x >= grid.length ||
+        y < 0 ||
+        y >= grid[0].length ||
+        grid[x][y] !== next ||
         visited.has(key)
     ) {
         return 0;
@@ -39,14 +41,14 @@ const depthFirstSearch = (
 
     visited.add(key);
 
-    if (grid[i][j] === 9) {
+    if (grid[x][y] === 9) {
         return 1;
     }
 
     return (
-        depthFirstSearch(grid, i + 1, j, next + 1, visited) +
-        depthFirstSearch(grid, i - 1, j, next + 1, visited) +
-        depthFirstSearch(grid, i, j + 1, next + 1, visited) +
-        depthFirstSearch(grid, i, j - 1, next + 1, visited)
+        depthFirstSearch(grid, x + 1, y, next + 1, visited) +
+        depthFirstSearch(grid, x - 1, y, next + 1, visited) +
+        depthFirstSearch(grid, x, y + 1, next + 1, visited) +
+        depthFirstSearch(grid, x, y - 1, next + 1, visited)
     );
 };

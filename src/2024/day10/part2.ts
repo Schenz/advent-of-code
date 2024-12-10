@@ -17,28 +17,28 @@ export const part2 = (input: string[]): number =>
 
 const depthFirstSearch = (
     grid: number[][],
-    i: number,
-    j: number,
+    x: number,
+    y: number,
     next: number
 ): number => {
     if (
-        i < 0 ||
-        i >= grid.length ||
-        j < 0 ||
-        j >= grid[0].length ||
-        grid[i][j] !== next
+        x < 0 ||
+        x >= grid.length ||
+        y < 0 ||
+        y >= grid[0].length ||
+        grid[x][y] !== next
     ) {
         return 0;
     }
 
-    if (grid[i][j] === 9) {
+    if (grid[x][y] === 9) {
         return 1;
     }
 
     return (
-        depthFirstSearch(grid, i + 1, j, next + 1) +
-        depthFirstSearch(grid, i - 1, j, next + 1) +
-        depthFirstSearch(grid, i, j + 1, next + 1) +
-        depthFirstSearch(grid, i, j - 1, next + 1)
+        depthFirstSearch(grid, x + 1, y, next + 1) +
+        depthFirstSearch(grid, x - 1, y, next + 1) +
+        depthFirstSearch(grid, x, y + 1, next + 1) +
+        depthFirstSearch(grid, x, y - 1, next + 1)
     );
 };
