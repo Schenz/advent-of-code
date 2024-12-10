@@ -1,7 +1,5 @@
 // Advent of Code - Day 10 - Part One
 
-import { Position } from "../../utils/dijkstra/Position";
-
 export const part1 = (input: string[]): number =>
     input
         .map((row) => row.split('').map(Number))
