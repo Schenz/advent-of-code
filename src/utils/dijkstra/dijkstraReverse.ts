@@ -3,11 +3,7 @@ import { Point } from './Point';
 import { Position } from './Position';
 import { getNeightbors } from './getNeightbors';
 
-export const dijkstraReverse = (
-    start: Position,
-    endPositions: Position[],
-    map: Point[][]
-): number => {
+export const dijkstraReverse = (start: Position, endPositions: Position[], map: Point[][]): number => {
     const visited: string[] = [];
     const toVisit: Position[] = [start];
     const lowestCost: CostMap = {
@@ -21,12 +17,9 @@ export const dijkstraReverse = (
             continue;
         }
         const currHeight = map[curr[0]][curr[1]].height;
-        const neighbours = getNeightbors(curr, map).filter(
-            (n: Position) => !visited.includes(n.toString())
-        );
+        const neighbours = getNeightbors(curr, map).filter((n: Position) => !visited.includes(n.toString()));
         const reachableNeighbours = neighbours.filter(
-            (neighbour) =>
-                map[neighbour[0]][neighbour[1]].height + 1 >= currHeight
+            (neighbour) => map[neighbour[0]][neighbour[1]].height + 1 >= currHeight
         );
 
         toVisit.push(...reachableNeighbours);
@@ -36,9 +29,7 @@ export const dijkstraReverse = (
         reachableNeighbours.forEach((neighbour) => {
             const newCostToNeighbour = costToCurr + 1;
             const costToNeighbour =
-                lowestCost[neighbour.toString()] === undefined
-                    ? newCostToNeighbour
-                    : lowestCost[neighbour.toString()];
+                lowestCost[neighbour.toString()] === undefined ? newCostToNeighbour : lowestCost[neighbour.toString()];
 
             if (newCostToNeighbour <= costToNeighbour) {
                 lowestCost[neighbour.toString()] = newCostToNeighbour;

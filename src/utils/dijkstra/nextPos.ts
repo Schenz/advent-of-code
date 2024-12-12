@@ -1,10 +1,6 @@
 import { Position } from './Position';
 
-export const nextPos = (
-    curr: Position,
-    occupied: Set<string>,
-    maxDepth?: number
-): Position | 'stop' => {
+export const nextPos = (curr: Position, occupied: Set<string>, maxDepth?: number): Position | 'stop' => {
     if (maxDepth !== undefined) {
         const down = [curr[0], curr[1] + 1] as Position;
         const downLeft = [curr[0] - 1, curr[1] + 1] as Position;

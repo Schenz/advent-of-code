@@ -41,14 +41,7 @@ export class Matrix {
             highY = highY === null ? y : Math.max(highY, y);
         });
 
-        if (
-            lowX !== 0 ||
-            lowY !== 0 ||
-            lowX !== highX ||
-            lowY !== highY ||
-            highX !== 0 ||
-            highY !== 0
-        ) {
+        if (lowX !== 0 || lowY !== 0 || lowX !== highX || lowY !== highY || highX !== 0 || highY !== 0) {
             throw new Error('Invalid input format');
         }
 
@@ -157,11 +150,7 @@ export class Matrix {
         }
     }
 
-    *neighbors(
-        x: number,
-        y: number,
-        diagonals = false
-    ): Generator<[number, number], void, unknown> {
+    *neighbors(x: number, y: number, diagonals = false): Generator<[number, number], void, unknown> {
         if (diagonals) {
             for (const [dx, dy] of [
                 [-1, -1],
@@ -176,12 +165,7 @@ export class Matrix {
                 const nx = x + dx;
                 const ny = y + dy;
 
-                if (
-                    0 <= nx &&
-                    nx < this._width &&
-                    0 <= ny &&
-                    ny < this._height
-                ) {
+                if (0 <= nx && nx < this._width && 0 <= ny && ny < this._height) {
                     yield [nx, ny];
                 }
             }
