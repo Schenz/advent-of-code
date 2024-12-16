@@ -1,155 +1,152 @@
 // Advent of Code - Day 15 - Part Two
 
+import { addTuples, DIRECTIONS, DIRECTION_SYMBOLS, moveLeft, moveRight } from './common';
+
 export const part2 = (input: string): number => {
-    const [a, b] = input.split('\n\n');
-    const ll = a.split('\n');
-    let moves = b;
-    let moveTuples: [number, number][] = [];
+    const [gridSection, movesSection] = input.split('\n\n');
+    const gridLines = gridSection.split('\n');
+    const moves = movesSection;
+    let moveInstructions: [number, number][] = [];
 
-    // Helper function to add two tuples
-    const addt = (x: [number, number], y: [number, number]): [number, number] => {
-        if (x.length === 2) {
-            return [x[0] + y[0], x[1] + y[1]];
-        }
-        return x.map((v, i) => v + y[i]) as [number, number];
-    }
+    moveInstructions = moves
+        .replace(/\n/g, '')
+        .split('')
+        .map((move) => DIRECTIONS[DIRECTION_SYMBOLS.indexOf(move)]);
 
-    const DIRS: [number, number][] = [
-        [0, 1],  // Right
-        [0, -1], // Left
-        [1, 0],  // Down
-        [-1, 0]  // Up
-    ];
-    const D = ['>', '<', 'v', '^'];
-
-    moveTuples = moves.replace(/\n/g, '').split('').map((m) => DIRS[D.indexOf(m)]);
-
-    let walls = new Set<string>();
-    let boxes = new Set<string>();
-    let robot: [number, number] | undefined;
-
-    // Helper functions
-    const left = (pos: [number, number]): [number, number] => {
-        return [pos[0], pos[1] - 1];
-    }
-
-    const right = (pos: [number, number]): [number, number] => {
-        return [pos[0], pos[1] + 1];
-    }
+    const wallPositions = new Set<string>();
+    let boxPositions = new Set<string>();
+    let robotPosition: [number, number] | undefined;
 
     // Parsing the grid and initializing walls, boxes, and robot position
-    ll.forEach((line, i) => {
-        for (let j = 0; j < line.length; j++) {
-            const ch = line[j];
-            const col = j * 2;
+    gridLines.forEach((line, rowIndex) => {
+        for (let colIndex = 0; colIndex < line.length; colIndex++) {
+            const char = line[colIndex];
+            const col = colIndex * 2;
 
-            if (ch === '#') {
-                walls.add(`${i},${col}`);
-                walls.add(`${i},${col + 1}`);
+            if (char === '#') {
+                wallPositions.add(`${rowIndex},${col}`);
+                wallPositions.add(`${rowIndex},${col + 1}`);
             }
-            if (ch === 'O') {
-                boxes.add(`${i},${col}`);
+
+            if (char === 'O') {
+                boxPositions.add(`${rowIndex},${col}`);
             }
-            if (ch === '@') {
-                robot = [i, col];
+
+            if (char === '@') {
+                robotPosition = [rowIndex, col];
             }
         }
     });
 
-    if (!robot) {
-        throw new Error("Robot position not found in input.");
+    if (!robotPosition) {
+        throw new Error('Robot position not found in input.');
     }
 
     // Function to push a box in a given direction
-    const push = (box: [number, number], d: [number, number]): boolean | null => {
+    const pushBox = (box: [number, number], direction: [number, number]): boolean | null => {
         const boxKey = `${box[0]},${box[1]}`;
-        if (!boxes.has(boxKey)) {
-            throw new Error("Box not found in boxes set.");
+
+        if (!boxPositions.has(boxKey)) {
+            throw new Error('Box not found in boxes set.');
         }
 
-        const nxt = addt(box, d);
-        const nxtKey = `${nxt[0]},${nxt[1]}`;
+        const nextPosition = addTuples(box, direction);
+        const nextPositionKey = `${nextPosition[0]},${nextPosition[1]}`;
 
-        if (walls.has(nxtKey) || walls.has(`${nxt[0]},${nxt[1] + 1}`)) {
+        if (wallPositions.has(nextPositionKey) || wallPositions.has(`${nextPosition[0]},${nextPosition[1] + 1}`)) {
             return null;
         }
 
-        if (d[0] !== 0) { // Moving up or down
-            if (boxes.has(nxtKey)) {
-                if (push(nxt, d) === null) {
+        if (direction[0] !== 0) {
+            // Moving up or down
+            if (boxPositions.has(nextPositionKey)) {
+                if (pushBox(nextPosition, direction) === null) {
                     return null;
                 }
             }
-            if (boxes.has(`${nxt[0]},${nxt[1] - 1}`)) {
-                if (push(left(nxt), d) === null) {
+
+            if (boxPositions.has(`${nextPosition[0]},${nextPosition[1] - 1}`)) {
+                if (pushBox(moveLeft(nextPosition), direction) === null) {
                     return null;
                 }
             }
-            if (boxes.has(`${nxt[0]},${nxt[1] + 1}`)) {
-                if (push(right(nxt), d) === null) {
+
+            if (boxPositions.has(`${nextPosition[0]},${nextPosition[1] + 1}`)) {
+                if (pushBox(moveRight(nextPosition), direction) === null) {
                     return null;
                 }
             }
-        } else if (d[1] === 1) { // Pushing right
-            if (boxes.has(`${nxt[0]},${nxt[1] + 1}`)) {
-                if (push(right(nxt), d) === null) {
+        } else if (direction[1] === 1) {
+            // Pushing right
+            if (boxPositions.has(`${nextPosition[0]},${nextPosition[1] + 1}`)) {
+                if (pushBox(moveRight(nextPosition), direction) === null) {
                     return null;
                 }
             }
-        } else if (d[1] === -1) { // Pushing left
-            if (boxes.has(`${nxt[0]},${nxt[1] - 1}`)) {
-                if (push(left(nxt), d) === null) {
+        } else if (direction[1] === -1) {
+            // Pushing left
+            if (boxPositions.has(`${nextPosition[0]},${nextPosition[1] - 1}`)) {
+                if (pushBox(moveLeft(nextPosition), direction) === null) {
                     return null;
                 }
             }
         }
 
-        boxes.delete(boxKey);
-        boxes.add(nxtKey);
+        boxPositions.delete(boxKey);
+        boxPositions.add(nextPositionKey);
         return true;
-    }
+    };
 
     // Simulating the moves
-    moveTuples.forEach((move) => {
-        boxes.forEach((box) => {
+    moveInstructions.forEach((move) => {
+        if (!robotPosition) {
+            throw new Error('Robot position not found.');
+        }
+
+        boxPositions.forEach((box) => {
             const [x, y] = box.split(',').map(Number);
-            if (walls.has(`${x},${y + 1}`) || boxes.has(`${x},${y + 1}`)) {
-                throw new Error("Invalid configuration: overlapping boxes or walls.");
+
+            if (wallPositions.has(`${x},${y + 1}`) || boxPositions.has(`${x},${y + 1}`)) {
+                throw new Error('Invalid configuration: overlapping boxes or walls.');
             }
         });
 
-        const nxt = addt(robot!, move);
-        const nxtKey = `${nxt[0]},${nxt[1]}`;
+        const nextPosition = addTuples(robotPosition, move);
+        const nextPositionKey = `${nextPosition[0]},${nextPosition[1]}`;
 
-        if (walls.has(nxtKey)) {
+        if (wallPositions.has(nextPositionKey)) {
             return;
         }
 
-        if (boxes.has(nxtKey)) {
-            const copy = new Set(boxes);
-            if (push(nxt, move) === null) {
-                boxes = copy;
+        if (boxPositions.has(nextPositionKey)) {
+            const copy = new Set(boxPositions);
+
+            if (pushBox(nextPosition, move) === null) {
+                boxPositions = copy;
                 return;
             }
-        } else if (boxes.has(`${nxt[0]},${nxt[1] - 1}`)) {
-            const copy = new Set(boxes);
-            if (push(left(nxt), move) === null) {
-                boxes = copy;
+        } else if (boxPositions.has(`${nextPosition[0]},${nextPosition[1] - 1}`)) {
+            const copy = new Set(boxPositions);
+
+            if (pushBox(moveLeft(nextPosition), move) === null) {
+                boxPositions = copy;
                 return;
             }
         }
 
-        if (!boxes.has(nxtKey) && !boxes.has(`${nxt[0]},${nxt[1] - 1}`)) {
-            robot = nxt;
+        if (!boxPositions.has(nextPositionKey) && !boxPositions.has(`${nextPosition[0]},${nextPosition[1] - 1}`)) {
+            robotPosition = nextPosition;
         }
     });
 
     // Calculating the final result
-    let c = 0;
-    boxes.forEach((box) => {
+    let result = 0;
+
+    boxPositions.forEach((box) => {
         const [x, y] = box.split(',').map(Number);
-        c += 100 * x + y;
+
+        result += 100 * x + y;
     });
 
-    return c;
+    return result;
 };

@@ -1,109 +1,95 @@
 // Advent of Code - Day 15 - Part One
 
+import { addTuples, DIRECTIONS, DIRECTION_SYMBOLS } from './common';
+
 export const part1 = (input: string): number => {
-    const [a, b] = input.split('\n\n');
-    const ll = a.split('\n');
-    const moves = b;
-    let moveTuples: [number, number][] = [];
+    const [gridSection, movesSection] = input.split('\n\n');
+    const gridLines = gridSection.split('\n');
+    const moves = movesSection;
+    let moveInstructions: [number, number][] = [];
 
-    // Helper function to add two tuples
-    const addt = (x: [number, number], y: [number, number]): [number, number] => {
-        if (x.length === 2) {
-            return [x[0] + y[0], x[1] + y[1]];
-        }
-        return x.map((v, i) => v + y[i]) as [number, number];
-    };
-
-    const DIRS: [number, number][] = [
-        [0, 1], // Right
-        [0, -1], // Left
-        [1, 0], // Down
-        [-1, 0], // Up
-    ];
-    const D = ['>', '<', 'v', '^'];
-
-    moveTuples = moves
+    moveInstructions = moves
         .replace(/\n/g, '')
         .split('')
-        .map((m) => DIRS[D.indexOf(m)]);
+        .map((move) => DIRECTIONS[DIRECTION_SYMBOLS.indexOf(move)]);
 
-    const walls = new Set<string>();
-    const boxes = new Set<string>();
-    let robot: [number, number] | undefined;
+    const wallPositions = new Set<string>();
+    const boxPositions = new Set<string>();
+    let robotPosition: [number, number] | undefined;
 
     // Parsing the grid and initializing walls, boxes, and robot position
-    ll.forEach((line, i) => {
-        for (let j = 0; j < line.length; j++) {
-            const ch = line[j];
+    gridLines.forEach((line, rowIndex) => {
+        for (let colIndex = 0; colIndex < line.length; colIndex++) {
+            const char = line[colIndex];
 
-            if (ch === '#') {
-                walls.add(`${i},${j}`);
+            if (char === '#') {
+                wallPositions.add(`${rowIndex},${colIndex}`);
             }
 
-            if (ch === 'O') {
-                boxes.add(`${i},${j}`);
+            if (char === 'O') {
+                boxPositions.add(`${rowIndex},${colIndex}`);
             }
 
-            if (ch === '@') {
-                robot = [i, j];
+            if (char === '@') {
+                robotPosition = [rowIndex, colIndex];
             }
         }
     });
 
-    if (!robot) {
+    if (!robotPosition) {
         throw new Error('Robot position not found in input.');
     }
 
     // Function to push a box in a given direction
-    const push = (box: [number, number], d: [number, number]): boolean => {
-        const nxt = addt(box, d);
-        const nxtKey = `${nxt[0]},${nxt[1]}`;
+    const pushBox = (box: [number, number], direction: [number, number]): boolean => {
+        const nextPosition = addTuples(box, direction);
+        const nextPositionKey = `${nextPosition[0]},${nextPosition[1]}`;
         const boxKey = `${box[0]},${box[1]}`;
 
-        if (walls.has(nxtKey)) {
+        if (wallPositions.has(nextPositionKey)) {
             return false;
         }
 
-        if (boxes.has(nxtKey)) {
-            if (!push(nxt, d)) {
+        if (boxPositions.has(nextPositionKey)) {
+            if (!pushBox(nextPosition, direction)) {
                 return false;
             }
         }
-        boxes.delete(boxKey);
-        boxes.add(nxtKey);
+        boxPositions.delete(boxKey);
+        boxPositions.add(nextPositionKey);
         return true;
     };
 
-    moveTuples.forEach((move) => {
-        if (!robot) {
+    moveInstructions.forEach((move) => {
+        if (!robotPosition) {
             return;
         }
-        const nxt = addt(robot, move);
-        const nxtKey = `${nxt[0]},${nxt[1]}`;
+        const nextPosition = addTuples(robotPosition, move);
+        const nextPositionKey = `${nextPosition[0]},${nextPosition[1]}`;
 
-        if (walls.has(nxtKey)) {
+        if (wallPositions.has(nextPositionKey)) {
             return;
         }
 
-        if (boxes.has(nxtKey)) {
-            if (!push(nxt, move)) {
+        if (boxPositions.has(nextPositionKey)) {
+            if (!pushBox(nextPosition, move)) {
                 return;
             }
         }
 
-        if (!boxes.has(nxtKey)) {
-            robot = nxt;
+        if (!boxPositions.has(nextPositionKey)) {
+            robotPosition = nextPosition;
         }
     });
 
     // Calculating the final result
-    let c = 0;
+    let result = 0;
 
-    boxes.forEach((box) => {
+    boxPositions.forEach((box) => {
         const [x, y] = box.split(',').map(Number);
 
-        c += 100 * x + y;
+        result += 100 * x + y;
     });
 
-    return c;
+    return result;
 };
