@@ -76,15 +76,15 @@ To determine how fast everyone needs to go, you need to determine _the first byt
 
 In the above example, after the byte at `1,1` falls, there is still a path to the exit:
 
-```
-<em>O</em>..#<em>O</em><em>O</em><em>O</em>
-<em>O</em>##<em>O</em><em>O</em>#<em>O</em>
-<em>O</em>#<em>O</em><em>O</em>#<em>O</em><em>O</em>
-<em>O</em><em>O</em><em>O</em>#<em>O</em><em>O</em>#
-###<em>O</em><em>O</em>##
-.##<em>O</em>###
-#.#<em>O</em><em>O</em><em>O</em><em>O</em>
-```
+<code>
+<em>O</em>..#<em>O</em><em>O</em><em>O</em><br />
+<em>O</em>##<em>O</em><em>O</em>#<em>O</em><br />
+<em>O</em>#<em>O</em><em>O</em>#<em>O</em><em>O</em><br />
+<em>O</em><em>O</em><em>O</em>#<em>O</em><em>O</em>#<br />
+###<em>O</em><em>O</em>##<br />
+.##<em>O</em>###<br />
+#.#<em>O</em><em>O</em><em>O</em><em>O</em><br />
+</code>
 
 However, after adding the very next byte (at `6,1`), there is no longer a path to the exit:
 
