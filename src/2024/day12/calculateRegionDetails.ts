@@ -1,53 +1,68 @@
+
 import { TOP, BOTTOM, RIGHT, LEFT } from './directions';
 import { Perimeter } from './perimeter';
 
-export const calculateRegionDetails = (
-    grid: string[],
-    details: { area: number; perimeter: { [key: string]: Perimeter[] } },
-    x: number,
-    y: number,
-    area: Set<string>
-): void => {
-    if (area.has(`${x},${y}`)) {
-        return;
-    }
-    area.add(`${x},${y}`);
+interface RegionDetails {
+    cellCount: number;
+    perimeter: { [key: string]: Perimeter[] };
+}
 
-    const width = grid[0].length;
-    const height = grid.length;
-    const plant = grid[y][x];
+export const calculateRegionDetails = (grid: string[], x: number, y: number, region: Set<string>): RegionDetails => {
+    const details: RegionDetails = {
+        cellCount: 0,
+        perimeter: {
+            [TOP]: [],
+            [BOTTOM]: [],
+            [LEFT]: [],
+            [RIGHT]: [],
+        },
+    };
 
-    details.area++;
+    const calculate = (x: number, y: number): void => {
+        if (region.has(`${x},${y}`)) {
+            return;
+        }
+        region.add(`${x},${y}`);
 
-    if (y === 0 || grid[y - 1][x] !== plant) {
-        details.perimeter[TOP].push({ x, y, valid: true });
-    }
+        const width = grid[0].length - 1;
+        const height = grid.length - 1;
+        const plant = grid[y][x];
 
-    if (y === height - 1 || grid[y + 1][x] !== plant) {
-        details.perimeter[BOTTOM].push({ x, y, valid: true });
-    }
+        details.cellCount++;
 
-    if (x === 0 || grid[y][x - 1] !== plant) {
-        details.perimeter[RIGHT].push({ x, y, valid: true });
-    }
+        if (y === 0 || grid[y - 1][x] !== plant) {
+            details.perimeter[TOP].push({ x, y, valid: true });
+        }
 
-    if (x === width - 1 || grid[y][x + 1] !== plant) {
-        details.perimeter[LEFT].push({ x, y, valid: true });
-    }
+        if (y === height || grid[y + 1][x] !== plant) {
+            details.perimeter[BOTTOM].push({ x, y, valid: true });
+        }
 
-    if (y !== 0 && grid[y - 1][x] === plant) {
-        calculateRegionDetails(grid, details, x, y - 1, area);
-    }
+        if (x === 0 || grid[y][x - 1] !== plant) {
+            details.perimeter[RIGHT].push({ x, y, valid: true });
+        }
 
-    if (y !== height - 1 && grid[y + 1][x] === plant) {
-        calculateRegionDetails(grid, details, x, y + 1, area);
-    }
+        if (x === width || grid[y][x + 1] !== plant) {
+            details.perimeter[LEFT].push({ x, y, valid: true });
+        }
 
-    if (x !== 0 && grid[y][x - 1] === plant) {
-        calculateRegionDetails(grid, details, x - 1, y, area);
-    }
+        if (y !== 0 && grid[y - 1][x] === plant) {
+            calculate(x, y - 1);
+        }
 
-    if (x !== width - 1 && grid[y][x + 1] === plant) {
-        calculateRegionDetails(grid, details, x + 1, y, area);
-    }
+        if (y !== height && grid[y + 1][x] === plant) {
+            calculate(x, y + 1);
+        }
+
+        if (x !== 0 && grid[y][x - 1] === plant) {
+            calculate(x - 1, y);
+        }
+
+        if (x !== width && grid[y][x + 1] === plant) {
+            calculate(x + 1, y);
+        }
+    };
+
+    calculate(x, y);
+    return details;
 };
