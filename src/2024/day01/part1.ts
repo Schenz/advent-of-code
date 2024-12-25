@@ -14,8 +14,5 @@ export const part1 = (input: string[]): number => {
     list1.sort((a, b) => a - b);
     list2.sort((a, b) => a - b);
 
-    return list1.reduce(
-        (sum, num, index) => sum + Math.abs(num - list2[index]),
-        0
-    );
+    return list1.reduce((sum, num, index) => sum + Math.abs(num - list2[index]), 0);
 };

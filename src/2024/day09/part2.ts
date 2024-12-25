@@ -14,9 +14,7 @@ export const part2 = (input: string[]): number => {
 
     while (sortedFiles.length > 0) {
         const fileBlock = sortedFiles.splice(0, 1)[0];
-        const freeIx = blocks.findIndex(
-            (b) => b[1] < 0 && b[0] >= fileBlock[0]
-        );
+        const freeIx = blocks.findIndex((b) => b[1] < 0 && b[0] >= fileBlock[0]);
 
         if (freeIx > 0) {
             const fileIx = blocks.findIndex((b) => b[1] === fileBlock[1]);

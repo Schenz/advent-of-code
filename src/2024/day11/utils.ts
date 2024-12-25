@@ -36,18 +36,11 @@ const blink = (stones: Map<bigint, number>): Map<bigint, number> => {
     return next;
 };
 
-const add = (
-    stones: Map<bigint, number>,
-    stone: bigint,
-    count: number
-): void => {
+const add = (stones: Map<bigint, number>, stone: bigint, count: number): void => {
     stones.set(stone, (stones.get(stone) ?? 0) + count);
 };
 
-export const getStoneCount = (
-    input: string[],
-    numberOfBlinks: number
-): number => {
+export const getStoneCount = (input: string[], numberOfBlinks: number): number => {
     let stones = parse(input[0]);
 
     for (let i = 0; i < numberOfBlinks; ++i) {

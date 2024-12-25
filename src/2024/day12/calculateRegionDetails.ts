@@ -1,4 +1,3 @@
-
 import { TOP, BOTTOM, RIGHT, LEFT } from './directions';
 import { Perimeter } from './perimeter';
 

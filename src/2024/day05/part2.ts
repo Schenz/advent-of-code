@@ -6,9 +6,7 @@ export const part2 = (input: string[]): number => {
     const { rules, updates } = getRulesAndUpdates(input);
 
     return updates.reduce((result, update) => {
-        const relevantRules = rules.filter(
-            ([a, b]) => update.includes(a) && update.includes(b)
-        );
+        const relevantRules = rules.filter(([a, b]) => update.includes(a) && update.includes(b));
 
         const isUpdateValid = relevantRules.every(([bigger, smaller]) => {
             return update.indexOf(bigger) < update.indexOf(smaller);

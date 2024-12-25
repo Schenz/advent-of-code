@@ -56,12 +56,7 @@ export const part1 = (input: string[]): number => {
         const nextPos: [number, number] = [guardPos[0] + dr, guardPos[1] + dc];
 
         // Check if the guard has left the grid
-        if (
-            nextPos[0] < 0 ||
-            nextPos[0] >= rows ||
-            nextPos[1] < 0 ||
-            nextPos[1] >= cols
-        ) {
+        if (nextPos[0] < 0 || nextPos[0] >= rows || nextPos[1] < 0 || nextPos[1] >= cols) {
             inGrid = false;
         } else if (input[nextPos[0]][nextPos[1]] === '#') {
             guardDir = turnRight(guardDir); // Turn right if blocked

@@ -11,26 +11,14 @@ const directions = [
     [-1, 1], // left, up, diagonal up-left, diagonal up-right
 ];
 
-const countXMAS = (
-    grid: string[][],
-    x: number,
-    y: number,
-    dx: number,
-    dy: number
-): number => {
+const countXMAS = (grid: string[][], x: number, y: number, dx: number, dy: number): number => {
     const word = 'XMAS';
 
     for (let i = 0; i < word.length; i++) {
         const nx = x + i * dx;
         const ny = y + i * dy;
 
-        if (
-            nx < 0 ||
-            ny < 0 ||
-            nx >= grid.length ||
-            ny >= grid[0].length ||
-            grid[nx][ny] !== word[i]
-        ) {
+        if (nx < 0 || ny < 0 || nx >= grid.length || ny >= grid[0].length || grid[nx][ny] !== word[i]) {
             return 0;
         }
     }

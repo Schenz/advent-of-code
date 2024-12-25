@@ -24,6 +24,7 @@ export const part2 = (input: string[]): number => {
                     (sum, array) => sum + array.filter((perimeter) => perimeter.valid).length,
                     0
                 );
+
                 totalSum += details.cellCount * validPerimeterLength;
             }
         });

@@ -2,20 +2,8 @@
 
 const isValidReport = (report: number[]): boolean => {
     const isValid = (arr: number[]): boolean =>
-        arr.every(
-            (val, i) =>
-                i === 0 ||
-                (arr[i - 1] <= val &&
-                    val - arr[i - 1] <= 3 &&
-                    val - arr[i - 1] >= 1)
-        ) ||
-        arr.every(
-            (val, i) =>
-                i === 0 ||
-                (arr[i - 1] >= val &&
-                    arr[i - 1] - val <= 3 &&
-                    arr[i - 1] - val >= 1)
-        );
+        arr.every((val, i) => i === 0 || (arr[i - 1] <= val && val - arr[i - 1] <= 3 && val - arr[i - 1] >= 1)) ||
+        arr.every((val, i) => i === 0 || (arr[i - 1] >= val && arr[i - 1] - val <= 3 && arr[i - 1] - val >= 1));
 
     if (isValid(report)) {
         return true;

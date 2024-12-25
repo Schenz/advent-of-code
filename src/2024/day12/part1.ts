@@ -10,6 +10,7 @@ export const part1 = (input: string[]): number => {
             if (!region.has(`${x},${y}`)) {
                 const details = calculateRegionDetails(input, x, y, region);
                 const perimeterLength = Object.values(details.perimeter).reduce((sum, array) => sum + array.length, 0);
+
                 totalSum += details.cellCount * perimeterLength;
             }
         });

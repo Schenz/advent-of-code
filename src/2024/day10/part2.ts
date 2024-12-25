@@ -6,28 +6,12 @@ export const part2 = (input: string[]): number =>
         .reduce(
             (totalScore, row, i, grid) =>
                 totalScore +
-                row.reduce(
-                    (rowScore, cell, j) =>
-                        rowScore +
-                        (cell === 0 ? depthFirstSearch(grid, i, j, 0) : 0),
-                    0
-                ),
+                row.reduce((rowScore, cell, j) => rowScore + (cell === 0 ? depthFirstSearch(grid, i, j, 0) : 0), 0),
             0
         );
 
-const depthFirstSearch = (
-    grid: number[][],
-    x: number,
-    y: number,
-    next: number
-): number => {
-    if (
-        x < 0 ||
-        x >= grid.length ||
-        y < 0 ||
-        y >= grid[0].length ||
-        grid[x][y] !== next
-    ) {
+const depthFirstSearch = (grid: number[][], x: number, y: number, next: number): number => {
+    if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] !== next) {
         return 0;
     }
 

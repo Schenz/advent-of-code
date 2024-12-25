@@ -9,9 +9,7 @@ export const part2 = (input: string[]): number => {
     const lenY = input.length;
     const lenX = readMap(input, antennas, 0);
 
-    const antinodes: number[][] = Array.from({ length: lenY }, () =>
-        Array(lenX).fill(0)
-    );
+    const antinodes: number[][] = Array.from({ length: lenY }, () => Array(lenX).fill(0));
 
     for (const positions of Object.values(antennas)) {
         for (const [a, b] of combinations(positions, 2)) {
@@ -35,8 +33,5 @@ export const part2 = (input: string[]): number => {
         }
     }
 
-    return antinodes.reduce(
-        (total, row) => total + row.reduce((sum, value) => sum + value, 0),
-        0
-    );
+    return antinodes.reduce((total, row) => total + row.reduce((sum, value) => sum + value, 0), 0);
 };

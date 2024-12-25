@@ -7,13 +7,18 @@ type GraphList = number[][];
 type AdjacencyMatrix = boolean[][];
 
 export const part2 = (input: string[]): string => {
-    const edges: string[][] = input.map(line => line.split('-'));
+    const edges: string[][] = input.map((line) => line.split('-'));
     const graphMap: GraphMap = {};
     const nodes: NodeSet = {};
 
     edges.forEach(([start, end]) => {
-        if (!graphMap[start]) graphMap[start] = {};
-        if (!graphMap[end]) graphMap[end] = {};
+        if (!graphMap[start]) {
+            graphMap[start] = {};
+        }
+
+        if (!graphMap[end]) {
+            graphMap[end] = {};
+        }
         graphMap[start][end] = true;
         graphMap[end][start] = true;
         nodes[start] = true;
@@ -37,24 +42,24 @@ export const part2 = (input: string[]): string => {
 
     let largestClique: number[] = [];
 
-    const findClique = (currentClique: number[]) => {
+    const findClique = (currentClique: number[]): void => {
         if (largestClique.length < currentClique.length) {
             largestClique = [...currentClique];
         }
         for (let i = currentClique[currentClique.length - 1] + 1; i < nodeCount; i++) {
-            if (currentClique.every(j => adjacencyMatrix[i][j])) {
+            if (currentClique.every((j) => adjacencyMatrix[i][j])) {
                 findClique([...currentClique, i]);
             }
         }
     };
 
     graphList.forEach((neighbors, i) => {
-        neighbors.forEach(j => {
+        neighbors.forEach((j) => {
             if (j > i) {
                 findClique([i, j]);
             }
         });
     });
 
-    return largestClique.map(i => nodeNames[i]).join(',');
+    return largestClique.map((i) => nodeNames[i]).join(',');
 };

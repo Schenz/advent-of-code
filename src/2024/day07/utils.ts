@@ -1,10 +1,6 @@
 // Advent of Code - Day 7 - Utilities
 
-export const isPossibleCombination = (
-    target: number,
-    numbers: number[],
-    operators: string[]
-): boolean => {
+export const isPossibleCombination = (target: number, numbers: number[], operators: string[]): boolean => {
     const n = numbers.length;
 
     const evaluate = (ops: string[]): number => {

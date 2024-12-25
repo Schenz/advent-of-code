@@ -52,10 +52,7 @@ const isLoop = (map: string[]): boolean => {
     return false;
 };
 
-const getNextPosition = (
-    position: Position,
-    direction: Direction
-): Position => {
+const getNextPosition = (position: Position, direction: Direction): Position => {
     if (direction === 'Top') {
         return [position[0] - 1, position[1]];
     }
@@ -91,10 +88,7 @@ const findStartingPosition = (map: string[]): Position => {
     throw 'starting position missing';
 };
 
-const getValueAtPosition = (
-    map: string[],
-    position: Position
-): string | undefined => map[position[0]]?.[position[1]];
+const getValueAtPosition = (map: string[], position: Position): string | undefined => map[position[0]]?.[position[1]];
 
 const rotate90Right = (direction: Direction): Direction =>
     DIRECTIONS[(DIRECTIONS.indexOf(direction) + 1) % DIRECTIONS.length];
@@ -103,8 +97,7 @@ const placeObstruction = (map: string[], position: Position): string[] => {
     const newMap = [...map];
     const row = newMap[position[0]];
 
-    newMap[position[0]] =
-        row.slice(0, position[1]) + '#' + row.slice(position[1] + 1);
+    newMap[position[0]] = row.slice(0, position[1]) + '#' + row.slice(position[1] + 1);
 
     return newMap;
 };

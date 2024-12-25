@@ -8,31 +8,19 @@ export const part2 = (input: string[]): number => {
             if (input[y][x] === 'A') {
                 let matches = 0;
 
-                if (
-                    input[y - 1][x - 1] === 'M' &&
-                    input[y + 1][x + 1] === 'S'
-                ) {
+                if (input[y - 1][x - 1] === 'M' && input[y + 1][x + 1] === 'S') {
                     matches++;
                 }
 
-                if (
-                    input[y + 1][x + 1] === 'M' &&
-                    input[y - 1][x - 1] === 'S'
-                ) {
+                if (input[y + 1][x + 1] === 'M' && input[y - 1][x - 1] === 'S') {
                     matches++;
                 }
 
-                if (
-                    input[y + 1][x - 1] === 'M' &&
-                    input[y - 1][x + 1] === 'S'
-                ) {
+                if (input[y + 1][x - 1] === 'M' && input[y - 1][x + 1] === 'S') {
                     matches++;
                 }
 
-                if (
-                    input[y - 1][x + 1] === 'M' &&
-                    input[y + 1][x - 1] === 'S'
-                ) {
+                if (input[y - 1][x + 1] === 'M' && input[y + 1][x - 1] === 'S') {
                     matches++;
                 }
 

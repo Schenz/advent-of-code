@@ -1,10 +1,6 @@
 import { Position } from '../../utils/dijkstra/Position';
 
-export const readMap = (
-    input: string[],
-    antennas: Record<string, Position[]>,
-    lenX: number
-): number => {
+export const readMap = (input: string[], antennas: Record<string, Position[]>, lenX: number): number => {
     input.forEach((line, j) => {
         line.split('').forEach((char, i) => {
             if (char !== '.') {

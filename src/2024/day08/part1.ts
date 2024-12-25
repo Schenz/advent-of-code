@@ -9,9 +9,7 @@ export const part1 = (input: string[]): number => {
     const lenX = readMap(input, antennas, 0);
 
     // Create the antinodes grid
-    const antinodes: number[][] = Array.from({ length: lenY }, () =>
-        Array(lenX).fill(0)
-    );
+    const antinodes: number[][] = Array.from({ length: lenY }, () => Array(lenX).fill(0));
 
     // Calculate antinodes using all permutations of antenna positions
     for (const positions of Object.values(antennas)) {
@@ -34,8 +32,5 @@ export const part1 = (input: string[]): number => {
         }
     }
 
-    return antinodes.reduce(
-        (total, row) => total + row.reduce((sum, value) => sum + value, 0),
-        0
-    );
+    return antinodes.reduce((total, row) => total + row.reduce((sum, value) => sum + value, 0), 0);
 };
