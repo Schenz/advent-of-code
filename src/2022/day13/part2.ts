@@ -19,14 +19,9 @@ const calculateDecoderKey = (data: string, ...extraPackets: any): number => {
 
     return extraPackets.reduce(
         (product: number, packet: any) =>
-            product *
-            (1 +
-                packets.findIndex(
-                    (p) => JSON.stringify(p) === JSON.stringify(packet)
-                )),
+            product * (1 + packets.findIndex((p) => JSON.stringify(p) === JSON.stringify(packet))),
         1
     );
 };
 
-export const part2 = (input: string): number =>
-    calculateDecoderKey(input, [[2]], [[6]]);
+export const part2 = (input: string): number => calculateDecoderKey(input, [[2]], [[6]]);

@@ -5,10 +5,7 @@ import { part1, part2 } from '.';
 
 const main = async (): Promise<void> => {
     try {
-        const input: string = await readFile(
-            'src/day06/resources/input.txt',
-            'utf8'
-        );
+        const input: string = await readFile('src/day06/resources/input.txt', 'utf8');
 
         console.log('--- Part One ---');
         console.log('Result', part1(input.split(/\r?\n/)));

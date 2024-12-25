@@ -24,10 +24,7 @@ export const part1 = (input: string[]): number => {
             const matchingDirectories: DirSize[] = [];
 
             findDirsSmallerThanOrEqual('/', matchingDirectories, 100000);
-            sum = matchingDirectories.reduce(
-                (sum, match) => (sum += match.totalSize),
-                0
-            );
+            sum = matchingDirectories.reduce((sum, match) => (sum += match.totalSize), 0);
         }
     });
 
@@ -42,10 +39,7 @@ const interpretCommandLine = (commandAndParams: string[]): void => {
         }
 
         if (commandAndParams[1] === '..') {
-            currentPath = currentPath.substring(
-                0,
-                currentPath.lastIndexOf('/')
-            );
+            currentPath = currentPath.substring(0, currentPath.lastIndexOf('/'));
             return;
         }
 
@@ -113,11 +107,7 @@ interface DirSize {
     totalSize: number;
 }
 
-const findDirsSmallerThanOrEqual = (
-    path: string,
-    matchingDirectories: DirSize[],
-    maxSize: number
-): void => {
+const findDirsSmallerThanOrEqual = (path: string, matchingDirectories: DirSize[], maxSize: number): void => {
     const currentPathObject = cd(path);
 
     if (currentPathObject['_totalSize'] <= maxSize) {
@@ -133,11 +123,7 @@ const findDirsSmallerThanOrEqual = (
 
     Object.entries(currentPathObject).forEach(([name, entry]) => {
         if (typeof entry === 'object') {
-            findDirsSmallerThanOrEqual(
-                path + '/' + name,
-                matchingDirectories,
-                maxSize
-            );
+            findDirsSmallerThanOrEqual(path + '/' + name, matchingDirectories, maxSize);
         }
     });
 };

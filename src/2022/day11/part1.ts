@@ -13,17 +13,9 @@ export const part1 = (
                 monkey.inspected++;
 
                 const newWorry = manageFrustration(
-                    eval(
-                        monkey.operation.replace(
-                            /old/g,
-                            (monkey.items.shift() ?? '').toString()
-                        )
-                    )
+                    eval(monkey.operation.replace(/old/g, (monkey.items.shift() ?? '').toString()))
                 );
-                const newMonkeyIndex =
-                    newWorry % monkey.test === 0
-                        ? monkey.trueMonkey
-                        : monkey.falseMonkey;
+                const newMonkeyIndex = newWorry % monkey.test === 0 ? monkey.trueMonkey : monkey.falseMonkey;
 
                 monkeys[newMonkeyIndex].items.push(newWorry);
             }

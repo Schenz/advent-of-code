@@ -68,9 +68,7 @@ export const part2 = (input: string[]): number => {
         if (line.length > 0) {
             const treeLine: number[] = [];
 
-            line.split('').forEach((rawHeight) =>
-                treeLine.push(parseInt(rawHeight))
-            );
+            line.split('').forEach((rawHeight) => treeLine.push(parseInt(rawHeight)));
             treeMaze.push(treeLine);
         }
 
@@ -79,10 +77,7 @@ export const part2 = (input: string[]): number => {
 
             for (let row = 0; row < treeMaze.length; row++) {
                 for (let col = 0; col < treeMaze[0].length; col++) {
-                    highestScenicScore = Math.max(
-                        highestScenicScore,
-                        calculateScenicScore(col, row)
-                    );
+                    highestScenicScore = Math.max(highestScenicScore, calculateScenicScore(col, row));
                 }
             }
 

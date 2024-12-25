@@ -14,12 +14,8 @@ const parseMonkeys = (data: string): Monkey[] =>
                 .map((item) => parseInt(item)),
             operation: monkey.split('new = ')[1].split('\n')[0].trim(),
             test: parseInt(monkey.split(':')[4].split('divisible by ')[1]),
-            trueMonkey: parseInt(
-                monkey.split(':')[5].split('throw to monkey')[1]
-            ),
-            falseMonkey: parseInt(
-                monkey.split(':')[6].split('throw to monkey')[1]
-            ),
+            trueMonkey: parseInt(monkey.split(':')[5].split('throw to monkey')[1]),
+            falseMonkey: parseInt(monkey.split(':')[6].split('throw to monkey')[1]),
             inspected: 0,
         }));
 
@@ -53,11 +49,7 @@ Test: divisible by 17
 
 describe('part one tests', () => {
     it('part one test', () => {
-        expect(
-            part1(parseMonkeys(input), 20, (frustration) =>
-                Math.floor(frustration / 3)
-            )
-        ).toBe(10605);
+        expect(part1(parseMonkeys(input), 20, (frustration) => Math.floor(frustration / 3))).toBe(10605);
     });
 });
 
@@ -67,9 +59,7 @@ describe('part two tests', () => {
             part2(
                 parseMonkeys(input),
                 10000,
-                (frustration) =>
-                    frustration %
-                    parseMonkeys(input).reduce((a, b) => a * b.test, 1)
+                (frustration) => frustration % parseMonkeys(input).reduce((a, b) => a * b.test, 1)
             )
         ).toBe(2713310158);
     });

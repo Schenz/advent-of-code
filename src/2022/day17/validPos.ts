@@ -1,11 +1,7 @@
 import { Position } from '../../utils/dijkstra/Position';
 import { Shape } from './Shape';
 
-export const validPos = (
-    pos: Position,
-    shape: Shape,
-    map: Map<string, boolean>
-): boolean => {
+export const validPos = (pos: Position, shape: Shape, map: Map<string, boolean>): boolean => {
     if (pos[1] < 0) {
         return false;
     }

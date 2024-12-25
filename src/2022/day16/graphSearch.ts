@@ -40,8 +40,7 @@ export const graphSearch = (
             if (isOpen(openMask, next, flowNodeIndexes)) {
                 continue;
             }
-            const nextRemaining =
-                remaining - shortestPaths[`${current}:${next}`] - 1;
+            const nextRemaining = remaining - shortestPaths[`${current}:${next}`] - 1;
 
             if (nextRemaining <= 0) {
                 continue;

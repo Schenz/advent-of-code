@@ -1,34 +1,22 @@
 // Advent of Code - Day 18 - Part Two
 
 export const part2 = (input: string[]): number => {
-    const cubes = input
-        .filter((l) => l.length > 0)
-        .map((l) => l.split(',').map(Number));
+    const cubes = input.filter((l) => l.length > 0).map((l) => l.split(',').map(Number));
 
     const cubeSet = new Set(cubes.map((cube) => cube.toString()));
 
     const minPos = cubes.reduce((minPos, curr) => {
-        return [
-            Math.min(minPos[0], curr[0]),
-            Math.min(minPos[1], curr[1]),
-            Math.min(minPos[2], curr[2]),
-        ];
+        return [Math.min(minPos[0], curr[0]), Math.min(minPos[1], curr[1]), Math.min(minPos[2], curr[2])];
     }, cubes[0]);
     const maxPos = cubes.reduce((maxPos, curr) => {
-        return [
-            Math.max(maxPos[0], curr[0]),
-            Math.max(maxPos[1], curr[1]),
-            Math.max(maxPos[2], curr[2]),
-        ];
+        return [Math.max(maxPos[0], curr[0]), Math.max(maxPos[1], curr[1]), Math.max(maxPos[2], curr[2])];
     }, cubes[0]);
 
     const waterCubes = getWaterCubes(minPos, maxPos, cubeSet);
 
     const answer = cubes
         .map((cube) => {
-            const waterNeighbours = getAdjacents(cube).filter((neighbour) =>
-                waterCubes.has(neighbour.toString())
-            );
+            const waterNeighbours = getAdjacents(cube).filter((neighbour) => waterCubes.has(neighbour.toString()));
 
             return waterNeighbours.length;
         })
@@ -50,11 +38,7 @@ const getAdjacents = (cube: number[]): number[][] => {
     ];
 };
 
-const getWaterCubes = (
-    minPos: number[],
-    maxPos: number[],
-    cubes: Set<string>
-): Set<string> => {
+const getWaterCubes = (minPos: number[], maxPos: number[], cubes: Set<string>): Set<string> => {
     const visited = new Set<string>();
     const toVisit = [maxPos];
 

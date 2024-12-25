@@ -8,9 +8,7 @@ export const readData = (data: string): any => {
 
     for (const row of parsed) {
         const [, from, rate, toArray] =
-            /Valve ([^)]+) has flow rate=(\d+); tunnels? leads? to valves? (.+)/.exec(
-                row
-            ) ?? [];
+            /Valve ([^)]+) has flow rate=(\d+); tunnels? leads? to valves? (.+)/.exec(row) ?? [];
         const flowRate = Number(rate);
 
         flowRates[from] = flowRate;

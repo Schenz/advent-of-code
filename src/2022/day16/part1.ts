@@ -18,16 +18,9 @@ export const part1 = (data: string): number => {
 
     let answer1 = 0;
 
-    graphSearch(
-        30,
-        nodesWithFlow,
-        flowNodeIndexes,
-        shortestPaths,
-        flowRates,
-        (item) => {
-            answer1 = Math.max(item.total, answer1);
-        }
-    );
+    graphSearch(30, nodesWithFlow, flowNodeIndexes, shortestPaths, flowRates, (item) => {
+        answer1 = Math.max(item.total, answer1);
+    });
 
     return answer1;
 };

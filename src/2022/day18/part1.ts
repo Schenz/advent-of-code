@@ -1,9 +1,7 @@
 // Advent of Code - Day 18 - Part One
 
 export const part1 = (input: string[]): number => {
-    const cubes = input
-        .filter((l) => l.length > 0)
-        .map((l) => l.split(',').map(Number));
+    const cubes = input.filter((l) => l.length > 0).map((l) => l.split(',').map(Number));
 
     const cubeSet = new Set(cubes.map((cube) => cube.toString()));
 

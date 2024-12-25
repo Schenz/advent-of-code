@@ -11,8 +11,7 @@ const head = rope[0];
 const tail = rope.at(-1) as Vector2D;
 const tailPositions = new Set<string>(['0,0']);
 
-const areTouching = (distance: Vector2D): boolean =>
-    distance.every((coordinate) => Math.abs(coordinate) <= 1);
+const areTouching = (distance: Vector2D): boolean => distance.every((coordinate) => Math.abs(coordinate) <= 1);
 
 export const part2 = (input: string[]): number => {
     input.forEach((movement) => {
@@ -38,10 +37,7 @@ export const part2 = (input: string[]): number => {
             for (let j = 1; j < ROPE_LENGTH; j++) {
                 const knot = rope[j];
                 const prev = rope[rope.indexOf(knot) - 1];
-                const distance: Vector2D = [
-                    knot[0] - prev[0],
-                    knot[1] - prev[1],
-                ];
+                const distance: Vector2D = [knot[0] - prev[0], knot[1] - prev[1]];
 
                 if (areTouching(distance)) {
                     continue;

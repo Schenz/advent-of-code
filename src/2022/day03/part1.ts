@@ -21,11 +21,7 @@ export const part1 = (input: string[]): number => {
 
                         //get letter score
                         const score =
-                            Object.keys(Letters)[
-                                Object.values(Letters).indexOf(
-                                    letter1 as unknown as Letters
-                                )
-                            ];
+                            Object.keys(Letters)[Object.values(Letters).indexOf(letter1 as unknown as Letters)];
 
                         total += Number(score);
                     }

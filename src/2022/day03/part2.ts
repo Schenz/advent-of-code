@@ -85,11 +85,7 @@ const groupScore = (group: string[]): number => {
 
                         //get letter score
                         score = Number(
-                            Object.keys(Letters)[
-                                Object.values(Letters).indexOf(
-                                    letter1 as unknown as Letters
-                                )
-                            ]
+                            Object.keys(Letters)[Object.values(Letters).indexOf(letter1 as unknown as Letters)]
                         );
                     }
                 }

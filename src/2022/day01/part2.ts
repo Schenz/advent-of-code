@@ -30,9 +30,5 @@ export const part2 = (input: string[]): number => {
         return 0;
     });
 
-    return (
-        sortedElves[0].calories +
-        sortedElves[1].calories +
-        sortedElves[2].calories
-    );
+    return sortedElves[0].calories + sortedElves[1].calories + sortedElves[2].calories;
 };

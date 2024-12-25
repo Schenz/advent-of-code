@@ -23,10 +23,7 @@ export const part1 = (input: string[]): number => {
 };
 
 const calculateSignal = (x: number, cycle: number): number => {
-    if (
-        cycle === 20 ||
-        (cycle > 20 && (cycle - 20) % 40 === 0 && cycle <= 220)
-    ) {
+    if (cycle === 20 || (cycle > 20 && (cycle - 20) % 40 === 0 && cycle <= 220)) {
         return x * cycle;
     }
     return 0;

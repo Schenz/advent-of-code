@@ -77,9 +77,7 @@ export const part1 = (input: string[]): number => {
         if (line.length > 0) {
             const treeLine: number[] = [];
 
-            line.split('').forEach((rawHeight) =>
-                treeLine.push(parseInt(rawHeight))
-            );
+            line.split('').forEach((rawHeight) => treeLine.push(parseInt(rawHeight)));
             treeMaze.push(treeLine);
         }
 

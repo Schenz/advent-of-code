@@ -19,19 +19,9 @@ export const part2 = (data: string): number => {
     let answer2 = 0;
     const bestAt26 = new Map<number, number>();
 
-    graphSearch(
-        26,
-        nodesWithFlow,
-        flowNodeIndexes,
-        shortestPaths,
-        flowRates,
-        (item) => {
-            bestAt26.set(
-                item.openMask,
-                Math.max(bestAt26.get(item.openMask) ?? 0, item.total)
-            );
-        }
-    );
+    graphSearch(26, nodesWithFlow, flowNodeIndexes, shortestPaths, flowRates, (item) => {
+        bestAt26.set(item.openMask, Math.max(bestAt26.get(item.openMask) ?? 0, item.total));
+    });
 
     for (const [openMask1, best1] of bestAt26) {
         for (const [openMask2, best2] of bestAt26) {

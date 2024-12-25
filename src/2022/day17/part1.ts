@@ -47,10 +47,7 @@ export const part1 = (input: string): number => {
                 for (let i = 0; i < currRock.form.length; i++) {
                     for (let j = 0; j < currRock.form[0].length; j++) {
                         if (currRock.form[i][j] === '#') {
-                            map.set(
-                                [currPos[0] + j, currPos[1] + i].toString(),
-                                true
-                            );
+                            map.set([currPos[0] + j, currPos[1] + i].toString(), true);
                         }
                     }
                 }

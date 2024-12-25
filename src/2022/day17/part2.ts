@@ -4,10 +4,7 @@ import { Position } from '../../utils/dijkstra/Position';
 import { Move, SimulationAnswer, shapes } from './Shape';
 import { validPos } from './validPos';
 
-const simulateDrops = (
-    wind: string[],
-    howManyRocksToDrop: number
-): SimulationAnswer => {
+const simulateDrops = (wind: string[], howManyRocksToDrop: number): SimulationAnswer => {
     const map = new Map<string, boolean>();
     const moves: Move[] = [];
 
@@ -50,10 +47,7 @@ const simulateDrops = (
                 for (let i = 0; i < currRock.form.length; i++) {
                     for (let j = 0; j < currRock.form[0].length; j++) {
                         if (currRock.form[i][j] === '#') {
-                            map.set(
-                                [currPos[0] + j, currPos[1] + i].toString(),
-                                true
-                            );
+                            map.set([currPos[0] + j, currPos[1] + i].toString(), true);
                         }
                     }
                 }
@@ -81,16 +75,8 @@ export const part2 = (input: string): number => {
     let loopStart = 0;
     let loopLenght = 0;
 
-    for (
-        let firstStart = 0;
-        firstStart < rocksToDropToFindLoop - 1;
-        firstStart++
-    ) {
-        for (
-            let nextStart = firstStart + 1;
-            nextStart < rocksToDropToFindLoop;
-            nextStart++
-        ) {
+    for (let firstStart = 0; firstStart < rocksToDropToFindLoop - 1; firstStart++) {
+        for (let nextStart = firstStart + 1; nextStart < rocksToDropToFindLoop; nextStart++) {
             let first = firstStart;
             let next = nextStart;
 
@@ -114,15 +100,12 @@ export const part2 = (input: string): number => {
     }
 
     const linesInStart = simulateDrops(wind, loopStart - 1).height;
-    const linesInLoop =
-        simulateDrops(wind, loopStart + loopLenght).height - linesInStart;
+    const linesInLoop = simulateDrops(wind, loopStart + loopLenght).height - linesInStart;
     const howManyLoops = Math.floor((1000000000000 - loopStart) / loopLenght);
     const rocksInLoops = howManyLoops * loopLenght;
     const rocksAfterLoops = 1000000000000 - loopStart - rocksInLoops;
     const linesAfterLoop =
-        simulateDrops(wind, loopStart + loopLenght + rocksAfterLoops).height -
-        linesInLoop -
-        linesInStart;
+        simulateDrops(wind, loopStart + loopLenght + rocksAfterLoops).height - linesInLoop - linesInStart;
 
     const answer = linesInStart + linesInLoop * howManyLoops + linesAfterLoop;
 
