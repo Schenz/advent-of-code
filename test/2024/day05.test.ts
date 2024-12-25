@@ -33,34 +33,31 @@ const testData = `47|53
 97,13,75,29,47`;
 
 describe('part one tests', () => {
-  it('part one test', () => {
-    expect(part1(testData.split(/\r?\n/))).toBe(143);
-  });
+    it('part one test', () => {
+        expect(part1(testData.split(/\r?\n/))).toBe(143);
+    });
 
-  it('part one test - real data', async () => {
-    const input = await getData();
+    it('part one test - real data', async () => {
+        const input = await getData();
 
-    expect(part1(input.split(/\r?\n/))).toBe(5275);
-  });
+        expect(part1(input.split(/\r?\n/))).toBe(5275);
+    });
 });
 
 describe('part two tests', () => {
-  it('part two test', () => {
-    expect(part2(testData.split(/\r?\n/))).toBe(123);
-  });
+    it('part two test', () => {
+        expect(part2(testData.split(/\r?\n/))).toBe(123);
+    });
 
-  it('part two test - real data', async () => {
-    const input = await getData();
+    it('part two test - real data', async () => {
+        const input = await getData();
 
-    expect(part2(input.split(/\r?\n/))).toBe(6191);
-  });
+        expect(part2(input.split(/\r?\n/))).toBe(6191);
+    });
 });
 
 const getData = async (): Promise<string> => {
-  const input: string = await readFile(
-    'src/2024/day05/resources/input.txt',
-    'utf8'
-  );
+    const input: string = await readFile('src/2024/day05/resources/input.txt', 'utf8');
 
-  return input.trim();
+    return input.trim();
 };

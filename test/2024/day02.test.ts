@@ -12,33 +12,30 @@ const testData = `7 6 4 2 1
 
 describe('part one tests', () => {
     it('part one test', () => {
-      expect(part1(testData.split(/\r?\n/))).toBe(2);
+        expect(part1(testData.split(/\r?\n/))).toBe(2);
     });
 
     it('part one test - real data', async () => {
-      const input = await getData();
+        const input = await getData();
 
-      expect(part1(input.split(/\r?\n/))).toBe(359);
+        expect(part1(input.split(/\r?\n/))).toBe(359);
     });
 });
 
 describe('part two tests', () => {
     it('part two test', () => {
-      expect(part2(testData.split(/\r?\n/))).toBe(4);
+        expect(part2(testData.split(/\r?\n/))).toBe(4);
     });
 
     it('part two test - real data', async () => {
-      const input = await getData();
+        const input = await getData();
 
-      expect(part2(input.split(/\r?\n/))).toBe(418);
+        expect(part2(input.split(/\r?\n/))).toBe(418);
     });
 });
 
 const getData = async (): Promise<string> => {
-    const input: string = await readFile(
-        'src/2024/day02/resources/input.txt',
-        'utf8'
-    );
+    const input: string = await readFile('src/2024/day02/resources/input.txt', 'utf8');
 
     return input.trim();
 };

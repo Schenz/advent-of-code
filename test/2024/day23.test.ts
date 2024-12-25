@@ -37,34 +37,31 @@ tb-vc
 td-yn`;
 
 describe('part one tests', () => {
-  it('part one test', () => {
-    expect(part1(testData.split(/\r?\n/))).toBe(7);
-  });
+    it('part one test', () => {
+        expect(part1(testData.split(/\r?\n/))).toBe(7);
+    });
 
-  it('part one test - real data', async () => {
-    const input = await getData();
+    it('part one test - real data', async () => {
+        const input = await getData();
 
-    expect(part1(input.split(/\r?\n/))).toBe(1163);
-  });
+        expect(part1(input.split(/\r?\n/))).toBe(1163);
+    });
 });
 
 describe('part two tests', () => {
-  it('part two test', () => {
-    expect(part2(testData.split(/\r?\n/))).toBe('co,de,ka,ta');
-  });
+    it('part two test', () => {
+        expect(part2(testData.split(/\r?\n/))).toBe('co,de,ka,ta');
+    });
 
-  it('part two test - real data', async () => {
-    const input = await getData();
+    it('part two test - real data', async () => {
+        const input = await getData();
 
-    expect(part2(input.split(/\r?\n/))).toBe('bm,bo,ee,fo,gt,hv,jv,kd,md,mu,nm,wx,xh');
-  });
+        expect(part2(input.split(/\r?\n/))).toBe('bm,bo,ee,fo,gt,hv,jv,kd,md,mu,nm,wx,xh');
+    });
 });
 
 const getData = async (): Promise<string> => {
-  const input: string = await readFile(
-    'src/2024/day23/resources/input.txt',
-    'utf8'
-  );
+    const input: string = await readFile('src/2024/day23/resources/input.txt', 'utf8');
 
-  return input.trim();
+    return input.trim();
 };

@@ -4,8 +4,8 @@ import { part1, part2 } from '../../src/2024/day24';
 import { readFile } from 'fs/promises';
 
 const testData1 = {
-  name: 'testData1',
-  data: `x00: 1
+    name: 'testData1',
+    data: `x00: 1
 x01: 1
 x02: 1
 y00: 0
@@ -14,10 +14,11 @@ y02: 0
 
 x00 AND y00 -> z00
 x01 XOR y01 -> z01
-x02 OR y02 -> z02`};
+x02 OR y02 -> z02`,
+};
 const testData2 = {
-  name: 'testData2',
-  data: `x00: 1
+    name: 'testData2',
+    data: `x00: 1
 x01: 0
 x02: 1
 x03: 1
@@ -63,40 +64,35 @@ bqk OR frj -> z07
 y03 OR x01 -> nrd
 hwm AND bqk -> z03
 tgd XOR rvg -> z12
-tnw OR pbm -> gnj`};
+tnw OR pbm -> gnj`,
+};
 
 describe('part one tests', () => {
-  it.each`
-          input         | expected
-          ${testData1}  | ${4}
-          ${testData2}  | ${2024}
-      `(
-    'part one returns $expected when $input.name',
-    ({ input, expected }) => {
-      expect(part1(input.data)).toBe(expected);
-    }
-  );
+    it.each`
+        input        | expected
+        ${testData1} | ${4}
+        ${testData2} | ${2024}
+    `('part one returns $expected when $input.name', ({ input, expected }) => {
+        expect(part1(input.data)).toBe(expected);
+    });
 
-  it('part one test - real data', async () => {
-    const input = await getData();
+    it('part one test - real data', async () => {
+        const input = await getData();
 
-    expect(part1(input)).toBe(55920211035878);
-  });
+        expect(part1(input)).toBe(55920211035878);
+    });
 });
 
 describe('part two tests', () => {
-  it('part two test - real data', async () => {
-    const input = await getData();
+    it('part two test - real data', async () => {
+        const input = await getData();
 
-    expect(part2(input)).toBe('btb,cmv,mwp,rdg,rmj,z17,z23,z30');
-  });
+        expect(part2(input)).toBe('btb,cmv,mwp,rdg,rmj,z17,z23,z30');
+    });
 });
 
 const getData = async (): Promise<string> => {
-  const input: string = await readFile(
-    'src/2024/day24/resources/input.txt',
-    'utf8'
-  );
+    const input: string = await readFile('src/2024/day24/resources/input.txt', 'utf8');
 
-  return input.trim();
+    return input.trim();
 };

@@ -20,34 +20,31 @@ Button B: X+27, Y+71
 Prize: X=18641, Y=10279`;
 
 describe('part one tests', () => {
-  it('part one test', () => {
-    expect(part1(testData)).toBe(480);
-  });
+    it('part one test', () => {
+        expect(part1(testData)).toBe(480);
+    });
 
-  it('part one test - real data', async () => {
-    const input = await getData();
+    it('part one test - real data', async () => {
+        const input = await getData();
 
-    expect(part1(input)).toBe(39290);
-  });
+        expect(part1(input)).toBe(39290);
+    });
 });
 
 describe('part two tests', () => {
-  it('part two test', () => {
-    expect(part2(testData)).toBe(875318608908);
-  });
+    it('part two test', () => {
+        expect(part2(testData)).toBe(875318608908);
+    });
 
-  it('part two test - real data', async () => {
-    const input = await getData();
+    it('part two test - real data', async () => {
+        const input = await getData();
 
-    expect(part2(input)).toBe(73458657399094);
-  });
+        expect(part2(input)).toBe(73458657399094);
+    });
 });
 
 const getData = async (): Promise<string> => {
-  const input: string = await readFile(
-    'src/2024/day13/resources/input.txt',
-    'utf8'
-  );
+    const input: string = await readFile('src/2024/day13/resources/input.txt', 'utf8');
 
-  return input.trim();
+    return input.trim();
 };

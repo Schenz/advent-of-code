@@ -17,34 +17,31 @@ Register C: 0
 Program: 0,3,5,4,3,0`;
 
 describe('part one tests', () => {
-  it('part one test', () => {
-    expect(part1(parse(testData))).toBe('4,6,3,5,6,3,5,2,1,0')
-  });
+    it('part one test', () => {
+        expect(part1(parse(testData))).toBe('4,6,3,5,6,3,5,2,1,0');
+    });
 
-  it('part one test - real data', async () => {
-    const input = await getData();
+    it('part one test - real data', async () => {
+        const input = await getData();
 
-    expect(part1(parse(input))).toBe('7,3,0,5,7,1,4,0,5')
-  });
+        expect(part1(parse(input))).toBe('7,3,0,5,7,1,4,0,5');
+    });
 });
 
 describe('part two tests', () => {
-  it('part two test', () => {
-    expect(part2(parse(part2TestData))).toBe(117440n);
-  });
+    it('part two test', () => {
+        expect(part2(parse(part2TestData))).toBe(117440n);
+    });
 
-  it('part two test - real data', async () => {
-    const input = await getData();
+    it('part two test - real data', async () => {
+        const input = await getData();
 
-    expect(part2(parse(input))).toBe(202972175280682n);
-  });
+        expect(part2(parse(input))).toBe(202972175280682n);
+    });
 });
 
 const getData = async (): Promise<string> => {
-  const input: string = await readFile(
-    'src/2024/day17/resources/input.txt',
-    'utf8'
-  );
+    const input: string = await readFile('src/2024/day17/resources/input.txt', 'utf8');
 
-  return input.trim();
+    return input.trim();
 };
