@@ -29,10 +29,6 @@ describe('part one tests', () => {
 });
 
 describe('part two tests', () => {
-    xit('part two test', () => {
-        expect(part2(testData.split(/\r?\n/))).toBe(0);
-    });
-
     it('part two test - real data', async () => {
         const input = await getData();
 
