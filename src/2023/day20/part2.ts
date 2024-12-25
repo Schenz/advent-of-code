@@ -22,9 +22,7 @@ export const part2 = (input: string[]): number => {
         const [src, dsts] = line.split(' -> ');
         const destinations = dsts.split(', ');
 
-        graph[src] = destinations.map((dst) =>
-            labels[dst] ? labels[dst] : dst
-        );
+        graph[src] = destinations.map((dst) => (labels[dst] ? labels[dst] : dst));
     });
 
     let p2 = 1;

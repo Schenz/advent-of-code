@@ -34,9 +34,7 @@ export const part2 = (input: string): number => {
     }
 
     const focusingPowers: number[] = boxes.flatMap((box, hash) =>
-        box.map(
-            ({ focalLength }, index) => (1 + hash) * (1 + index) * focalLength
-        )
+        box.map(({ focalLength }, index) => (1 + hash) * (1 + index) * focalLength)
     );
 
     return focusingPowers.reduce((acc, val) => acc + val, 0);

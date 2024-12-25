@@ -17,12 +17,7 @@ export const checkSpringsMemo = (
     return result;
 };
 
-const checkSprings = (
-    s: string,
-    withinRun: number | null,
-    remain: number[],
-    memo: Map<string, number>
-): number => {
+const checkSprings = (s: string, withinRun: number | null, remain: number[], memo: Map<string, number>): number => {
     if (!s) {
         if (isValidState(withinRun, remain)) {
             return 1;
@@ -85,21 +80,12 @@ const isValidState = (withinRun: number | null, remain: number[]): boolean =>
     (withinRun === null && remain.length === 0) ||
     (remain.length === 1 && withinRun !== null && withinRun === remain[0]);
 
-const countSpecialChars = (s: string): number =>
-    s.split('').filter((ch) => ch === '#' || ch === '?').length;
+const countSpecialChars = (s: string): number => s.split('').filter((ch) => ch === '#' || ch === '?').length;
 
-const shouldSkip = (
-    s: string,
-    withinRun: number | null,
-    possibleMore: number,
-    remain: number[]
-): boolean => {
+const shouldSkip = (s: string, withinRun: number | null, possibleMore: number, remain: number[]): boolean => {
     if (
-        (withinRun !== null &&
-            possibleMore + withinRun <
-                remain.reduce((acc, val) => acc + val, 0)) ||
-        (withinRun === null &&
-            possibleMore < remain.reduce((acc, val) => acc + val, 0)) ||
+        (withinRun !== null && possibleMore + withinRun < remain.reduce((acc, val) => acc + val, 0)) ||
+        (withinRun === null && possibleMore < remain.reduce((acc, val) => acc + val, 0)) ||
         (withinRun !== null && remain.length === 0) ||
         (s[0] === '.' && withinRun !== null && withinRun !== remain[0])
     ) {

@@ -1,6 +1,6 @@
 // Advent of Code - Day 25
 
-import { part1, part2 } from '../../src/2023/day25';
+import { part1 } from '../../src/2023/day25';
 import { readFile } from 'fs/promises';
 
 const testData = `jqt: rhn xhk nvd
@@ -29,23 +29,8 @@ describe('part one tests', () => {
     });
 });
 
-describe('part two tests', () => {
-    it('part two test', () => {
-        expect(part2(testData.split(/\r?\n/))).toBe(0);
-    });
-
-    xit('part two test - real data', async () => {
-        const input = await getData();
-
-        expect(part2(input.split(/\r?\n/))).toBe(0);
-    });
-});
-
 const getData = async (): Promise<string> => {
-    const input: string = await readFile(
-        'src/2023/day25/resources/input.txt',
-        'utf8'
-    );
+    const input: string = await readFile('src/2023/day25/resources/input.txt', 'utf8');
 
     return input.trim();
 };

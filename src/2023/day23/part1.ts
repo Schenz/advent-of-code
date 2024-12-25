@@ -57,11 +57,7 @@ const getMoves = (map: string[][], cur: State): Position[] => {
     }
 
     return moves.filter((np) => {
-        if (
-            map[np[1]] === undefined ||
-            map[np[1]][np[0]] === undefined ||
-            map[np[1]][np[0]] === '#'
-        ) {
+        if (map[np[1]] === undefined || map[np[1]][np[0]] === undefined || map[np[1]][np[0]] === '#') {
             return false;
         }
 

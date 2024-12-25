@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 // Advent of Code - Day 24 - Part Two
 import { init } from 'z3-solver';
 

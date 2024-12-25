@@ -5,9 +5,7 @@ import { CubeConfig } from './CubeConfig';
 export const part2 = (input: string[]): number => {
     return input.reduce((sum, gameInput) => {
         const [, subsetsString] = gameInput.split(':');
-        const minCubes = getMinimumCubes(
-            subsetsString.split(';').map((subset) => subset.trim())
-        );
+        const minCubes = getMinimumCubes(subsetsString.split(';').map((subset) => subset.trim()));
 
         return sum + minCubes.red * minCubes.green * minCubes.blue;
     }, 0);

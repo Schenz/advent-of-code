@@ -17,9 +17,7 @@ export type Part = {
 
 export const evaluateRule = (rule: string, part: Part): string => {
     const [condition, destination] = rule.split(':');
-    const [property, operator, value] = condition
-        .split(/([><=])/)
-        .filter(Boolean);
+    const [property, operator, value] = condition.split(/([><=])/).filter(Boolean);
 
     switch (operator) {
         case '>':
@@ -57,9 +55,7 @@ const processPart = (workflows: Workflow[], part: Part): number => {
             return part.x + part.m + part.a + part.s; // Accepted
         } else if (destination) {
             // Move to the next workflow
-            currentWorkflowIndex = workflows.findIndex(
-                (w) => w.name === destination
-            );
+            currentWorkflowIndex = workflows.findIndex((w) => w.name === destination);
         } else {
             // No rules matched, move to the next workflow
             currentWorkflowIndex++;
@@ -78,47 +74,38 @@ export const part1 = (input: string[]): number => {
         .map((line) => {
             const [name, rules] = line.split('{');
             const ruleStrings = rules.slice(0, -1).split(',');
-            const workflowRules: WorkflowRule[] = ruleStrings.map(
-                (ruleString) => {
-                    return (part: Part) => evaluateRule(ruleString, part);
-                }
-            );
+            const workflowRules: WorkflowRule[] = ruleStrings.map((ruleString) => {
+                return (part: Part) => evaluateRule(ruleString, part);
+            });
 
             return { name, rules: workflowRules };
         });
 
-    const parts: Part[] = input
-        .slice(input.findIndex((line) => line.trim() === '') + 1)
-        .map((line) => {
-            const match = line.match(/\d+/g);
+    const parts: Part[] = input.slice(input.findIndex((line) => line.trim() === '') + 1).map((line) => {
+        const match = line.match(/\d+/g);
 
-            if (match) {
-                const ratings = match.map(Number);
-                // Ensure that ratings is not null before accessing its elements
+        if (match) {
+            const ratings = match.map(Number);
+            // Ensure that ratings is not null before accessing its elements
 
-                return {
-                    x: ratings[0] || 0,
-                    m: ratings[1] || 0,
-                    a: ratings[2] || 0,
-                    s: ratings[3] || 0,
-                };
-            } else {
-                // Handle the case where there are no matches
-                return {
-                    x: 0,
-                    m: 0,
-                    a: 0,
-                    s: 0,
-                };
-            }
-        });
+            return {
+                x: ratings[0] || 0,
+                m: ratings[1] || 0,
+                a: ratings[2] || 0,
+                s: ratings[3] || 0,
+            };
+        } else {
+            // Handle the case where there are no matches
+            return {
+                x: 0,
+                m: 0,
+                a: 0,
+                s: 0,
+            };
+        }
+    });
 
-    const acceptedParts = parts.filter(
-        (part) => processPart(workflows, part) > 0
-    );
+    const acceptedParts = parts.filter((part) => processPart(workflows, part) > 0);
 
-    return acceptedParts.reduce(
-        (sum, part) => sum + processPart(workflows, part),
-        0
-    );
+    return acceptedParts.reduce((sum, part) => sum + processPart(workflows, part), 0);
 };

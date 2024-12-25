@@ -14,13 +14,15 @@ export const calculateDistance = (
         const c2 = Math.max(p1[1], p2[1]);
         let result = r2 - r1 + (c2 - c1);
 
-        result += Array.from({ length: r2 - r1 }, (_, r) =>
-            emptyRows[r1 + r] ? rate : 0
-        ).reduce((acc, val) => acc + val, 0);
+        result += Array.from({ length: r2 - r1 }, (_, r) => (emptyRows[r1 + r] ? rate : 0)).reduce(
+            (acc, val) => acc + val,
+            0
+        );
 
-        result += Array.from({ length: c2 - c1 }, (_, c) =>
-            emptyCols[c1 + c] ? rate : 0
-        ).reduce((acc, val) => acc + val, 0);
+        result += Array.from({ length: c2 - c1 }, (_, c) => (emptyCols[c1 + c] ? rate : 0)).reduce(
+            (acc, val) => acc + val,
+            0
+        );
 
         return result;
     };

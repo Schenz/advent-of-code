@@ -1,12 +1,6 @@
 import { Matrix } from '../../utils/matrix';
 
-export const energize = (
-    grid: Matrix,
-    x: number,
-    y: number,
-    dx: number,
-    dy: number
-): number => {
+export const energize = (grid: Matrix, x: number, y: number, dx: number, dy: number): number => {
     const seen = new Set<string>();
     const handled = new Set<string>();
     const todo = [`${x},${y},${dx},${dy}`];

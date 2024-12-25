@@ -2,13 +2,7 @@
 
 import { part1, part2 } from '../../src/2023/day08';
 
-const testData = [
-    'LLR',
-    '',
-    'AAA = (BBB, BBB)',
-    'BBB = (AAA, ZZZ)',
-    'ZZZ = (ZZZ, ZZZ)',
-];
+const testData = ['LLR', '', 'AAA = (BBB, BBB)', 'BBB = (AAA, ZZZ)', 'ZZZ = (ZZZ, ZZZ)'];
 
 const testData2 = [
     'LR',

@@ -32,9 +32,7 @@ export const part1 = (input: string): number => {
             }
 
             const nextPositions = getNextPositions[direction](x, y)
-                .filter(([, , newDirection]) =>
-                    steps > 2 ? newDirection !== direction : true
-                )
+                .filter(([, , newDirection]) => (steps > 2 ? newDirection !== direction : true))
                 .filter(([x, y]) => !(x < 0 || y < 0 || y > endY || x > endX));
 
             for (const [nextX, nextY, nextDirection] of nextPositions) {

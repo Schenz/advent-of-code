@@ -67,23 +67,11 @@ export const part2 = (input: string, steps: number): number => {
     const sePlotsLg = findPlots(map, 0, 0, largeSteps);
     const swPlotsLg = findPlots(map, mapWidth - 1, 0, largeSteps);
 
-    const mainGardenPlots =
-        oddGardens * oddGardenPlots + evenGardens * evenGardenPlots;
+    const mainGardenPlots = oddGardens * oddGardenPlots + evenGardens * evenGardenPlots;
 
-    const smallSidePlots =
-        (gardenGridDiameter + 1) *
-        (sePlotsSm + swPlotsSm + nwPlotsSm + nePlotsSm);
+    const smallSidePlots = (gardenGridDiameter + 1) * (sePlotsSm + swPlotsSm + nwPlotsSm + nePlotsSm);
 
-    const largeSidePlots =
-        gardenGridDiameter * (sePlotsLg + swPlotsLg + nwPlotsLg + nePlotsLg);
+    const largeSidePlots = gardenGridDiameter * (sePlotsLg + swPlotsLg + nwPlotsLg + nePlotsLg);
 
-    return (
-        mainGardenPlots +
-        smallSidePlots +
-        largeSidePlots +
-        northPlots +
-        eastPlots +
-        southPlots +
-        westPlots
-    );
+    return mainGardenPlots + smallSidePlots + largeSidePlots + northPlots + eastPlots + southPlots + westPlots;
 };

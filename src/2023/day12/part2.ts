@@ -14,13 +14,5 @@ export const part2 = (input: string[]): number =>
             copies += s;
         }
 
-        return (
-            acc +
-            checkSpringsMemo(
-                copies.slice(1),
-                null,
-                [...v, ...v, ...v, ...v, ...v],
-                new Map()
-            )
-        );
+        return acc + checkSpringsMemo(copies.slice(1), null, [...v, ...v, ...v, ...v, ...v], new Map());
     }, 0);

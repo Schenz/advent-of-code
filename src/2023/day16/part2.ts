@@ -18,8 +18,6 @@ export const part2 = (input: string): number => {
     }
 
     return Math.max(
-        ...startingPoints.map(([x, y, dx, dy]) =>
-            energize(grid, Number(x), Number(y), Number(dx), Number(dy))
-        )
+        ...startingPoints.map(([x, y, dx, dy]) => energize(grid, Number(x), Number(y), Number(dx), Number(dy)))
     );
 };

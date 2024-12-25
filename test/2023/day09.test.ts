@@ -10,19 +10,13 @@ describe('part one tests', () => {
         expect(part1(testData)).toBe(114);
     });
     it('part one test line 1', () => {
-        expect(
-            predictNextValue(testData[0].split(/\s+/g).map((n) => parseInt(n)))
-        ).toBe(18);
+        expect(predictNextValue(testData[0].split(/\s+/g).map((n) => parseInt(n)))).toBe(18);
     });
     it('part one test line 2', () => {
-        expect(
-            predictNextValue(testData[1].split(/\s+/g).map((n) => parseInt(n)))
-        ).toBe(28);
+        expect(predictNextValue(testData[1].split(/\s+/g).map((n) => parseInt(n)))).toBe(28);
     });
     it('part one test line 3', () => {
-        expect(
-            predictNextValue(testData[2].split(/\s+/g).map((n) => parseInt(n)))
-        ).toBe(68);
+        expect(predictNextValue(testData[2].split(/\s+/g).map((n) => parseInt(n)))).toBe(68);
     });
 });
 

@@ -19,10 +19,7 @@ export const part2 = (input: string[]): number => {
 
                 if (j !== undefined) {
                     Array.from(kSupportsV[j]).forEach((k) => {
-                        if (
-                            !falling.has(k) &&
-                            isSubset(vSupportsK[k], falling)
-                        ) {
+                        if (!falling.has(k) && isSubset(vSupportsK[k], falling)) {
                             q.push(k);
                             falling.add(k);
                         }
@@ -38,5 +35,4 @@ export const part2 = (input: string[]): number => {
     }, 0);
 };
 
-const isSubset = (set1: Set<number>, set2: Set<number>): boolean =>
-    [...set1].every((element) => set2.has(element));
+const isSubset = (set1: Set<number>, set2: Set<number>): boolean => [...set1].every((element) => set2.has(element));

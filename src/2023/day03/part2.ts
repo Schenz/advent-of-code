@@ -33,12 +33,7 @@ export const part2 = (input: string): number => {
     return gears.reduce((a, b) => a + b, 0);
 };
 
-const numberAt = (
-    input: string,
-    [y, x]: [number, number],
-    back = true,
-    forward = true
-): string | undefined => {
+const numberAt = (input: string, [y, x]: [number, number], back = true, forward = true): string | undefined => {
     const char = input.split('\n')[y][x];
     let seq = '';
 

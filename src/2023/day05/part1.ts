@@ -52,10 +52,7 @@ const parseGardenMapGroups = (lines: string[]): GardenMap[][] => {
     return gardenMapGroups;
 };
 
-const calculateOutput = (
-    input: number,
-    gardenMapGroup: GardenMap[]
-): number => {
+const calculateOutput = (input: number, gardenMapGroup: GardenMap[]): number => {
     let output = input;
 
     for (const gardenMap of gardenMapGroup) {
@@ -70,10 +67,7 @@ const calculateOutput = (
     return output;
 };
 
-const calculateSeedLocation = (
-    input: number,
-    gardenMapGroups: GardenMap[][]
-): number => {
+const calculateSeedLocation = (input: number, gardenMapGroups: GardenMap[][]): number => {
     let output = input;
 
     for (const gardenMapGroup of gardenMapGroups) {
@@ -88,8 +82,6 @@ export const part1 = (path: string): number => {
         .map((line) => line.trim());
 
     return parseSeeds(lines[0])
-        .map((seed) =>
-            calculateSeedLocation(seed, parseGardenMapGroups(lines.slice(1)))
-        )
+        .map((seed) => calculateSeedLocation(seed, parseGardenMapGroups(lines.slice(1))))
         .reduce((acc, location) => Math.min(acc, location), Infinity);
 };

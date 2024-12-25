@@ -1,5 +1,4 @@
-const getKey = (x: number, y: number, z: number): number =>
-    (z * 1000 + x) * 1000 + y;
+const getKey = (x: number, y: number, z: number): number => (z * 1000 + x) * 1000 + y;
 
 export const findPlots = (
     map: string[][],

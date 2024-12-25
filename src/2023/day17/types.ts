@@ -12,10 +12,7 @@ type StepsInDirection = number;
 type Heuristic = number;
 export type Step = [Heuristic, Position, HeatLoss, StepsInDirection];
 
-export const getNextPositions: Record<
-    Direction,
-    (x: number, y: number) => Position[]
-> = {
+export const getNextPositions: Record<Direction, (x: number, y: number) => Position[]> = {
     [direction.n]: (x, y) => [
         [x, y - 1, direction.n],
         [x + 1, y, direction.e],

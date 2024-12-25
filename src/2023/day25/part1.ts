@@ -27,8 +27,7 @@ export const part1 = (input: string[]): number => {
                 connectionsMap.set(connectedComponent, []);
             }
 
-            const alreadyConnectedComponents =
-                connectionsMap.get(connectedComponent);
+            const alreadyConnectedComponents = connectionsMap.get(connectedComponent);
 
             if (alreadyConnectedComponents) {
                 alreadyConnectedComponents.push(component);
@@ -54,17 +53,11 @@ const cutConnection = (
     const nodesB = connections.get(componentB);
 
     if (nodesA) {
-        connections.set(
-            componentA,
-            nodesA.filter((c) => c !== componentB) ?? []
-        );
+        connections.set(componentA, nodesA.filter((c) => c !== componentB) ?? []);
     }
 
     if (nodesB) {
-        connections.set(
-            componentB,
-            nodesB.filter((c) => c !== componentA) ?? []
-        );
+        connections.set(componentB, nodesB.filter((c) => c !== componentA) ?? []);
     }
 
     return connections;

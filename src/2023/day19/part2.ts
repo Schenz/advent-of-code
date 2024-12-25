@@ -67,8 +67,6 @@ export const part2 = (input: string): number => {
 
     return total(
         'in',
-        Array.from({ length: 4 }, () =>
-            Array.from({ length: 4000 }, (_, i) => i + 1)
-        )
+        Array.from({ length: 4 }, () => Array.from({ length: 4000 }, (_, i) => i + 1))
     );
 };

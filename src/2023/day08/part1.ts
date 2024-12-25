@@ -23,11 +23,7 @@ export const part1 = (input: string[]): number => {
 };
 
 export const parse = (input: string[]): Map<string, string[]> => {
-    const map = new Map(
-        input
-            .map((l) => l.replaceAll(/= \(|,|\)/g, '').split(' '))
-            .map((l) => [l[0], l.slice(1)])
-    );
+    const map = new Map(input.map((l) => l.replaceAll(/= \(|,|\)/g, '').split(' ')).map((l) => [l[0], l.slice(1)]));
 
     return map;
 };

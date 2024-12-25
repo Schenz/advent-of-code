@@ -23,8 +23,7 @@ export const part2 = (input: string[]): number => {
     const map: string[][] = input.map((line) => line.split('').map((v) => v));
     const nodes = getGraph(map);
 
-    const stack: { p: number; steps: number; seen: Record<string, number> }[] =
-        [{ p: 0, steps: 0, seen: {} }];
+    const stack: { p: number; steps: number; seen: Record<string, number> }[] = [{ p: 0, steps: 0, seen: {} }];
     const endPos: number = nodes.length - 1;
     let maxSteps = 0;
 
@@ -107,11 +106,7 @@ const getGraph = (map: string[][]): Node[] => {
 
 const getMoves = (map: string[][], cur: Point): Position[] =>
     DS.map((d) => addVect(cur.p, d)).filter((np) => {
-        if (
-            map[np[1]] === undefined ||
-            map[np[1]][np[0]] === undefined ||
-            map[np[1]][np[0]] === '#'
-        ) {
+        if (map[np[1]] === undefined || map[np[1]][np[0]] === undefined || map[np[1]][np[0]] === '#') {
             return false;
         }
         return true;
@@ -119,9 +114,7 @@ const getMoves = (map: string[][], cur: Point): Position[] =>
 
 const addConnectNode = (nodes: Node[], cur: Point): number => {
     // try to locate an existing one
-    let newJunctionId = nodes.findIndex(
-        (n) => n.p[0] == cur.p[0] && n.p[1] == cur.p[1]
-    );
+    let newJunctionId = nodes.findIndex((n) => n.p[0] == cur.p[0] && n.p[1] == cur.p[1]);
 
     if (newJunctionId === -1) {
         newJunctionId = nodes.length;
@@ -136,22 +129,14 @@ const addConnectNode = (nodes: Node[], cur: Point): number => {
     }
 
     // we need to connect cur.lastJunctionId and newJunctionId
-    if (
-        nodes[cur.lastJunctionId].connections.findIndex(
-            (conn) => conn.id === newJunctionId
-        ) === -1
-    ) {
+    if (nodes[cur.lastJunctionId].connections.findIndex((conn) => conn.id === newJunctionId) === -1) {
         nodes[cur.lastJunctionId].connections.push({
             id: newJunctionId,
             distance: cur.steps - cur.stepsToLastJunction,
         });
     }
 
-    if (
-        nodes[newJunctionId].connections.findIndex(
-            (conn) => conn.id === cur.lastJunctionId
-        ) === -1
-    ) {
+    if (nodes[newJunctionId].connections.findIndex((conn) => conn.id === cur.lastJunctionId) === -1) {
         nodes[newJunctionId].connections.push({
             id: cur.lastJunctionId,
             distance: cur.steps - cur.stepsToLastJunction,

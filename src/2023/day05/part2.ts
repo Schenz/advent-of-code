@@ -3,11 +3,7 @@
 import { readFileSync } from 'fs';
 
 class Range {
-    constructor(
-        public readonly start: number,
-        public readonly end: number,
-        public isTransformed = false
-    ) {}
+    constructor(public readonly start: number, public readonly end: number, public isTransformed = false) {}
 
     get length(): number {
         return this.end - this.start;
@@ -17,10 +13,7 @@ class Range {
         if (this.end <= range.start || this.start >= range.end) {
             return null;
         }
-        return new Range(
-            Math.max(this.start, range.start),
-            Math.min(this.end, range.end)
-        );
+        return new Range(Math.max(this.start, range.start), Math.min(this.end, range.end));
     }
 
     public subtractIntersection(intersection: Range): Range[] {
@@ -47,10 +40,7 @@ class GardenMap {
             .filter((str) => str !== '')
             .map(Number);
 
-        this.destination = new Range(
-            destinationStart,
-            destinationStart + length
-        );
+        this.destination = new Range(destinationStart, destinationStart + length);
         this.source = new Range(sourceStart, sourceStart + length);
     }
 
@@ -69,11 +59,7 @@ class GardenMap {
             return [inputRange];
         }
 
-        const transformed = new Range(
-            intersection.start + this.offset,
-            intersection.end + this.offset,
-            true
-        );
+        const transformed = new Range(intersection.start + this.offset, intersection.end + this.offset, true);
 
         return [transformed, ...inputRange.subtractIntersection(intersection)];
     }
@@ -118,20 +104,14 @@ const resetTransformed = (ranges: Range[]): void => {
     }
 };
 
-const calculateGardenMapGroupTransform = (
-    ranges: Range[],
-    gardenMapGroup: GardenMap[]
-): Range[] => {
+const calculateGardenMapGroupTransform = (ranges: Range[], gardenMapGroup: GardenMap[]): Range[] => {
     for (const gardenMap of gardenMapGroup) {
         ranges = ranges.flatMap((range) => gardenMap.transformRange(range));
     }
     return ranges;
 };
 
-const calculateSeedLocation = (
-    ranges: Range[],
-    gardenMapGroups: GardenMap[][]
-): Range[] => {
+const calculateSeedLocation = (ranges: Range[], gardenMapGroups: GardenMap[][]): Range[] => {
     for (const gardenMapGroup of gardenMapGroups) {
         resetTransformed(ranges);
         ranges = calculateGardenMapGroupTransform(ranges, gardenMapGroup);
@@ -153,10 +133,5 @@ export const part2 = (path: string): number => {
         .split('\n')
         .map((line) => line.trim());
 
-    return getMin(
-        calculateSeedLocation(
-            parseSeedRanges(lines[0]),
-            parseGardenMapGroups(lines.slice(1))
-        )
-    );
+    return getMin(calculateSeedLocation(parseSeedRanges(lines[0]), parseGardenMapGroups(lines.slice(1))));
 };

@@ -18,9 +18,7 @@ type Vec2d = {
 
 export const part1 = (input: string[], min: number, max: number): number => {
     const hailStones = input.map((line) => {
-        const [pos, vel] = line
-            .split(' @ ')
-            .map((vec) => vec.split(', ').map(Number));
+        const [pos, vel] = line.split(' @ ').map((vec) => vec.split(', ').map(Number));
 
         return {
             pos: { x: pos[0], y: pos[1], z: pos[2] },
@@ -32,10 +30,7 @@ export const part1 = (input: string[], min: number, max: number): number => {
 
     for (let i = 0; i < hailStones.length - 1; i++) {
         for (let j = i + 1; j < hailStones.length; j++) {
-            const intersection = getIntersection2d(
-                hailStones[i],
-                hailStones[j]
-            );
+            const intersection = getIntersection2d(hailStones[i], hailStones[j]);
 
             // parallel
             if (!intersection) {
@@ -60,10 +55,7 @@ export const part1 = (input: string[], min: number, max: number): number => {
     return count;
 };
 
-const getIntersection2d = (
-    a: Hail,
-    b: Hail
-): { pos: Vec2d; u: number; v: number } | null => {
+const getIntersection2d = (a: Hail, b: Hail): { pos: Vec2d; u: number; v: number } | null => {
     // https://stackoverflow.com/questions/2931573/determining-if-two-rays-intersect
 
     const det = b.vel.x * a.vel.y - b.vel.y * a.vel.x;

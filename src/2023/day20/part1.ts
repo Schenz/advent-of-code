@@ -46,9 +46,7 @@ export const part1 = (input: string): number => {
 
             if (destArray) {
                 // If the node is in the inputMap, create an object with destinations set to false
-                const destinationObject = Object.fromEntries(
-                    destArray.map((d) => [d, false])
-                );
+                const destinationObject = Object.fromEntries(destArray.map((d) => [d, false]));
 
                 // Set the created object in the memory
                 memory[node] = destinationObject;

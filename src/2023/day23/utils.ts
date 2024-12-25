@@ -2,10 +2,7 @@ export type Position = [number, number];
 
 export const key = (p: Position): string => `${p[0]}_${p[1]}`;
 
-export const addVect = (a: Position, b: Position): Position => [
-    a[0] + b[0],
-    a[1] + b[1],
-];
+export const addVect = (a: Position, b: Position): Position => [a[0] + b[0], a[1] + b[1]];
 
 export type Direction = '>' | 'v' | '<' | '^';
 

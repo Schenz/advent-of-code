@@ -7,10 +7,7 @@ export type ScratchCard = [winning: number[], yours: number[]];
 
 const main = async (): Promise<void> => {
     try {
-        const input: string = await readFile(
-            'src/2023/day04/resources/input.txt',
-            'utf8'
-        );
+        const input: string = await readFile('src/2023/day04/resources/input.txt', 'utf8');
 
         // This code snippet takes an input string and splits it into an array of lines. It then extracts all the numbers from each line and converts them into an array of arrays of numbers. Finally, it casts the resulting array as a type called "Scratch
         const cards = input.split(/\r?\n/).map((line) => {

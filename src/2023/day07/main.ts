@@ -5,10 +5,7 @@ import { part1, part2 } from '.';
 
 const main = async (): Promise<void> => {
     try {
-        const input: string = readFileSync(
-            'src/2023/day07/resources/input.txt',
-            'utf8'
-        )
+        const input: string = readFileSync('src/2023/day07/resources/input.txt', 'utf8')
             .replace(/A/g, 'Z')
             .replace(/K/g, 'Y')
             .replace(/Q/g, 'X')

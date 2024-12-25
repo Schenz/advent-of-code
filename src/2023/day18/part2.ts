@@ -18,12 +18,8 @@ export const part2 = (input: string[]): number => {
     input.forEach((line) => {
         const [, , hexValue] = line.split(' ');
 
-        const currentDirection =
-            directions[parseInt(hexValue.charAt(hexValue.length - 2), 10)];
-        const currentLength = parseInt(
-            hexValue.substring(hexValue.length - 7, hexValue.length - 2),
-            16
-        );
+        const currentDirection = directions[parseInt(hexValue.charAt(hexValue.length - 2), 10)];
+        const currentLength = parseInt(hexValue.substring(hexValue.length - 7, hexValue.length - 2), 16);
 
         totalPoints += currentLength;
         currentLocation = {

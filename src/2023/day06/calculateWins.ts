@@ -1,7 +1,4 @@
-export const calculateWins = (
-    times: number[],
-    distances: number[]
-): number[] => {
+export const calculateWins = (times: number[], distances: number[]): number[] => {
     const wins: number[] = [];
 
     for (let i = 0; i < times.length; i++) {

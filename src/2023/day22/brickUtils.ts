@@ -11,8 +11,7 @@ export const parseAndArrangeBlocks = (
     return { bricks, kSupportsV, vSupportsK };
 };
 
-const parseBricks = (input: string[]): number[][] =>
-    input.map((line) => line.replace('~', ',').split(',').map(Number));
+const parseBricks = (input: string[]): number[][] => input.map((line) => line.replace('~', ',').split(',').map(Number));
 
 const arrangeBricks = (
     bricks: number[][]
@@ -45,10 +44,7 @@ const arrangeBricks = (
 
     for (let j = 0; j < bricks.length; j++) {
         for (let i = 0; i < j; i++) {
-            if (
-                overlaps(bricks[i], bricks[j]) &&
-                bricks[j][2] === bricks[i][5] + 1
-            ) {
+            if (overlaps(bricks[i], bricks[j]) && bricks[j][2] === bricks[i][5] + 1) {
                 kSupportsV[i].add(j);
                 vSupportsK[j].add(i);
             }

@@ -12,11 +12,7 @@ export const part2 = (input: string[]): number => {
         .reduce((a, b) => leastCommonMultiple(a, b), 1);
 };
 
-export const countSteps = (
-    pos: string,
-    moves: string[],
-    map: Map<string, string[]>
-): number => {
+export const countSteps = (pos: string, moves: string[], map: Map<string, string[]>): number => {
     for (let i = 0; ; i++) {
         const currentPosArray = map.get(pos);
 
