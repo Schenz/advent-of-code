@@ -30,10 +30,17 @@ describe('part two tests', () => {
 });
 
 const getData = async (): Promise<string> => {
-    const input: string = await readFile(
-        'src/<%= data.year %>/<%= data.dayName %>/resources/input.txt',
-        'utf8'
-    );
+    try {
+        const input: string = await readFile(
+            'src/<%= data.year %>/<%= data.dayName %>/resources/input.txt',
+            'utf8'
+        );
 
-    return input.trim();
+        return input.trim();
+    } catch (err) {
+        if (err instanceof Error) {
+            throw new Error(`Failed to read input file: ${err.message}`);
+        }
+        throw err;
+    }
 };

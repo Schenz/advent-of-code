@@ -9,4 +9,4 @@ fi
 YEAR=${AOC_YEAR:-$(date +%Y)}
 
 DAY=$1
-eslint ./src/${YEAR}/${DAY} ./src/utils ./test/${YEAR} --ext .ts $2
+npx eslint ./src/${YEAR}/${DAY} ./src/utils ./test/${YEAR} $2
