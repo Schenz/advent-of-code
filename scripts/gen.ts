@@ -37,11 +37,11 @@ const zip = (a: string[], b: string[]): string[][] =>
 
 const pipeAsync =
     (...funcs: CallableFunction[]) =>
-    (input: any): void =>
-        funcs.reduce(
-            async (v: any, func: CallableFunction) => func(await v),
-            input
-        );
+        (input: any): void =>
+            funcs.reduce(
+                async (v: any, func: CallableFunction) => func(await v),
+                input
+            );
 
 // check it the file exists or not
 const filePathExists = async (file: string): Promise<boolean> =>
@@ -81,7 +81,13 @@ const createFile = (filename: string) => {
                 await mkdir(pathname, { recursive: true });
             }
         } catch (err) {
-            console.log(err);
+            console.error(chalk.red('Error creating directory:'));
+            if (err instanceof Error) {
+                console.error(`  Message: ${err.message}`);
+            } else {
+                console.error(err);
+            }
+            throw err;
         }
 
         await writeFile(filename, content);
@@ -122,9 +128,24 @@ const getInput = async (
         try {
             const content = await fetch(url, { headers: headers });
 
-            return content.status == 200 ? (await content.text()).trim() : '';
+            if (content.status == 200) {
+                return (await content.text()).trim();
+            } else {
+                console.warn(
+                    chalk.yellow(
+                        `Warning: Failed to fetch input (HTTP ${content.status}). Please add input manually.`
+                    )
+                );
+                return '';
+            }
         } catch (err) {
-            console.error(err);
+            console.error(chalk.red('Error fetching puzzle input:'));
+            if (err instanceof Error) {
+                console.error(`  Message: ${err.message}`);
+            } else {
+                console.error(err);
+            }
+            return '';
         }
     }
 
@@ -175,7 +196,16 @@ const main = async (): Promise<void> => {
             )(filePaths[0]);
         });
     } catch (err) {
-        console.error(err);
+        console.error(chalk.red('\nError generating files:'));
+        if (err instanceof Error) {
+            console.error(`  Message: ${err.message}`);
+            if (err.stack) {
+                console.error(`  Stack:\n${err.stack}`);
+            }
+        } else {
+            console.error(err);
+        }
+        process.exit(1);
     }
 };
 
