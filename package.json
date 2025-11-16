@@ -2,6 +2,7 @@
     "name": "advent-of-code-typescript-starter",
     "version": "0.1.0",
     "description": "Typescript template for Advent of Code event",
+    "type": "module",
     "engines": {
         "node": ">=18.0.0"
     },
