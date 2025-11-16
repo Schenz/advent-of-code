@@ -8,7 +8,7 @@ import globals from 'globals';
 export default [
     // Ignore patterns (replacing .eslintignore)
     {
-        ignores: ['node_modules/**', 'build/**', 'coverage/**', 'dist/**', 'jest.config.js'],
+        ignores: ['node_modules/**', 'build/**', 'coverage/**', 'dist/**'],
     },
 
     // Base recommended configs
