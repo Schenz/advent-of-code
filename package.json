@@ -12,7 +12,9 @@
         "test-all": "bash ./scripts/test-all.sh",
         "test-all-years": "bash ./scripts/test-all-years.sh",
         "lint": "bash ./scripts/lint.sh",
-        "gen": "bash ./scripts/gen.sh"
+        "gen": "bash ./scripts/gen.sh",
+        "visualize": "bash ./scripts/visualize.sh",
+        "fetch-readme": "bash ./scripts/fetch-readme.sh"
     },
     "keywords": [
         "aoc",
