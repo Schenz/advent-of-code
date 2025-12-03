@@ -58,7 +58,7 @@ This command generate these files:
 - `/src/{YEAR}/day01/README.md`: templated README with challenge description (can be updated with `yarn fetch-readme`).
 - `/tests/{YEAR}/day01.test.ts`: the module where you write the tests.
 
-### Fetch README
+### Fetching Puzzle Descriptions
 
 After completing the puzzle on the Advent of Code website, you can fetch the full puzzle description
 (including Part Two) and populate your README:

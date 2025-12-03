@@ -5,8 +5,7 @@ import * as readline from 'readline';
 import { part1 } from './part1.js';
 import { part2 } from './part2.js';
 
-const sleep = (ms: number): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 const clearConsole = (): void => {
   // Use ANSI escape codes to move cursor to home position without clearing
@@ -18,7 +17,7 @@ const drawCircularDial = (
   instruction: string,
   stepNumber: number,
   totalSteps: number,
-  count: number
+  count: number,
 ): string => {
   const lines: string[] = [];
   const radius = 10;
@@ -98,7 +97,7 @@ const drawCircularDial = (
 
   lines.push('╠══════════════════════════════════════════════════════╣');
   lines.push(
-    `║ Step: ${stepNumber.toString().padEnd(5)}/${totalSteps.toString().padStart(5)} │ Instr: ${instruction.padEnd(8)} │ Crosses: ${count.toString().padStart(4)}  ║`
+    `║ Step: ${stepNumber.toString().padEnd(5)}/${totalSteps.toString().padStart(5)} │ Instr: ${instruction.padEnd(8)} │ Crosses: ${count.toString().padStart(4)}  ║`,
   );
   lines.push('╚══════════════════════════════════════════════════════╝');
 
@@ -130,7 +129,7 @@ const visualizePart1 = async (instructions: string[]): Promise<number> => {
     if (dir === 'R') {
       pos = (pos + dist) % 100;
     } else if (dir === 'L') {
-      pos = ((pos - dist) % 100 + 100) % 100;
+      pos = (((pos - dist) % 100) + 100) % 100;
     } else {
       continue;
     }
@@ -139,7 +138,7 @@ const visualizePart1 = async (instructions: string[]): Promise<number> => {
     if (pos === 0) count++;
 
     // Now animate the movement step by step (animate EVERY position change)
-    const animationFrames = Math.min(dist, 100); // Animate up to 100 clicks, otherwise every click
+    const animationFrames = Math.min(dist, 100); // Animate with up to 100 frames (for large distances, multiple clicks per frame)
     const increment = dist / animationFrames;
     let animPos = oldPos;
 
@@ -147,19 +146,11 @@ const visualizePart1 = async (instructions: string[]): Promise<number> => {
       if (dir === 'R') {
         animPos = (animPos + increment) % 100;
       } else if (dir === 'L') {
-        animPos = ((animPos - increment) % 100 + 100) % 100;
+        animPos = (((animPos - increment) % 100) + 100) % 100;
       }
 
       clearConsole();
-      console.log(
-        drawCircularDial(
-          Math.round(animPos),
-          line,
-          stepNumber,
-          totalSteps,
-          count
-        )
-      );
+      console.log(drawCircularDial(Math.round(animPos), line, stepNumber, totalSteps, count));
       await sleep(5);
     }
 
@@ -170,9 +161,7 @@ const visualizePart1 = async (instructions: string[]): Promise<number> => {
   }
 
   clearConsole();
-  console.log(
-    drawCircularDial(pos, 'COMPLETE!', stepNumber, totalSteps, count)
-  );
+  console.log(drawCircularDial(pos, 'COMPLETE!', stepNumber, totalSteps, count));
 
   return count;
 };
@@ -193,7 +182,7 @@ const visualizePart2 = async (instructions: string[]): Promise<number> => {
     const dir = line[0];
     const dist = Number(line.slice(1));
 
-    if (Number.isNaN(dist) || dist <= 0) continue;
+    if (Number.isNaN(dist)) continue;
 
     // Store old position for animation
     const oldPos = pos;
@@ -222,11 +211,11 @@ const visualizePart2 = async (instructions: string[]): Promise<number> => {
     if (dir === 'R') {
       pos = (pos + dist) % 100;
     } else {
-      pos = ((pos - dist) % 100 + 100) % 100;
+      pos = (((pos - dist) % 100) + 100) % 100;
     }
 
     // Now animate the movement step by step (animate EVERY position change)
-    const animationFrames = Math.min(dist, 100); // Animate up to 100 clicks, otherwise every click
+    const animationFrames = Math.min(dist, 100); // Animate with up to 100 frames (for large distances, multiple clicks per frame)
     const increment = dist / animationFrames;
     let animPos = oldPos;
 
@@ -234,19 +223,11 @@ const visualizePart2 = async (instructions: string[]): Promise<number> => {
       if (dir === 'R') {
         animPos = (animPos + increment) % 100;
       } else if (dir === 'L') {
-        animPos = ((animPos - increment) % 100 + 100) % 100;
+        animPos = (((animPos - increment) % 100) + 100) % 100;
       }
 
       clearConsole();
-      console.log(
-        drawCircularDial(
-          Math.round(animPos),
-          line,
-          stepNumber,
-          totalSteps,
-          count
-        )
-      );
+      console.log(drawCircularDial(Math.round(animPos), line, stepNumber, totalSteps, count));
       await sleep(5);
     }
 
@@ -257,9 +238,7 @@ const visualizePart2 = async (instructions: string[]): Promise<number> => {
   }
 
   clearConsole();
-  console.log(
-    drawCircularDial(pos, 'COMPLETE!', stepNumber, totalSteps, count)
-  );
+  console.log(drawCircularDial(pos, 'COMPLETE!', stepNumber, totalSteps, count));
 
   return count;
 };
@@ -283,10 +262,7 @@ const main = async (): Promise<void> => {
     // Clear screen once at the start
     process.stdout.write('\x1b[2J\x1b[H');
 
-    const input: string = fs.readFileSync(
-      'src/2025/day01/resources/input.txt',
-      'utf8'
-    );
+    const input: string = fs.readFileSync('src/2025/day01/resources/input.txt', 'utf8');
 
     const instructions = input.trim().split(/\r?\n/);
 
