@@ -28,6 +28,9 @@ as typescript transpiler and [swc](https://swc.rs) with [Jest](https://jestjs.io
     # run the day01
     $ yarn start day01
 
+    # visualize day01 solution (run after implementing visualization)
+    $ yarn visualize day01
+
 ## Generate
 
 You can generate all necesary files for use in the event with a simple
@@ -42,16 +45,30 @@ This command generate these files:
     * creating src/{YEAR}/day01/main.ts
     * creating src/{YEAR}/day01/part1.ts
     * creating src/{YEAR}/day01/part2.ts
+    * creating src/{YEAR}/day01/visualize.ts
     * creating src/{YEAR}/day01/README.md
     * creating test/{YEAR}/day01.test.ts
 
--   `/src/{YEAR}/day01/resources/input.txt`: the input data.
--   `/src/{YEAR}/day01/index.ts`: export the modules for testing.
--   `/src/{YEAR}/day01/main.ts`: the main module.
--   `/src/{YEAR}/day01/part1.ts`: solution for part 1.
--   `/src/{YEAR}/day01/part2.ts`: solution for part 2.
--   `/src/{YEAR}/day01/README.md`: you can write the challenge statement.
--   `/tests/{YEAR}/day01.test.ts`: the module where you write the tests.
+- `/src/{YEAR}/day01/resources/input.txt`: the input data.
+- `/src/{YEAR}/day01/index.ts`: export the modules for testing.
+- `/src/{YEAR}/day01/main.ts`: the main module.
+- `/src/{YEAR}/day01/part1.ts`: solution for part 1.
+- `/src/{YEAR}/day01/part2.ts`: solution for part 2.
+- `/src/{YEAR}/day01/visualize.ts`: visualization scaffold for the solution (customize with your visualization logic).
+- `/src/{YEAR}/day01/README.md`: templated README with challenge description (can be updated with `yarn fetch-readme`).
+- `/tests/{YEAR}/day01.test.ts`: the module where you write the tests.
+
+### Fetching Puzzle Descriptions
+
+After completing the puzzle on the Advent of Code website, you can fetch the full puzzle description
+(including Part Two) and populate your README:
+
+    $ yarn fetch-readme day01
+
+This will fetch the puzzle from https://adventofcode.com/{YEAR}/day/{DAY} and convert the HTML to Markdown,
+storing it in `/src/{YEAR}/day01/README.md`. You can also specify a different year:
+
+    $ yarn fetch-readme day01 2024
 
 ## Config
 
@@ -65,7 +82,6 @@ Also can you set the `AOC_YEAR` to select a certain year.
 (It is not mandatory use the `AOC_YEAR`, the `yarn gen` can get the year automatically)
 
 You can set an `.env` file with these variables.
-
 
 Folder structure:
 

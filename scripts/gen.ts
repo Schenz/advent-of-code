@@ -18,6 +18,7 @@ const templateFiles = [
     'scripts/templates/part2.template.ejs',
     'scripts/templates/readme.template.ejs',
     'scripts/templates/day.test.template.ejs',
+    'scripts/templates/visualize.template.ejs',
 ];
 
 const targetFiles = (dayName: string, year: number): string[] => [
@@ -27,6 +28,7 @@ const targetFiles = (dayName: string, year: number): string[] => [
     `src/${year}/${dayName}/part2.ts`,
     `src/${year}/${dayName}/README.md`,
     `test/${year}/${dayName}.test.ts`,
+    `src/${year}/${dayName}/visualize.ts`,
 ];
 
 const targetInput = (dayName: string, year: number): string =>
