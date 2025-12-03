@@ -25,7 +25,9 @@ const extractArticleContent = (html: string): string => {
         const content = match.match(/<article[^>]*>([\s\S]*?)<\/article>/);
         return content ? content[1] : '';
     }).join('\n\n');
-};// HTML to Markdown converter for AoC puzzle descriptions
+};
+
+// HTML to Markdown converter for AoC puzzle descriptions
 const htmlToMarkdown = (html: string): string => {
     let markdown = '';
     let content = extractArticleContent(html);
@@ -170,8 +172,8 @@ const main = async (): Promise<void> => {
         const session = process.env.AOC_SESSION || '';
 
         if (!dayName) {
-            console.log('Usage: npm run fetch-readme <dayXX> [year]');
-            console.log('Example: npm run fetch-readme day01 2025');
+            console.log('Usage: yarn fetch-readme <dayXX> [year]');
+            console.log('Example: yarn fetch-readme day01 2025');
             return;
         }
 
@@ -202,7 +204,7 @@ const main = async (): Promise<void> => {
         const fileExists_ = await fileExists(readmePath);
         if (!fileExists_) {
             console.error(chalk.red(`Error: Directory src/${year}/${dayName} does not exist`));
-            console.log(chalk.yellow('Please run `npm run gen ${dayName}` first to create the day directory'));
+            console.log(chalk.yellow(`Please run \`yarn gen ${dayName}\` first to create the day directory`));
             return;
         }
 
