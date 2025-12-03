@@ -39,17 +39,10 @@ describe('part two tests', () => {
 });
 
 const getData = async (): Promise<string> => {
-  try {
-    const input: string = await readFile(
-      'src/2025/day01/resources/input.txt',
-      'utf8'
-    );
+  const input: string = await readFile(
+    'src/2025/day01/resources/input.txt',
+    'utf8'
+  );
 
-    return input.trim();
-  } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(`Failed to read input file: ${err.message}`);
-    }
-    throw err;
-  }
+  return input.trim();
 };

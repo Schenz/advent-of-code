@@ -10,7 +10,7 @@ export const part2 = (input: string[]): number => {
 
         const dir = line[0];
         const dist = Number(line.slice(1));
-        if (Number.isNaN(dist) || dist <= 0) continue;
+        if (Number.isNaN(dist)) continue;
 
         const s = ((pos % 100) + 100) % 100;
 

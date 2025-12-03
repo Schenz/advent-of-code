@@ -193,7 +193,7 @@ const visualizePart2 = async (instructions: string[]): Promise<number> => {
     const dir = line[0];
     const dist = Number(line.slice(1));
 
-    if (Number.isNaN(dist) || dist <= 0) continue;
+    if (Number.isNaN(dist)) continue;
 
     // Store old position for animation
     const oldPos = pos;
