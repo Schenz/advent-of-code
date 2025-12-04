@@ -1,4 +1,5 @@
 <!-- Short PR template for contributors -->
+
 # Summary
 
 Describe the change and why it was made.
@@ -14,8 +15,10 @@ Describe the change and why it was made.
 - [ ] Ran linter/format (if applicable): `yarn lint`
 - [ ] Updated/added tests for any new behavior
 - [ ] Updated `resources/input.txt` only if intentionally changed
-- [ ] CI is green (if available)
+- [ ] CI (if configured) runs targeted tests for the changed day(s)
 
 # Notes for reviewers
 
 If this change was produced by an AI/agent, state what commands were run and get explicit consent for any commit/push performed by the agent.
+
+Note: this repo does not currently have CI configured. If you add CI, prefer a targeted workflow that runs only the affected day's tests (see `PR_REVIEW_GUIDELINES.md` for guidance).
