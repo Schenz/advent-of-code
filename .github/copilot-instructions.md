@@ -102,3 +102,12 @@ Quick pointers / gotchas
 
 If anything above is unclear or you want a worked example (I can implement a small fix and run `yarn test day01`), tell me which day to operate on and I will run the tests and report results.
 
+Agent behavior / operational rules
+
+- Targeted actions: Always operate on the explicit `dayNN` the user names. If no day is provided, ask for clarification before running tests or making edits.
+- Read-only vs write actions: Agents may run read-only commands and non-destructive tests without explicit permission. Obtain explicit permission before creating commits, pushing branches, or opening PRs.
+- Tests before change: Run the relevant day's tests locally (`yarn test dayNN`) and report results before making or committing changes.
+- Minimal scope & safety: Make the smallest change needed. Never commit or expose secrets (e.g., `AOC_SESSION`) in repo files. Do not modify unrelated days.
+- CI & workflow: Prefer targeted CI that runs only the affected day's tests, not full-repo test runs.
+- External access: Do not fetch or publish external secrets or credentials. If web/API access is required, request permission and any necessary tokens first.
+- Confirm destructive steps: For destructive or long-running actions (installing packages globally, rewriting history, pushing branches, deleting files), ask for explicit approval.
