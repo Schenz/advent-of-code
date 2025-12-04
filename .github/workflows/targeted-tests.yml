@@ -5,6 +5,7 @@ on:
         paths:
             - 'src/**/day**/**'
             - 'test/**/day**.test.ts'
+            - '.github/workflows/**'
 
 jobs:
     targeted-tests:
