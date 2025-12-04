@@ -21,7 +21,7 @@ const drawVisualization = (
   // Add state parameters as needed for this day
 ): string => {
   const lines: string[] = [];
-  
+
   lines.push('');
   lines.push('╔══════════════════════════════════════════════════════╗');
   lines.push('║                   VISUALIZATION                      ║');
@@ -37,6 +37,11 @@ const drawVisualization = (
 };
 
 const visualizePart1 = async (instructions: string[]): Promise<number> => {
+  // WARNING: The `visualizePart1` function below is a template placeholder.
+  // It does not implement the actual puzzle logic and currently returns a
+  // placeholder result (0). You must copy the logic from `part1.ts` and
+  // add visualization/state updates for accurate visual results. Until
+  // implemented, the visualization result will NOT match `part1()`.
   // TODO: Implement visualization for part1
   // Copy the logic from part1.ts and add visualization calls
   let result = 0;
@@ -49,7 +54,7 @@ const visualizePart1 = async (instructions: string[]): Promise<number> => {
     if (!line) continue;
 
     stepNumber++;
-    
+
     // Implement your logic here
 
     // Show current state
@@ -65,6 +70,11 @@ const visualizePart1 = async (instructions: string[]): Promise<number> => {
 };
 
 const visualizePart2 = async (instructions: string[]): Promise<number> => {
+  // WARNING: The `visualizePart2` function below is a template placeholder.
+  // It does not implement the actual puzzle logic and currently returns a
+  // placeholder result (0). You must copy the logic from `part2.ts` and
+  // add visualization/state updates for accurate visual results. Until
+  // implemented, the visualization result will NOT match `part2()`.
   // TODO: Implement visualization for part2
   // Copy the logic from part2.ts and add visualization calls
   let result = 0;
@@ -77,7 +87,7 @@ const visualizePart2 = async (instructions: string[]): Promise<number> => {
     if (!line) continue;
 
     stepNumber++;
-    
+
     // Implement your logic here
 
     // Show current state
