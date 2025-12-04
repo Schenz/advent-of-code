@@ -14,21 +14,21 @@ export const getNeighbors = (grid: Grid<any>, x: number, y: number, includeDiago
     const neighbors: GridCoordinate[] = [];
     const directions = includeDiagonal
         ? [
-              [-1, -1],
-              [-1, 0],
-              [-1, 1],
-              [0, -1],
-              [0, 1],
-              [1, -1],
-              [1, 0],
-              [1, 1],
-          ]
+            [-1, -1],
+            [-1, 0],
+            [-1, 1],
+            [0, -1],
+            [0, 1],
+            [1, -1],
+            [1, 0],
+            [1, 1],
+        ]
         : [
-              [-1, 0],
-              [0, -1],
-              [0, 1],
-              [1, 0],
-          ];
+            [-1, 0],
+            [0, -1],
+            [0, 1],
+            [1, 0],
+        ];
 
     for (const [dx, dy] of directions) {
         const newX = x + dx;
@@ -39,4 +39,19 @@ export const getNeighbors = (grid: Grid<any>, x: number, y: number, includeDiago
         }
     }
     return neighbors;
+};
+
+export const countNeighborsMatching = <T>(
+    grid: Grid<T>,
+    x: number,
+    y: number,
+    predicate: (value: T) => boolean,
+    includeDiagonal = false,
+): number => {
+    return getNeighbors(grid, x, y, includeDiagonal).filter((neighbor) => predicate(grid[neighbor.y][neighbor.x]))
+        .length;
+};
+
+export const parseGrid = (input: string[]): Grid<string> => {
+    return input.filter((line) => line.trim().length > 0).map((line) => line.split(''));
 };
