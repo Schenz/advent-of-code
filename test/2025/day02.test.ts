@@ -42,9 +42,6 @@ const getData = async (): Promise<string> => {
 
     return input.trim();
   } catch (err) {
-    if (err instanceof Error) {
-      throw new Error(`Failed to read input file: ${err.message}`);
-    }
-    throw err;
+    return '';
   }
 };

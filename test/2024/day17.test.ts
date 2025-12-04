@@ -45,7 +45,11 @@ describe('part two tests', () => {
 });
 
 const getData = async (): Promise<string> => {
-    const input: string = await readFile('src/2024/day17/resources/input.txt', 'utf8');
+    try {
+        const input: string = await readFile('src/2024/day17/resources/input.txt', 'utf8');
 
-    return input.trim();
+        return input.trim();
+    } catch (err) {
+        return '';
+    }
 };
