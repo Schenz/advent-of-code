@@ -9,7 +9,7 @@ const isInvalidId = (id: number): boolean => {
     // Try all possible repetition counts from 2 to len
     // The pattern must repeat at least twice
     for (let times = 2; times <= len; times++) {
-        if (isRepeatedPattern(str, times)) {
+        if (len % times === 0 && isRepeatedPattern(str, times)) {
             return true;
         }
     }
