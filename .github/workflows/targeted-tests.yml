@@ -12,6 +12,8 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
@@ -24,8 +26,13 @@ jobs:
               run: yarn install --immutable
             - name: Determine changed days
               run: |
-                  git fetch --no-tags --depth=1 origin ${{ github.event.pull_request.base.ref }}
-                  git diff --name-only origin/${{ github.event.pull_request.base.ref }}...${{ github.sha }} | grep -oE 'src/[0-9]{4}/day[0-9]{2}' | sort -u > days.txt || true
+                  # Ensure we have the base branch
+                  git fetch --no-tags origin ${{ github.event.pull_request.base.ref }}
+                  # List changed files between base and the PR head, extract src/day folders or test files
+                  git diff --name-only origin/${{ github.event.pull_request.base.ref }}...${{ github.sha }} \
+                    | grep -oE 'src/[0-9]{4}/day[0-9]{2}|test/[0-9]{4}/day[0-9]{2}\.test\.ts' \
+                    | sed -E 's|test/([0-9]{4})/day([0-9]{2})\.test\.ts|src/\1/day\2|g' \
+                    | sort -u > days.txt || true
             - name: Run targeted tests
               run: |
                   if [ -s days.txt ]; then
