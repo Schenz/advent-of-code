@@ -1,4 +1,5 @@
 // Advent of Code - Day <%= data.dayNumber %>
+/* eslint-disable no-console */
 
 import { part1, part2 } from '../../src/<%= data.year %>/<%= data.dayName %>';
 import { readFile } from 'fs/promises';
@@ -41,7 +42,7 @@ const getData = async (): Promise<string> => {
         );
 
         return input.trim();
-    } catch (err) {
+    } catch {
       return '';
     }
 };

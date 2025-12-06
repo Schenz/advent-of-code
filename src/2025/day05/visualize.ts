@@ -1,4 +1,4 @@
-// Advent of Code - Day <%= data.dayNumber %> - Console Visualization
+// Advent of Code - Day 5 - Console Visualization
 /* eslint-disable no-console */
 
 import * as fs from 'fs';
@@ -6,8 +6,7 @@ import * as readline from 'readline';
 import { part1 } from './part1.js';
 import { part2 } from './part2.js';
 
-const sleep = (ms: number): Promise<void> =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 const clearConsole = (): void => {
     // Use ANSI escape codes to move cursor to home position without clearing
@@ -18,10 +17,7 @@ const clearConsole = (): void => {
 // Example parameters might include: currentState, previousState, accumulator, etc.
 // Add any state parameters needed for this day's visualization.
 // This function should return a string representation of the current state.
-const drawVisualization = (
-    stepNumber: number,
-    totalSteps: number,
-): string => {
+const drawVisualization = (stepNumber: number, totalSteps: number): string => {
     const lines: string[] = [];
 
     lines.push('');
@@ -55,7 +51,10 @@ const visualizePart1 = async (instructions: string[]): Promise<number> => {
 
     for (const raw of instructions) {
         const line = raw.trim();
-        if (!line) continue;
+
+        if (!line) {
+            continue;
+        }
 
         stepNumber++;
 
@@ -88,7 +87,10 @@ const visualizePart2 = async (instructions: string[]): Promise<number> => {
 
     for (const raw of instructions) {
         const line = raw.trim();
-        if (!line) continue;
+
+        if (!line) {
+            continue;
+        }
 
         stepNumber++;
 
@@ -125,14 +127,11 @@ const main = async (): Promise<void> => {
         // Clear screen once at the start
         process.stdout.write('\x1b[2J\x1b[H');
 
-        const input: string = fs.readFileSync(
-            'src/<%= data.year %>/<%= data.dayName %>/resources/input.txt',
-            'utf8',
-        );
+        const input: string = fs.readFileSync('src/2025/day05/resources/input.txt', 'utf8');
 
         const instructions = input.trim().split(/\r?\n/);
 
-        console.log('\n🎄 Advent of Code - Day <%= data.dayNumber %> Visualization\n');
+        console.log('\n🎄 Advent of Code - Day 5 Visualization\n');
         const partChoice = await promptUser('Which part to visualize? (1 or 2): ');
 
         console.log('\nStarting visualization...\n');
@@ -161,6 +160,7 @@ const main = async (): Promise<void> => {
         }
     } catch (err) {
         console.error('Error running visualization:');
+
         if (err instanceof Error) {
             console.error(`  Message: ${err.message}`);
         } else {

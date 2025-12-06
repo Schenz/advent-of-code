@@ -1,25 +1,26 @@
-// Advent of Code - Day 4
+// Advent of Code - Day 5
 /* eslint-disable no-console */
 
-import { part1, part2 } from '../../src/2025/day04';
+import { part1, part2 } from '../../src/2025/day05';
 import { readFile } from 'fs/promises';
 
 const testData = `
-..@@.@@@@.
-@@@.@.@.@@
-@@@@@.@.@@
-@.@@@@..@.
-@@.@@@@.@@
-.@@@@@@@.@
-.@.@.@.@@@
-@.@@@.@@@@
-.@@@@@@@@.
-@.@.@@@.@.
+3-5
+10-14
+16-20
+12-18
+
+1
+5
+8
+11
+17
+32
 `;
 
 describe('part one tests', () => {
     it('part one test', () => {
-        expect(part1(testData.split(/\r?\n/))).toBe(13);
+        expect(part1(testData.split(/\r?\n/))).toBe(3);
     });
 
     it('part one test - real data', async () => {
@@ -34,13 +35,13 @@ describe('part one tests', () => {
             return;
         }
 
-        expect(part1(input.split(/\r?\n/))).toBe(1411);
+        expect(part1(input.split(/\r?\n/))).toBe(789);
     });
 });
 
 describe('part two tests', () => {
     it('part two test', () => {
-        expect(part2(testData.split(/\r?\n/))).toBe(43);
+        expect(part2(testData.split(/\r?\n/))).toBe(14);
     });
 
     it('part two test - real data', async () => {
@@ -55,13 +56,13 @@ describe('part two tests', () => {
             return;
         }
 
-        expect(part2(input.split(/\r?\n/))).toBe(8557);
+        expect(part2(input.split(/\r?\n/))).toBe(343329651880509);
     });
 });
 
 const getData = async (): Promise<string> => {
     try {
-        const input: string = await readFile('src/2025/day04/resources/input.txt', 'utf8');
+        const input: string = await readFile('src/2025/day05/resources/input.txt', 'utf8');
 
         return input.trim();
     } catch {
