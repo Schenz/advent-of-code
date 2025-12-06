@@ -18,7 +18,7 @@ export const dijkstra = (start: Position, end: Position, map: Point[][]): number
         const currHeight = map[curr[0]][curr[1]].height;
         const neighbours = getNeightbors(curr, map).filter((n: Position) => !visited.includes(n.toString()));
         const reachableNeighbours = neighbours.filter(
-            (neighbour) => map[neighbour[0]][neighbour[1]].height <= currHeight + 1
+            (neighbour) => map[neighbour[0]][neighbour[1]].height <= currHeight + 1,
         );
 
         toVisit.push(...reachableNeighbours);
