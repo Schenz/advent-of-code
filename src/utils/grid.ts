@@ -14,21 +14,21 @@ export const getNeighbors = (grid: Grid<any>, x: number, y: number, includeDiago
     const neighbors: GridCoordinate[] = [];
     const directions = includeDiagonal
         ? [
-            [-1, -1],
-            [-1, 0],
-            [-1, 1],
-            [0, -1],
-            [0, 1],
-            [1, -1],
-            [1, 0],
-            [1, 1],
-        ]
+              [-1, -1],
+              [-1, 0],
+              [-1, 1],
+              [0, -1],
+              [0, 1],
+              [1, -1],
+              [1, 0],
+              [1, 1],
+          ]
         : [
-            [-1, 0],
-            [0, -1],
-            [0, 1],
-            [1, 0],
-        ];
+              [-1, 0],
+              [0, -1],
+              [0, 1],
+              [1, 0],
+          ];
 
     for (const [dx, dy] of directions) {
         const newX = x + dx;

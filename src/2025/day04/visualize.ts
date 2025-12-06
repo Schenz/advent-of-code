@@ -1,4 +1,5 @@
 // Advent of Code - Day 4 - Console Visualization
+/* eslint-disable no-console */
 
 import * as fs from 'fs';
 import * as readline from 'readline';
@@ -6,8 +7,7 @@ import { part1 } from './part1.js';
 import { part2 } from './part2.js';
 import { countNeighborsMatching, parseGrid } from '../../utils/grid.js';
 
-const sleep = (ms: number): Promise<void> =>
-    new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Render content in-place by returning cursor to home and clearing to end
 const render = (content: string): void => {
@@ -27,6 +27,7 @@ const drawVisualization = (
     const toRemoveSet = new Set(toRemove.map(({ x, y }) => `${x},${y}`));
 
     // Helper to strip ANSI color codes for accurate visible length measurements
+    // eslint-disable-next-line no-control-regex
     const stripAnsi = (s: string): string => s.replace(/\x1b\[[0-9;]*m/g, '');
 
     // Build grid rows as arrays of colored cells so we can truncate by visible width
@@ -36,10 +37,12 @@ const drawVisualization = (
     for (let y = 0; y < grid.length; y++) {
         const cells: string[] = [];
         // start with two-space indent (counts as visible width 2)
+
         cells.push('  ');
         for (let x = 0; x < grid[y].length; x++) {
             const key = `${x},${y}`;
             const cell = grid[y][x];
+
             if (toRemoveSet.has(key)) {
                 cells.push(`\x1b[32m${cell}\x1b[0m `);
             } else if (cell === '@') {
@@ -52,14 +55,16 @@ const drawVisualization = (
         }
         gridRowCells.push(cells);
         // compute visible length for this row
-        const visLen = gridRowCells[gridRowCells.length - 1]
-            .map((c) => stripAnsi(c).length)
-            .reduce((a, b) => a + b, 0);
-        if (visLen > maxGridVisibleWidth) maxGridVisibleWidth = visLen;
+        const visLen = gridRowCells[gridRowCells.length - 1].map((c) => stripAnsi(c).length).reduce((a, b) => a + b, 0);
+
+        if (visLen > maxGridVisibleWidth) {
+            maxGridVisibleWidth = visLen;
+        }
     }
 
     // Prepare the info lines (without borders) and compute their visible lengths
     const infoLines: string[] = [];
+
     if (isPart1) {
         infoLines.push(`  Accessible Rolls (< 4 neighbors): ${toRemove.length.toString().padStart(4)}`);
     } else {
@@ -71,9 +76,13 @@ const drawVisualization = (
     infoLines.push('  Legend: \x1b[33m@\x1b[0m = Roll  \x1b[2m.\x1b[0m = Empty  \x1b[32m@\x1b[0m = Accessible');
 
     let maxInfoVisibleWidth = 0;
+
     for (const l of infoLines) {
         const vis = stripAnsi(l).length;
-        if (vis > maxInfoVisibleWidth) maxInfoVisibleWidth = vis;
+
+        if (vis > maxInfoVisibleWidth) {
+            maxInfoVisibleWidth = vis;
+        }
     }
 
     // Title width
@@ -82,21 +91,27 @@ const drawVisualization = (
 
     // Compute inner box width (visible chars)
     const minInner = 60;
-    const termCols = (process && process.stdout && process.stdout.columns) ? process.stdout.columns : 80;
+    const termCols = process && process.stdout && process.stdout.columns ? process.stdout.columns : 80;
     const maxAllowedInner = Math.max(20, termCols - 2);
     let innerWidth = Math.max(minInner, maxGridVisibleWidth, maxInfoVisibleWidth, titleWidth);
+
     // Don't exceed terminal width to avoid line-wrapping which creates visual artifacts
-    if (innerWidth > maxAllowedInner) innerWidth = maxAllowedInner;
+
+    if (innerWidth > maxAllowedInner) {
+        innerWidth = maxAllowedInner;
+    }
 
     const borderTop = '╔' + '═'.repeat(innerWidth) + '╗';
     const borderSep = '╠' + '═'.repeat(innerWidth) + '╣';
     const borderBottom = '╚' + '═'.repeat(innerWidth) + '╝';
 
     const lines: string[] = [];
+
     lines.push('');
     lines.push(borderTop);
     // center title
     const titlePadding = Math.max(0, Math.floor((innerWidth - titleWidth) / 2));
+
     lines.push('║' + ' '.repeat(titlePadding) + title + ' '.repeat(innerWidth - titlePadding - titleWidth) + '║');
     lines.push(borderSep);
     lines.push('');
@@ -105,8 +120,10 @@ const drawVisualization = (
     for (const cells of gridRowCells) {
         let display = '';
         let visible = 0;
+
         for (const cell of cells) {
             const cellVis = stripAnsi(cell).length;
+
             if (visible + cellVis > innerWidth) {
                 // can't fit this cell fully; stop to avoid partial-cell color issues
                 break;
@@ -115,6 +132,7 @@ const drawVisualization = (
             visible += cellVis;
         }
         const pad = Math.max(0, innerWidth - visible);
+
         lines.push('║' + display + ' '.repeat(pad) + '║');
     }
 
@@ -124,6 +142,7 @@ const drawVisualization = (
     for (const l of infoLines.slice(0, infoLines.length - 1)) {
         const visLen = stripAnsi(l).length;
         const pad = Math.max(0, innerWidth - visLen);
+
         lines.push('║' + l + ' '.repeat(pad) + '║');
     }
 
@@ -131,13 +150,14 @@ const drawVisualization = (
     lines.push(borderSep);
     const legend = infoLines[infoLines.length - 1];
     const padLegend = Math.max(0, innerWidth - stripAnsi(legend).length);
+
     lines.push('║' + legend + ' '.repeat(padLegend) + '║');
     lines.push(borderBottom);
 
     return lines.join('\n');
 };
 
-const visualizePart1 = async (instructions: string[],): Promise<number> => {
+const visualizePart1 = async (instructions: string[]): Promise<number> => {
     const grid = parseGrid(instructions);
 
     if (grid.length === 0) {
@@ -168,7 +188,7 @@ const visualizePart1 = async (instructions: string[],): Promise<number> => {
     return toRemove.length;
 };
 
-const visualizePart2 = async (instructions: string[],): Promise<number> => {
+const visualizePart2 = async (instructions: string[]): Promise<number> => {
     const grid = parseGrid(instructions);
 
     if (grid.length === 0) {
@@ -229,7 +249,7 @@ const visualizePart2 = async (instructions: string[],): Promise<number> => {
     return totalRemoved;
 };
 
-const promptUser = async (question: string,): Promise<string> => {
+const promptUser = async (question: string): Promise<string> => {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
@@ -252,10 +272,7 @@ const main = async (): Promise<void> => {
         // Hide cursor to reduce flicker while animating
         process.stdout.write('\x1b[?25l');
 
-        const input: string = fs.readFileSync(
-            'src/2025/day04/resources/input.txt',
-            'utf8',
-        );
+        const input: string = fs.readFileSync('src/2025/day04/resources/input.txt', 'utf8');
 
         const instructions = input.trim().split(/\r?\n/);
 
@@ -305,6 +322,7 @@ const main = async (): Promise<void> => {
         process.stdout.write('\x1b[?25h');
         process.stdout.write('\x1b[?1049l');
         console.error('Error running visualization:');
+
         if (err instanceof Error) {
             console.error(`  Message: ${err.message}`);
         } else {
