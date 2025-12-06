@@ -4,14 +4,10 @@ import * as fs from 'fs';
 import * as readline from 'readline';
 import { part1 } from './part1.js';
 import { part2 } from './part2.js';
+import { countNeighborsMatching, parseGrid } from '../../utils/grid.js';
 
 const sleep = (ms: number): Promise<void> =>
     new Promise((resolve) => setTimeout(resolve, ms));
-
-const clearConsole = (): void => {
-    // Use ANSI escape codes to move cursor to home position and clear from cursor to end of screen
-    process.stdout.write('\x1b[H\x1b[J');
-};
 
 // Render content in-place by returning cursor to home and clearing to end
 const render = (content: string): void => {
@@ -72,7 +68,7 @@ const drawVisualization = (
         infoLines.push(`  Total removed: ${totalRemoved.toString().padStart(4)}`);
     }
     infoLines.push('');
-    infoLines.push('  Legend: @ = Roll  . = Empty  @ = Accessible');
+    infoLines.push('  Legend: \x1b[33m@\x1b[0m = Roll  \x1b[2m.\x1b[0m = Empty  \x1b[32m@\x1b[0m = Accessible');
 
     let maxInfoVisibleWidth = 0;
     for (const l of infoLines) {
@@ -142,9 +138,7 @@ const drawVisualization = (
 };
 
 const visualizePart1 = async (instructions: string[],): Promise<number> => {
-    const grid = instructions
-        .filter((line) => line.trim().length > 0)
-        .map((line) => line.split(''));
+    const grid = parseGrid(instructions);
 
     if (grid.length === 0) {
         return 0;
@@ -156,33 +150,8 @@ const visualizePart1 = async (instructions: string[],): Promise<number> => {
     for (let y = 0; y < grid.length; y++) {
         for (let x = 0; x < grid[y].length; x++) {
             if (grid[y][x] === '@') {
-                // Count adjacent rolls
-                let adjacentRolls = 0;
-                const directions = [
-                    [-1, -1],
-                    [-1, 0],
-                    [-1, 1],
-                    [0, -1],
-                    [0, 1],
-                    [1, -1],
-                    [1, 0],
-                    [1, 1],
-                ];
-
-                for (const [dx, dy] of directions) {
-                    const newX = x + dx;
-                    const newY = y + dy;
-
-                    if (
-                        newY >= 0 &&
-                        newY < grid.length &&
-                        newX >= 0 &&
-                        newX < grid[newY].length &&
-                        grid[newY][newX] === '@'
-                    ) {
-                        adjacentRolls++;
-                    }
-                }
+                // Count adjacent rolls (including diagonals)
+                const adjacentRolls = countNeighborsMatching(grid, x, y, (c) => c === '@', true);
 
                 // Accessible if fewer than 4 adjacent rolls
                 if (adjacentRolls < 4) {
@@ -200,9 +169,7 @@ const visualizePart1 = async (instructions: string[],): Promise<number> => {
 };
 
 const visualizePart2 = async (instructions: string[],): Promise<number> => {
-    const grid = instructions
-        .filter((line) => line.trim().length > 0)
-        .map((line) => line.split(''));
+    const grid = parseGrid(instructions);
 
     if (grid.length === 0) {
         return 0;
@@ -226,33 +193,8 @@ const visualizePart2 = async (instructions: string[],): Promise<number> => {
         for (let y = 0; y < grid.length; y++) {
             for (let x = 0; x < grid[y].length; x++) {
                 if (grid[y][x] === '@') {
-                    // Count adjacent rolls
-                    let adjacentRolls = 0;
-                    const directions = [
-                        [-1, -1],
-                        [-1, 0],
-                        [-1, 1],
-                        [0, -1],
-                        [0, 1],
-                        [1, -1],
-                        [1, 0],
-                        [1, 1],
-                    ];
-
-                    for (const [dx, dy] of directions) {
-                        const newX = x + dx;
-                        const newY = y + dy;
-
-                        if (
-                            newY >= 0 &&
-                            newY < grid.length &&
-                            newX >= 0 &&
-                            newX < grid[newY].length &&
-                            grid[newY][newX] === '@'
-                        ) {
-                            adjacentRolls++;
-                        }
-                    }
+                    // Count adjacent rolls (including diagonals)
+                    const adjacentRolls = countNeighborsMatching(grid, x, y, (c) => c === '@', true);
 
                     if (adjacentRolls < 4) {
                         toRemove.push({ x, y });
