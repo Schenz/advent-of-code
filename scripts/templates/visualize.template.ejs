@@ -45,7 +45,7 @@ const drawVisualization = (
 // placeholder result (0). You must copy the logic from `part1.ts` and
 // add visualization/state updates for accurate visual results. Until
 // implemented, the visualization result will NOT match `part1()`.
-const visualizePart1 = async (instructions: string[],): Promise<number> => {
+const visualizePart1 = async (instructions: string[]): Promise<number> => {
     // TODO: Implement visualization for part1
     // Copy the logic from part1.ts and add visualization calls
     let result = 0;
@@ -78,7 +78,7 @@ const visualizePart1 = async (instructions: string[],): Promise<number> => {
 // placeholder result (0). You must copy the logic from `part2.ts` and
 // add visualization/state updates for accurate visual results. Until
 // implemented, the visualization result will NOT match `part2()`.
-const visualizePart2 = async (instructions: string[],): Promise<number> => {
+const visualizePart2 = async (instructions: string[]): Promise<number> => {
     // TODO: Implement visualization for part2
     // Copy the logic from part2.ts and add visualization calls
     let result = 0;
@@ -106,7 +106,7 @@ const visualizePart2 = async (instructions: string[],): Promise<number> => {
     return result;
 };
 
-const promptUser = async (question: string,): Promise<string> => {
+const promptUser = async (question: string): Promise<string> => {
     const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
