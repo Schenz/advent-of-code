@@ -46,7 +46,7 @@ export const countNeighborsMatching = <T>(
     x: number,
     y: number,
     predicate: (value: T) => boolean,
-    includeDiagonal = false,
+    includeDiagonal = false
 ): number => {
     return getNeighbors(grid, x, y, includeDiagonal).filter((neighbor) => predicate(grid[neighbor.y][neighbor.x]))
         .length;

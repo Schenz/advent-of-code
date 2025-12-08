@@ -13,7 +13,7 @@ export class Matrix {
         s: string,
         linesplitFn?: (line: string) => string[],
         lineSeparator = '\n',
-        valueFn?: (value: string) => string,
+        valueFn?: (value: string) => string
     ): Matrix {
         const grid: string[][] = [];
 

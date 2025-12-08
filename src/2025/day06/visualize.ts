@@ -27,9 +27,7 @@ const drawVisualization = (stepNumber: number, totalSteps: number): string => {
     lines.push('║ Add visualization content here                       ║');
     lines.push('╠══════════════════════════════════════════════════════╣');
     lines.push(
-        `║ Step: ${stepNumber.toString().padEnd(5)}/${totalSteps
-            .toString()
-            .padStart(5)}                              ║`,
+        `║ Step: ${stepNumber.toString().padEnd(5)}/${totalSteps.toString().padStart(5)}                              ║`
     );
     lines.push('╚══════════════════════════════════════════════════════╝');
 
