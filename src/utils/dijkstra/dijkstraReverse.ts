@@ -19,7 +19,7 @@ export const dijkstraReverse = (start: Position, endPositions: Position[], map: 
         const currHeight = map[curr[0]][curr[1]].height;
         const neighbours = getNeightbors(curr, map).filter((n: Position) => !visited.includes(n.toString()));
         const reachableNeighbours = neighbours.filter(
-            (neighbour) => map[neighbour[0]][neighbour[1]].height + 1 >= currHeight,
+            (neighbour) => map[neighbour[0]][neighbour[1]].height + 1 >= currHeight
         );
 
         toVisit.push(...reachableNeighbours);

@@ -6,7 +6,7 @@ export const floodFill = <T>(
     startX: number,
     startY: number,
     matchCondition: (value: T) => boolean,
-    onVisit?: (x: number, y: number) => void,
+    onVisit?: (x: number, y: number) => void
 ): Set<string> => {
     const visited = new Set<string>();
     const queue: GridCoordinate[] = [{ x: startX, y: startY }];
@@ -45,7 +45,7 @@ export const floodFill = <T>(
 export const calculatePerimeter = (
     region: Set<string>,
     grid: Grid<any>,
-    matchCondition: (value: any) => boolean,
+    matchCondition: (value: any) => boolean
 ): GridCoordinate[] => {
     const perimeter: GridCoordinate[] = [];
 
