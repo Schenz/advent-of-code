@@ -29,10 +29,13 @@ export const buildCoordinateMap = (
   const xCoords = Array.from(new Set(points.map(([x]) => x))).sort((a, b) => a - b);
   const yCoords = Array.from(new Set(points.map(([, y]) => y))).sort((a, b) => a - b);
 
+  const xMap = new Map(xCoords.map((x, i) => [x, i * 2]));
+  const yMap = new Map(yCoords.map((y, i) => [y, i * 2]));
+
   return {
     xCoords,
     yCoords,
-    compressX: (x: number): number => xCoords.indexOf(x) * 2,
-    compressY: (y: number): number => yCoords.indexOf(y) * 2,
+    compressX: (x: number): number => xMap.get(x)!,
+    compressY: (y: number): number => yMap.get(y)!,
   };
 };

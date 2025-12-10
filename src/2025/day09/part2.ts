@@ -43,23 +43,24 @@ export const part2 = (input: string[]): number => {
     }
 
     // Flood fill from outside to mark non-red/green regions
-    const minX = Math.min(...xCoords.map(compressX)) - 1;
-    const maxX = Math.max(...xCoords.map(compressX)) + 1;
-    const minY = Math.min(...yCoords.map(compressY)) - 1;
-    const maxY = Math.max(...yCoords.map(compressY)) + 1;
+    // Direct calculation: xCoords/yCoords are sorted, compressX/Y map index*2
+    const min = -1;
+    const maxX = (xCoords.length - 1) * 2 + 1;
+    const maxY = (yCoords.length - 1) * 2 + 1;
 
     const outside = new Set<string>();
-    const queue: [number, number][] = [[minX, minY]];
-    outside.add(`${minX},${minY}`);
+    const queue: [number, number][] = [[min, min]];
+    let queueIndex = 0;
+    outside.add(`${min},${min}`);
 
-    while (queue.length > 0) {
-        const [x, y] = queue.shift()!;
+    while (queueIndex < queue.length) {
+        const [x, y] = queue[queueIndex++];
 
         for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
             const nx = x + dx;
             const ny = y + dy;
 
-            if (nx < minX || nx > maxX || ny < minY || ny > maxY) continue;
+            if (nx < min || nx > maxX || ny < min || ny > maxY) continue;
             if (outside.has(`${nx},${ny}`)) continue;
             if (grid.has(`${nx},${ny}`)) continue;
 
@@ -69,8 +70,8 @@ export const part2 = (input: string[]): number => {
     }
 
     // Fill interior that's not marked as outside
-    for (let x = minX; x <= maxX; x++) {
-        for (let y = minY; y <= maxY; y++) {
+    for (let x = min; x <= maxX; x++) {
+        for (let y = min; y <= maxY; y++) {
             const key = `${x},${y}`;
             if (!grid.has(key) && !outside.has(key)) {
                 grid.add(key);
@@ -78,31 +79,8 @@ export const part2 = (input: string[]): number => {
         }
     }
 
-    // Validate rectangles: check if all perimeter tiles are red/green
-    const isValid = (p1: Point, p2: Point): boolean => {
-        const cx1 = compressX(p1[0]);
-        const cy1 = compressY(p1[1]);
-        const cx2 = compressX(p2[0]);
-        const cy2 = compressY(p2[1]);
-
-        const minCX = Math.min(cx1, cx2);
-        const maxCX = Math.max(cx1, cx2);
-        const minCY = Math.min(cy1, cy2);
-        const maxCY = Math.max(cy1, cy2);
-
-        // Check all perimeter tiles
-        for (let x = minCX; x <= maxCX; x++) {
-            if (!grid.has(`${x},${minCY}`)) return false;
-            if (!grid.has(`${x},${maxCY}`)) return false;
-        }
-
-        for (let y = minCY; y <= maxCY; y++) {
-            if (!grid.has(`${minCX},${y}`)) return false;
-            if (!grid.has(`${maxCX},${y}`)) return false;
-        }
-
-        return true;
-    };
+    // Pre-compute compressed coordinates for all points
+    const compressedPoints = points.map(([x, y]) => [compressX(x), compressY(y)] as const);
 
     let maxArea = 0;
 
@@ -115,7 +93,28 @@ export const part2 = (input: string[]): number => {
 
             if (p1[0] === p2[0] || p1[1] === p2[1]) continue; // zero-area or degenerate
 
-            if (!isValid(p1, p2)) continue;
+            const [cx1, cy1] = compressedPoints[i];
+            const [cx2, cy2] = compressedPoints[j];
+
+            const minCX = Math.min(cx1, cx2);
+            const maxCX = Math.max(cx1, cx2);
+            const minCY = Math.min(cy1, cy2);
+            const maxCY = Math.max(cy1, cy2);
+
+            // Inline perimeter check for better performance
+            let valid = true;
+            for (let x = minCX; x <= maxCX && valid; x++) {
+                if (!grid.has(`${x},${minCY}`) || !grid.has(`${x},${maxCY}`)) {
+                    valid = false;
+                }
+            }
+            for (let y = minCY; y <= maxCY && valid; y++) {
+                if (!grid.has(`${minCX},${y}`) || !grid.has(`${maxCX},${y}`)) {
+                    valid = false;
+                }
+            }
+
+            if (!valid) continue;
 
             const area = (Math.abs(p1[0] - p2[0]) + 1) * (Math.abs(p1[1] - p2[1]) + 1);
             maxArea = Math.max(maxArea, area);
