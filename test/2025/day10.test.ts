@@ -1,35 +1,19 @@
-// Advent of Code - Day 8
+jest.setTimeout(120000);
+// Advent of Code - Day 10
 /* eslint-disable no-console */
 
-import { part1, part2 } from '../../src/2025/day08';
+import { part1, part2 } from '../../src/2025/day10';
 import { readFile } from 'fs/promises';
 
 const testData = `
-162,817,812
-57,618,57
-906,360,560
-592,479,940
-352,342,300
-466,668,158
-542,29,236
-431,825,988
-739,650,466
-52,470,668
-216,146,977
-819,987,18
-117,168,530
-805,96,715
-346,949,466
-970,615,88
-941,993,340
-862,61,35
-984,92,344
-425,690,689
+[.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}
+[...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}
+[.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}
 `;
 
 describe('part one tests', () => {
     it('part one test', () => {
-        expect(part1(testData.split(/\r?\n/))).toBe(40);
+        expect(part1(testData.split(/\r?\n/))).toBe(7);
     });
 
     it('part one test - real data', async () => {
@@ -44,13 +28,13 @@ describe('part one tests', () => {
             return;
         }
 
-        expect(part1(input.split(/\r?\n/))).toBe(115885);
+        expect(part1(input.split(/\r?\n/))).toBe(441);
     });
 });
 
 describe('part two tests', () => {
-    it('part two test', () => {
-        expect(part2(testData.split(/\r?\n/))).toBe(25272);
+    it('part two test', async () => {
+        expect(await part2(testData.split(/\r?\n/))).toBe(33);
     });
 
     it('part two test - real data', async () => {
@@ -65,13 +49,13 @@ describe('part two tests', () => {
             return;
         }
 
-        expect(part2(input.split(/\r?\n/))).toBe(274150525);
+        expect(await part2(input.split(/\r?\n/))).toBe(18559);
     });
 });
 
 const getData = async (): Promise<string> => {
     try {
-        const input: string = await readFile('src/2025/day08/resources/input.txt', 'utf8');
+        const input: string = await readFile('src/2025/day10/resources/input.txt', 'utf8');
 
         return input.trim();
     } catch {

@@ -1,9 +1,9 @@
 /**
  * Union-Find (Disjoint Set Union) data structure
- * 
+ *
  * Efficiently tracks and merges disjoint sets with near-constant time operations.
  * Uses path compression and union by size for optimization.
- * 
+ *
  * Common use cases:
  * - Finding connected components in a graph
  * - Detecting cycles in undirected graphs
@@ -71,6 +71,7 @@ export class UnionFind {
      */
     getSetSize(x: number): number {
         const root = this.find(x);
+
         return this.size[root];
     }
 
@@ -79,12 +80,13 @@ export class UnionFind {
      */
     getSetSizes(): number[] {
         const rootCounts = new Map<number, number>();
-        
+
         for (let i = 0; i < this.parent.length; i++) {
             const root = this.find(i);
+
             rootCounts.set(root, (rootCounts.get(root) || 0) + 1);
         }
-        
+
         return Array.from(rootCounts.values());
     }
 
@@ -93,11 +95,11 @@ export class UnionFind {
      */
     getSetCount(): number {
         const roots = new Set<number>();
-        
+
         for (let i = 0; i < this.parent.length; i++) {
             roots.add(this.find(i));
         }
-        
+
         return roots.size;
     }
 
@@ -106,15 +108,16 @@ export class UnionFind {
      */
     getSets(): Map<number, number[]> {
         const sets = new Map<number, number[]>();
-        
+
         for (let i = 0; i < this.parent.length; i++) {
             const root = this.find(i);
+
             if (!sets.has(root)) {
                 sets.set(root, []);
             }
             sets.get(root)!.push(i);
         }
-        
+
         return sets;
     }
 }

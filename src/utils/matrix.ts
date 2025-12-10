@@ -192,3 +192,116 @@ export class Matrix {
         return this._grid.map((row) => row.join(lineSpacing)).join('\n');
     }
 }
+
+/**
+ * Solves a system of linear equations over GF(2) (binary field)
+ * using Gaussian elimination, and returns the minimum solution.
+ *
+ * The system is represented as an augmented matrix where each row
+ * is one equation. All arithmetic is mod 2 (XOR operations).
+ *
+ * @param coefficients - n×m matrix of coefficients (0 or 1)
+ * @param targets - n×1 vector of target values (0 or 1)
+ * @returns The minimum solution vector (minimize number of 1s), or null if no solution exists
+ */
+export const solveLinearSystemGF2 = (coefficients: number[][], targets: number[]): number[] | null => {
+    const n = coefficients.length; // number of equations
+    const m = coefficients[0]?.length ?? 0; // number of variables
+
+    if (n === 0 || m === 0) {
+        return null;
+    }
+
+    // Build augmented matrix [coefficients | targets]
+    const matrix: number[][] = coefficients.map((row, i) => [...row, targets[i]]);
+
+    // Gaussian elimination in GF(2)
+    const pivotCols: number[] = [];
+    let pivotRow = 0;
+
+    for (let col = 0; col < m && pivotRow < n; col++) {
+        // Find pivot
+        let found = false;
+
+        for (let row = pivotRow; row < n; row++) {
+            if (matrix[row][col] === 1) {
+                // Swap rows
+                [matrix[pivotRow], matrix[row]] = [matrix[row], matrix[pivotRow]];
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            continue;
+        }
+
+        pivotCols.push(col);
+
+        // Eliminate all other rows
+        for (let row = 0; row < n; row++) {
+            if (row !== pivotRow && matrix[row][col] === 1) {
+                for (let c = 0; c <= m; c++) {
+                    matrix[row][c] ^= matrix[pivotRow][c];
+                }
+            }
+        }
+
+        pivotRow++;
+    }
+
+    // Check for inconsistency (0 = 1)
+    for (let row = pivotRow; row < n; row++) {
+        if (matrix[row][m] === 1) {
+            return null; // No solution
+        }
+    }
+
+    // Find free variables (columns without pivots)
+    const freeVars: number[] = [];
+
+    for (let col = 0; col < m; col++) {
+        if (!pivotCols.includes(col)) {
+            freeVars.push(col);
+        }
+    }
+
+    // Try all combinations of free variables to find minimum solution
+    let minPresses = Infinity;
+    let bestSolution: number[] = new Array(m).fill(0);
+
+    const numFree = freeVars.length;
+    const maxCombinations = 1 << numFree;
+
+    for (let combo = 0; combo < maxCombinations; combo++) {
+        const solution: number[] = new Array(m).fill(0);
+
+        // Set free variables based on combination
+        for (let i = 0; i < numFree; i++) {
+            solution[freeVars[i]] = (combo >> i) & 1;
+        }
+
+        // Back-substitution for pivot variables
+        for (let i = pivotCols.length - 1; i >= 0; i--) {
+            const col = pivotCols[i];
+            const row = i;
+
+            let val = matrix[row][m];
+
+            for (let c = col + 1; c < m; c++) {
+                val ^= matrix[row][c] * solution[c];
+            }
+            solution[col] = val;
+        }
+
+        // Count 1s and track minimum
+        const presses = solution.reduce((sum, x) => sum + x, 0);
+
+        if (presses < minPresses) {
+            minPresses = presses;
+            bestSolution = solution;
+        }
+    }
+
+    return bestSolution;
+};
