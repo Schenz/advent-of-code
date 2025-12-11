@@ -11,7 +11,7 @@ const main = async (): Promise<void> => {
         console.log('Result', part1(input.trim().split(/\r?\n/)));
 
         console.log('--- Part Two ---');
-        console.log('Result', part2(input.trim().split(/\r?\n/)));
+        console.log('Result', await part2(input.trim().split(/\r?\n/)));
     } catch (err) {
         console.error('Error running solution:');
 
