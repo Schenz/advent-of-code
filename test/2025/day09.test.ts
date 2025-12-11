@@ -16,56 +16,53 @@ const testData = `
 `;
 
 describe('part one tests', () => {
-  it('part one test', () => {
-    expect(part1(testData.split(/\r?\n/))).toBe(50);
-  });
+    it('part one test', () => {
+        expect(part1(testData.split(/\r?\n/))).toBe(50);
+    });
 
-  it('part one test - real data', async () => {
-    const input = await getData();
+    it('part one test - real data', async () => {
+        const input = await getData();
 
-    if (
-      !input ||
-      (Array.isArray(input) && input.length === 0) ||
-      (typeof input === 'string' && input.trim().length === 0)
-    ) {
-      console.warn('No input file; skipping real-data test');
-      return;
-    }
+        if (
+            !input ||
+            (Array.isArray(input) && input.length === 0) ||
+            (typeof input === 'string' && input.trim().length === 0)
+        ) {
+            console.warn('No input file; skipping real-data test');
+            return;
+        }
 
-    expect(part1(input.split(/\r?\n/))).toBe(4750297200);
-  });
+        expect(part1(input.split(/\r?\n/))).toBe(4750297200);
+    });
 });
 
 describe('part two tests', () => {
-  it('part two test', () => {
-    expect(part2(testData.split(/\r?\n/))).toBe(24);
-  });
+    it('part two test', () => {
+        expect(part2(testData.split(/\r?\n/))).toBe(24);
+    });
 
-  it('part two test - real data', async () => {
-    const input = await getData();
+    it('part two test - real data', async () => {
+        const input = await getData();
 
-    if (
-      !input ||
-      (Array.isArray(input) && input.length === 0) ||
-      (typeof input === 'string' && input.trim().length === 0)
-    ) {
-      console.warn('No input file; skipping real-data test');
-      return;
-    }
+        if (
+            !input ||
+            (Array.isArray(input) && input.length === 0) ||
+            (typeof input === 'string' && input.trim().length === 0)
+        ) {
+            console.warn('No input file; skipping real-data test');
+            return;
+        }
 
-    expect(part2(input.split(/\r?\n/))).toBe(1578115935);
-  });
+        expect(part2(input.split(/\r?\n/))).toBe(1578115935);
+    });
 });
 
 const getData = async (): Promise<string> => {
-  try {
-    const input: string = await readFile(
-      'src/2025/day09/resources/input.txt',
-      'utf8'
-    );
+    try {
+        const input: string = await readFile('src/2025/day09/resources/input.txt', 'utf8');
 
-    return input.trim();
-  } catch {
-    return '';
-  }
+        return input.trim();
+    } catch {
+        return '';
+    }
 };
