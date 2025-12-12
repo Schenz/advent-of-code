@@ -10,6 +10,7 @@ interface DFSState {
 /**
  * Core DFS implementation for graph traversal.
  * Handles counting paths, collecting paths, or counting paths with required nodes.
+ * Includes cycle detection to prevent infinite loops.
  */
 const dfsTraverse = (
     graph: Map<string, string[]>,
@@ -18,8 +19,14 @@ const dfsTraverse = (
     state: DFSState,
     path: string[] = [],
     memo?: Map<string, number>,
-    getMemoKey?: (current: string, remaining: Set<string>) => string
+    getMemoKey?: (current: string, remaining: Set<string>) => string,
+    visited: Set<string> = new Set()
 ): number => {
+    // Cycle detection: if we've visited this node in the current path, abort
+    if (visited.has(current)) {
+        return 0;
+    }
+
     // Check if we've reached the target
     if (current === target) {
         if (state.paths) {
@@ -49,6 +56,11 @@ const dfsTraverse = (
         }
     }
 
+    // Add current node to visited set for cycle detection
+    const newVisited = new Set(visited);
+
+    newVisited.add(current);
+
     let totalPaths = 0;
     const destinations = graph.get(current) || [];
 
@@ -70,7 +82,7 @@ const dfsTraverse = (
             requiredRemaining: newRemaining,
         };
 
-        totalPaths += dfsTraverse(graph, next, target, nextState, [...path, current], memo, getMemoKey);
+        totalPaths += dfsTraverse(graph, next, target, nextState, [...path, current], memo, getMemoKey, newVisited);
     }
 
     // Store in memo if we have memoization
@@ -84,12 +96,17 @@ const dfsTraverse = (
 };
 
 /**
- * Counts all paths from a source node to a target node in a directed acyclic graph (DAG).
+ * Counts all paths from a source node to a target node in a directed graph.
+ * Includes cycle detection to safely handle graphs with cycles.
+ *
+ * Note: While this function was originally designed for DAGs (directed acyclic graphs),
+ * it now includes cycle detection and will gracefully handle cyclic graphs by not
+ * traversing cycles. For cyclic graphs, only acyclic paths from source to target are counted.
  *
  * @param graph - Adjacency map where keys are nodes and values are arrays of destination nodes
  * @param source - Starting node
  * @param target - Goal node
- * @returns Total count of unique paths from source to target
+ * @returns Total count of unique acyclic paths from source to target
  *
  * @example
  * const graph = new Map([
@@ -105,13 +122,18 @@ export const countAllPaths = (graph: Map<string, string[]>, source: string, targ
 };
 
 /**
- * Finds all paths from a source node to a target node in a directed acyclic graph (DAG).
+ * Finds all paths from a source node to a target node in a directed graph.
  * Returns the actual paths, not just the count.
+ * Includes cycle detection to safely handle graphs with cycles.
+ *
+ * Note: While this function was originally designed for DAGs (directed acyclic graphs),
+ * it now includes cycle detection and will gracefully handle cyclic graphs by not
+ * traversing cycles. For cyclic graphs, only acyclic paths from source to target are returned.
  *
  * @param graph - Adjacency map where keys are nodes and values are arrays of destination nodes
  * @param source - Starting node
  * @param target - Goal node
- * @returns Array of paths, where each path is an array of nodes
+ * @returns Array of paths, where each path is an array of nodes (only acyclic paths)
  *
  * @example
  * const graph = new Map([
@@ -133,12 +155,17 @@ export const findAllPaths = (graph: Map<string, string[]>, source: string, targe
 /**
  * Counts paths from a source node to a target node that visit all required nodes.
  * Uses memoization to avoid recomputing the same states.
+ * Includes cycle detection to safely handle graphs with cycles.
+ *
+ * Note: While this function was originally designed for DAGs (directed acyclic graphs),
+ * it now includes cycle detection and will gracefully handle cyclic graphs by not
+ * traversing cycles. For cyclic graphs, only acyclic paths from source to target are counted.
  *
  * @param graph - Adjacency map where keys are nodes and values are arrays of destination nodes
  * @param source - Starting node
  * @param target - Goal node
  * @param requiredNodes - Array of nodes that must appear in every counted path
- * @returns Count of paths that visit all required nodes
+ * @returns Count of acyclic paths that visit all required nodes
  */
 export const countPathsWithRequiredNodes = (
     graph: Map<string, string[]>,
